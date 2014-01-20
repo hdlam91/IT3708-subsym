@@ -11,7 +11,7 @@ static double right_wheel_speed
 LED =  [0]*8
 
 # iterator */
-i = 0
+#i = 0 not needed
 
 # Boolean variables */
 converge = False # Moving towards the box
