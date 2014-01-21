@@ -34,3 +34,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+#wbproj file
+assignment1/robots/swarm-epuck/worlds/.e-puck_swarm_world.wbproj
+
