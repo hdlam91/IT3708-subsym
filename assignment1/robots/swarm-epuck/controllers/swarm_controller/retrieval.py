@@ -36,14 +36,14 @@ def update_speed(IR_number):
 	elif (IR_number == 2):
 		left_wheel_speed = left_wheel_speed + 550
 		right_wheel_speed = right_wheel_speed - 300
-    elif (IR_number == 5):
-        right_wheel_speed = right_wheel_speed + 550
-        left_wheel_speed = left_wheel_speed - 300
-    elif (IR_number == 3):
-        left_wheel_speed = left_wheel_speed + 500
-    elif(IR_number == 4):
-        right_wheel_speed = right_wheel_speed + 500
-    
+	elif (IR_number == 5):
+		right_wheel_speed = right_wheel_speed + 550
+		left_wheel_speed = left_wheel_speed - 300
+	elif (IR_number == 3):
+		left_wheel_speed = left_wheel_speed + 500
+	elif(IR_number == 4):
+		right_wheel_speed = right_wheel_speed + 500
+	
 #The movement for converging to the box */
 def converge_to_box(IR_sensor_value, IR_threshold):
 	left_wheel_speed = 0
@@ -70,7 +70,7 @@ def push_box(IR_sensor_value, IR_threshold):
 	if((IR_sensor_value[0]<IR_threshold) and (IR_sensor_value[7]<IR_threshold)):
 		left_wheel_speed = 1000
 		right_wheel_speed = 1000
-	
+
 
 
 # Selects the behavior push or converge */

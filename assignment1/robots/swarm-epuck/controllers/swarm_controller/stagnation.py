@@ -114,7 +114,6 @@ def realign(distance_value):
 # *******************************/
 
 def find_new_spot(distance_value, DIST_THRESHOLD):
-{
 	if(twice == 2): # // Reverse, Turn, Forward, Turn(opposite), Forward.
 		has_recovered = TRUE
 		green_LED_state = OFF
@@ -176,7 +175,7 @@ def stagnation_recovery(distance_sensors_value,  DIST_THRESHOLD):
 
 # /* To keep pushing or not to keep pushing, that is the question */
 def valuate_pushing(double dist_value[8], double prev_dist_value[8]):
-{	#// Only assess this situation once
+	#// Only assess this situation once
 	#// The front IR sensors pushing against the box
 	dist_diff7 = prev_dist_value[7] - dist_value[7]
 	dist_diff0 = prev_dist_value[0] - dist_value[0]
@@ -200,26 +199,26 @@ def valuate_pushing(double dist_value[8], double prev_dist_value[8]):
 
 #/* Return the boolean value of whether or not to continue with this behavior*/
 def get_stagnation_state():
-{
+
 	if(has_recovered):
 		return FALSE #// Recovered, stagnation behavior done
 	return TRUE # // Still processing
-}
+
 
 #/* Returns the state (ON/OFF) for green LED*/
 def get_green_LED_state():
-{
+
 	return green_LED_state
-}
+
 
 #/* */
-def get_stagnation_left_wheel_speed()
-{
+def get_stagnation_left_wheel_speed():
+
 	return left_wheel_speed
-}
+
 
 #/* */
 def get_stagnation_right_wheel_speed():
-{
+
 	return right_wheel_speed
-}
+
