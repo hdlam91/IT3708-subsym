@@ -4,8 +4,10 @@ OFF = 0
 PUSH_THRESHOLD = 500
 
 #Wheel speed variables */
-static double left_wheel_speed
-static double right_wheel_speed
+#static double 
+left_wheel_speed
+#static double 
+right_wheel_speed
 
 # LED variables */
 LED =  [0]*8

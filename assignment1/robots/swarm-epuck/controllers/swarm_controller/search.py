@@ -69,7 +69,7 @@ def calculate_search_speed(threshold_list):
 
 
 #/* Calculate if there is an obstacle or not, depending on the threshold */
-def calculate_treshold(sensors, int distance_threshold):
+def calculate_treshold(sensors, distance_threshold):
 	threshold_list = [0]*4
 	for i in range(0,4):
 		if(sensors[i]>distance_threshold):
@@ -88,10 +88,9 @@ def calculate_treshold(sensors, int distance_threshold):
 
 #/* Given the sensor input and threshold, calculates the speed for survival */
 def update_search_speed(sensor_value,  distance_threshold):
-{
 	sensors[4] = {sensor_value[6], sensor_value[7], sensor_value[0], sensor_value[1]}
 	calculate_treshold(sensors, distance_threshold)
-}
+
 
 #/* */
 def get_search_left_wheel_speed():

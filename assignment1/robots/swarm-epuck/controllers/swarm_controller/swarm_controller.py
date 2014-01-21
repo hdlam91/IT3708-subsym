@@ -7,7 +7,8 @@ from prims1 import *
 controller = EpuckBasic()
 controller.basic_setup()
 while(True):
-	if(get_red(controller.snapshot(), 2,2)==0):
+	if(get_red(controller.snapshot(), 2,2)>100):
 		controller.turn_left()
-	if(get_red(controller.snapshot(), 2,2)>0):
+	elif(get_red(controller.snapshot(), 2,2)>=100):
 		controller.move()
+	print get_red(controller.snapshot(), 2,2)
