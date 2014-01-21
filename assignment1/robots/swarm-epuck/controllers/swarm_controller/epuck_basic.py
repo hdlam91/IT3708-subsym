@@ -48,7 +48,7 @@ class EpuckBasic (DifferentialWheels):
       self.enableEncoders(self.timestep)
       self.camera = self.getCamera('camera')
       self.camera.enable(4*self.timestep)
-      print "Camera width: " , self.camera.getWidth()
+      print# "Camera width: " , self.camera.getWidth()
       self.dist_sensor_values = [0 for i in range(self.num_dist_sensors)]
       self.dist_sensors = [self.getDistanceSensor('ps'+str(x)) for x in range(self.num_dist_sensors)]  # distance sensors
       map((lambda s: s.enable(self.timestep)), self.dist_sensors) # Enable all distance sensors
@@ -73,7 +73,7 @@ class EpuckBasic (DifferentialWheels):
       if self.getMode() == 0: # Running the simulator
 	  self.step(ms_duration)
       else: # Running a real robot
-	  print "Doing timed robot action"
+	  print# "Doing timed robot action"
 	  self.step(ms_duration)
 	  self.stop_moving() # I seem to need this to halt the previous action
 	  self.step(self.timestep)
@@ -90,7 +90,7 @@ class EpuckBasic (DifferentialWheels):
 	  self.do_timed_action()
 
   def wait(self, seconds = 1.0):
-      print "waiting"
+      #print# "waiting"
       time.sleep(seconds)
    
 
@@ -119,7 +119,7 @@ class EpuckBasic (DifferentialWheels):
 # running via the call to do_timed_action.
 
   def move(self,speed=1.0,duration =1.0, dir = 'forward'):
-      print "Moving"
+      #print# "Moving"
       s = min(1.0, abs(speed))
       if dir == 'forward':
 	  self.set_wheel_speeds(left=s,right=s)
@@ -146,7 +146,7 @@ class EpuckBasic (DifferentialWheels):
 # The arguments "left" and "right" are in the range [-1,1].
 
   def set_wheel_speeds(self,left = 0.0, right = 0.0):
-      print "Setting wheel speeds: ", "Left =", left ,"  Right = ", right
+      print# "Setting wheel speeds: ", "Left =", left ,"  Right = ", right
       ms = self.tempo*self.max_wheel_speed
       self.setSpeed(int(left*ms),int(right*ms))
 
@@ -163,6 +163,12 @@ class EpuckBasic (DifferentialWheels):
   def turn_left(self): self.spin_angle(90)
   def turn_right(self): self.spin_angle(-90)
 
+
+  def spin_left(self, speed=1, duration = 1):
+    self.move_wheels(0, speed, duration)
+
+  def spin_right(self, speed=1, duration = 1):
+    self.move_wheels(speed, 0, duration)
 # Spin clockwise and counter-clockwise for a specified number of seconds (duration).
 
   def spin_cw(self,speed=1.0,duration = 1): self.spin(speed=speed, dir = 'cw',duration = duration)
@@ -283,7 +289,7 @@ class EpuckBasic (DifferentialWheels):
       command = items[0]
       args =[float(item) for item in items[1:]]
       if command == 'quit':
-	  print "Ending the run."
+	  print# "Ending the run."
 	  return False
       if command == 'forward':
 	  self.forward(speed = 1.0, duration = args[0])
@@ -309,9 +315,9 @@ class EpuckBasic (DifferentialWheels):
 	  help += "   snap - Shows the camera image.\n"
 	  help += "   wait <duration in seconds> - robot does nothing for the specified period \n"
 	  help += "   quit - Quit this program.\n"
-	  print help 
+	  print# help 
       else:
-	  print "Unknown command"
+	  print# "Unknown command"
       return True
 
 # An action script is read from a file and then interpreted, line by line.  Each line will
@@ -327,9 +333,9 @@ class EpuckBasic (DifferentialWheels):
 
   def run_toy(self):
       result = True
-      print "Enter robot commands.  Type 'help for the command list and 'quit to stop"
+      print# "Enter robot commands.  Type 'help for the command list and 'quit to stop"
       while result:
-	  print "Command: "
+	  print# "Command: "
 	  command = raw_input()
 	  result = self.interp_command(command)
 
