@@ -22,15 +22,15 @@ case_script = [[0,0,0,0,1,1],[0,0,0,1,1,0],[0,0,1,0,1,0],[0,0,1,1,1,0],[0,1,0,0,
 
 #/* Wheel speed variables */
 #static double 
-left_wheel_speed # // default 0
+left_wheel_speed = 0 # // default 0
 #static double
-right_wheel_speed#
+right_wheel_speed = 0#
 
 #/* Random search speed */
 #static double 
-rand_double_left
+rand_double_left = 0
 #static double 
-rand_double_right
+rand_double_right = 0
 
 #/* Counter */
 #static int 
@@ -42,13 +42,21 @@ counter = 0
 
 # /* Generates random double for left and right search speed */
 def randdouble():
+	global rand_double_left
+	global rand_double_right
 	rand_double_left = random.random()
 	rand_double_right = random.random()
 
 
 #/* Given the input compared to the case script where do we want to go?*/
 def calculate_search_speed(threshold_list):
+	global counter 
 	counter = counter +1
+	global rand_double_left
+	global left_wheel_speed
+	global right_wheel_speed
+	global rand_double_right
+	print case_script[0][0]
 	for i in range(0,16):
 		if(threshold_list[0]==case_script[i][0] and threshold_list[1]==case_script[i][1] and threshold_list[2]==case_script[i][2] and threshold_list[3]==case_script[i][3]):
 			if(counter== COUNTLIMIT):
@@ -57,7 +65,7 @@ def calculate_search_speed(threshold_list):
 			if(case_script[i][4] == case_script[i][5]):# // Free passage Straight forward
 				left_wheel_speed =(rand_double_left*500) + 500
 				right_wheel_speed=(rand_double_right*500) + 500
-			elif(case_script[i][4] == 1 && case_script[i][5]== 0):# // Turn left
+			elif(case_script[i][4] == 1 and case_script[i][5]== 0):# // Turn left
 				left_wheel_speed=-300
 				right_wheel_speed= 700
 			else: #// Turn right
@@ -88,17 +96,19 @@ def calculate_treshold(sensors, distance_threshold):
 
 #/* Given the sensor input and threshold, calculates the speed for survival */
 def update_search_speed(sensor_value,  distance_threshold):
-	sensors[4] = {sensor_value[6], sensor_value[7], sensor_value[0], sensor_value[1]}
+	sensors = [sensor_value[6], sensor_value[7], sensor_value[0], sensor_value[1]]
 	calculate_treshold(sensors, distance_threshold)
 
 
 #/* */
 def get_search_left_wheel_speed():
+	global left_wheel_speed
 	return left_wheel_speed
 
 
 #/* */
 def get_search_right_wheel_speed():
+	global right_wheel_speed
 	return right_wheel_speed
 
 

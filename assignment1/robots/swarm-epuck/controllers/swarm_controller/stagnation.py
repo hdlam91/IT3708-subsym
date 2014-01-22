@@ -42,9 +42,9 @@ LOW_DIST_VALUE = 10
 
 #/* Wheel speed variables */
 #static double
-left_wheel_speed
+left_wheel_speed = 0
 #static double 
-right_wheel_speed
+right_wheel_speed = 0
 
 #/* Boolean variables */
 has_recovered = False

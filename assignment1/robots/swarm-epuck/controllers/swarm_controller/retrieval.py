@@ -5,9 +5,9 @@ PUSH_THRESHOLD = 500
 
 #Wheel speed variables */
 #static double 
-left_wheel_speed
+left_wheel_speed = 0
 #static double 
-right_wheel_speed
+right_wheel_speed = 0
 
 # LED variables */
 LED =  [0]*8
@@ -24,7 +24,8 @@ push = False # Standing close to the box
 #*******************************/
 
 def update_speed(IR_number):
-
+	global left_wheel_speed
+	global right_wheel_speed
 	if (IR_number==0):
 		left_wheel_speed = left_wheel_speed + 700
 	elif(IR_number == 7):
@@ -46,24 +47,24 @@ def update_speed(IR_number):
 	
 #The movement for converging to the box */
 def converge_to_box(IR_sensor_value, IR_threshold):
-	left_wheel_speed = 0
-	right_wheel_speed = 0
+	global left_wheel_speed
+	global right_wheel_speed
 	for i in range(0,NB_LEDS):
 		if(IR_sensor_value[i] < IR_threshold):
 			LED[i] = ON
 			update_speed(i)
-		else
+		else:
 			LED[i]=OFF
 			
 # The behavior when pushing the box */
 def push_box(IR_sensor_value, IR_threshold):
-	left_wheel_speed = 0
-	right_wheel_speed = 0
+	global left_wheel_speed 
+	global right_wheel_speed
 	# Blink for visual pushing feedback
 	for i in range(0,NB_LEDS):
-		if(LED[i])
+		if(LED[i]):
 			LED[i] = OFF
-		else
+		else:
 			LED[i]=ON
 		if(IR_sensor_value[i] < IR_threshold):
 			update_speed(i)
@@ -96,18 +97,17 @@ def swarm_retrieval(IR_sensor_value, IR_threshold):
 
 
 def get_retrieval_left_wheel_speed():
-{
+
 	return left_wheel_speed
-}
+
 
 
 def get_retrieval_right_wheel_speed():
-{
+
 	return right_wheel_speed
-}
+
 
 #/* Returns the state (ON/OFF) of the given LED number */
 def get_LED_state(LED_num):
-{
+
 	return LED[LED_num]
-}

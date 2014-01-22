@@ -83,6 +83,10 @@ def column_avg(image,band='red'):
       a[i] = float(sum_band)/float(y)
    return a
 
+def sumOfArray(start, end, array):
+  summen = sum(array[start:end])
+  return summen
+
 def image_avg(image,band='red',scale = 1.0):
    return kd_array.vector_avg(column_avg(image,band=band)) / scale
 
