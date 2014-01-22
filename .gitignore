@@ -38,4 +38,3 @@ nosetests.xml
 #wbproj file
 assignment1/robots/swarm-epuck/worlds/.e-puck_swarm_world.wbproj
 assignment1/robots/swarm-epuck/worlds/.e-puck_swarm_worldTest.wbproj
-
