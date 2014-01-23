@@ -56,7 +56,7 @@ def calculate_search_speed(threshold_list):
 	global left_wheel_speed
 	global right_wheel_speed
 	global rand_double_right
-	print case_script[0][0]
+	#print case_script[0][0]
 	for i in range(0,16):
 		if(threshold_list[0]==case_script[i][0] and threshold_list[1]==case_script[i][1] and threshold_list[2]==case_script[i][2] and threshold_list[3]==case_script[i][3]):
 			if(counter== COUNTLIMIT):

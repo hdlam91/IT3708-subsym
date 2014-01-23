@@ -47,8 +47,6 @@ def update_speed(IR_number):
 	
 #The movement for converging to the box */
 def converge_to_box(IR_sensor_value, IR_threshold):
-	global left_wheel_speed
-	global right_wheel_speed
 	for i in range(0,NB_LEDS):
 		if(IR_sensor_value[i] < IR_threshold):
 			LED[i] = ON

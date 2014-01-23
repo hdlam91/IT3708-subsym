@@ -11,19 +11,52 @@ retr = False
 
 def search():
 	#search
+	#print "search"
+	global retr
 	distance_thresh = 200
-	update_search_speed(controller.get_proximities(), distance_thresh)
-	controller.move_wheels(get_search_left_wheel_speed(), get_search_right_wheel_speed(), 0.1)
-	if(image_avg(controller.get_image()) > 50):
-		retr = True
+	
+	
+	imageAvg = column_avg(controller.get_image()) 
+	left = imageAvg[0:len(imageAvg)/2]
+	right = imageAvg[len(imageAvg)/2:len(imageAvg)]
+	colorThresh = 100
+	distances = controller.get_proximities()
+	
+	if(sum(left)/len(left)>colorThresh):
+		if(sum(right)/len(right)>colorThresh):
+			##this makes them converge after a while
+			if(distances[0] < 1000 and distances[7] <1000):
+				if(distances[0]>distances[7]):
+					controller.spin_right(0.5,0.1)
+				elif(distances[0]<distances[7]):
+					controller.spin_left(0.5,0.1)
+			else:
+				retr = True
+				
 
-
+		else:
+			controller.spin_left(1,0.1)
+	elif(sum(right)/len(right)>colorThresh):
+		controller.spin_right(1,0.1)
+	else:
+		update_search_speed(controller.get_proximities(), distance_thresh)
+		controller.move_wheels(get_search_left_wheel_speed(), get_search_right_wheel_speed(), 0.1)
 
 def retrieval():
-	#retrieve
-	select_behavior(controller.get_proximities())
-	controller.move_wheels(get_retrieval_left_wheel_speed,get_retrieval_right_wheel_speed,0.1)
-	#print "retrieve"
+	image = controller.get_image()
+	left = imageAvg[0:len(imageAvg)/2]
+	right = imageAvg[len(imageAvg)/2:len(imageAvg)]
+	colorThresh = 200
+	distances = controller.get_proximities()
+	
+	if(image_avg(image) < colorThresh):
+		retr = False
+		
+	irThresh = 100
+	distances = controller.get_proximities()
+	select_behavior(distances)
+	swarm_retrieval(distances, irThresh)
+	controller.move_wheels(get_retrieval_left_wheel_speed, get_retrieval_right_wheel_speed(), 0.1)
 
 def stagnation():
 	#stagnation

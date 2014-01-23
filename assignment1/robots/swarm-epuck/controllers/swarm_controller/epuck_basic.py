@@ -48,11 +48,15 @@ class EpuckBasic (DifferentialWheels):
       self.enableEncoders(self.timestep)
       self.camera = self.getCamera('camera')
       self.camera.enable(4*self.timestep)
-      print# "Camera width: " , self.camera.getWidth()
+      #self.leds = self.getLED('led')
+      print "Camera width: " , self.camera.getWidth()
       self.dist_sensor_values = [0 for i in range(self.num_dist_sensors)]
       self.dist_sensors = [self.getDistanceSensor('ps'+str(x)) for x in range(self.num_dist_sensors)]  # distance sensors
       map((lambda s: s.enable(self.timestep)), self.dist_sensors) # Enable all distance sensors
 
+  # def enableled():
+  #   leds.set(1)
+  #   print leds
  
 # **** TIMED ACTION ***
 
@@ -73,7 +77,7 @@ class EpuckBasic (DifferentialWheels):
       if self.getMode() == 0: # Running the simulator
 	  self.step(ms_duration)
       else: # Running a real robot
-	  print# "Doing timed robot action"
+	  print "Doing timed robot action"
 	  self.step(ms_duration)
 	  self.stop_moving() # I seem to need this to halt the previous action
 	  self.step(self.timestep)
@@ -90,7 +94,7 @@ class EpuckBasic (DifferentialWheels):
 	  self.do_timed_action()
 
   def wait(self, seconds = 1.0):
-      #print# "waiting"
+      print "waiting"
       time.sleep(seconds)
    
 
@@ -119,7 +123,7 @@ class EpuckBasic (DifferentialWheels):
 # running via the call to do_timed_action.
 
   def move(self,speed=1.0,duration =1.0, dir = 'forward'):
-      #print# "Moving"
+      print "Moving"
       s = min(1.0, abs(speed))
       if dir == 'forward':
 	  self.set_wheel_speeds(left=s,right=s)
@@ -146,7 +150,7 @@ class EpuckBasic (DifferentialWheels):
 # The arguments "left" and "right" are in the range [-1,1].
 
   def set_wheel_speeds(self,left = 0.0, right = 0.0):
-      print# "Setting wheel speeds: ", "Left =", left ,"  Right = ", right
+      #print "Setting wheel speeds: ", "Left =", left ,"  Right = ", right
       ms = self.tempo*self.max_wheel_speed
       self.setSpeed(int(left*ms),int(right*ms))
 
