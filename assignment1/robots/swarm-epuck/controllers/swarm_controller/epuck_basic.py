@@ -47,17 +47,15 @@ class EpuckBasic (DifferentialWheels):
       self.tempo = tempo
       self.enableEncoders(self.timestep)
       self.camera = self.getCamera('camera')
+      self.led = [self.getLED('led' +str(i)) for i in range(0,9)]
       self.camera.enable(4*self.timestep)
-      #self.leds = self.getLED('led')
-      print "Camera width: " , self.camera.getWidth()
+      #print "Camera width: " , self.camera.getWidth()
+
       self.dist_sensor_values = [0 for i in range(self.num_dist_sensors)]
       self.dist_sensors = [self.getDistanceSensor('ps'+str(x)) for x in range(self.num_dist_sensors)]  # distance sensors
       map((lambda s: s.enable(self.timestep)), self.dist_sensors) # Enable all distance sensors
 
-  # def enableled():
-  #   leds.set(1)
-  #   print leds
- 
+  
 # **** TIMED ACTION ***
 
 # The routines do_timed_action and run_timestep are explicit commands to the robot to actually DO
@@ -150,7 +148,6 @@ class EpuckBasic (DifferentialWheels):
 # The arguments "left" and "right" are in the range [-1,1].
 
   def set_wheel_speeds(self,left = 0.0, right = 0.0):
-      #print "Setting wheel speeds: ", "Left =", left ,"  Right = ", right
       ms = self.tempo*self.max_wheel_speed
       self.setSpeed(int(left*ms),int(right*ms))
 
@@ -293,7 +290,7 @@ class EpuckBasic (DifferentialWheels):
       command = items[0]
       args =[float(item) for item in items[1:]]
       if command == 'quit':
-	  print# "Ending the run."
+	  # print# "Ending the run."
 	  return False
       if command == 'forward':
 	  self.forward(speed = 1.0, duration = args[0])
@@ -339,7 +336,7 @@ class EpuckBasic (DifferentialWheels):
       result = True
       print# "Enter robot commands.  Type 'help for the command list and 'quit to stop"
       while result:
-	  print# "Command: "
+	  # print# "Command: "
 	  command = raw_input()
 	  result = self.interp_command(command)
 

@@ -76,12 +76,24 @@ def column_avg(image,band='red'):
    x,y = image.size
    func = eval("get_"+band)
    a = kd_array.gen_array([x], init_elem = 0.0)
+   print ""
    for i in range(x):
       sum_band = 0
       for j in range(y):
          sum_band += func(image,i,j)
       a[i] = float(sum_band)/float(y)
+      print a[i]
    return a
+
+def imageArrayAvg(array):
+  imgAvg = []
+  for i in array:
+    sums = 0
+    for j in i:
+      sums += j[0] 
+    imgAvg.append(sums/len(i))
+  return imgAvg
+
 
 def sumOfArray(start, end, array):
   summen = sum(array[start:end])
