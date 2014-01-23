@@ -14,6 +14,8 @@ def search():
 	distance_thresh = 200
 	update_search_speed(controller.get_proximities(), distance_thresh)
 	controller.move_wheels(get_search_left_wheel_speed(), get_search_right_wheel_speed(), 0.1)
+	# print str(controller.getLED(controller)
+	controller.led[8].set(1)
 	if(image_avg(controller.get_image()) > 50):
 		retr = True
 
