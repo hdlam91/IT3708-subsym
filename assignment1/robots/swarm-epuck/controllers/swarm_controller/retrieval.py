@@ -74,7 +74,9 @@ def push_box(IR_sensor_value, IR_threshold):
 
 # Selects the behavior push or converge */
 def select_behavior(IR_sensor_value):
+	global push
 	push = False
+	global converge
 	converge = True
 	for i in range(0,NB_LEDS):
 		if (IR_sensor_value[i] < PUSH_THRESHOLD):
@@ -87,6 +89,7 @@ def select_behavior(IR_sensor_value):
 #Converge, push, and stagnation recovery */
 def swarm_retrieval(IR_sensor_value, IR_threshold):
 	select_behavior(IR_sensor_value)
+	print push
 	if(push):
 		push_box(IR_sensor_value, IR_threshold)
 	else: #converge
