@@ -80,12 +80,15 @@ def stagnation():
 
 controller = EpuckBasic()
 controller.basic_setup()
+
 #for i in range(0,2):
 while(True):
 	if(stag):
 		stagnation()
 		#retrieve:
 	distances = controller.get_proximities()
+	lightValues = controller.get_lightValues()
+
 	select_behavior(distances)
 	swarm_retrieval(distances, 200)
 	controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)

@@ -27,6 +27,7 @@ class EpuckBasic (DifferentialWheels):
 
   max_wheel_speed = 1000
   num_dist_sensors = 8
+  num_ir_sensors = 8
   encoder_resolution = 159.23 # for wheel encoders
   tempo = 0.5  # Upper velocity bound = Fraction of the robot's maximum velocity = 1000 = 1 wheel revolution/sec  
   wheel_diameter = 4.1 # centimeters
@@ -49,11 +50,10 @@ class EpuckBasic (DifferentialWheels):
       self.camera = self.getCamera('camera')
       self.led = [self.getLED('led' +str(i)) for i in range(0,9)]
       self.camera.enable(4*self.timestep)
-      
 
-      self.ir_sensors = [self.getLightSensor('ls' + str(i)) for i in range(0,8)]
+      self.ir_sensors = [self.getLightSensor('ls' + str(i)) for i in range(self.num_ir_sensors)]
+      self.ir_sensor_values = [0 for i in range(self.num_ir_sensors)]
       map((lambda s: s.enable(self.timestep)), self.ir_sensors)
-      #print "Camera width: " , self.camera.getWidth()
 
       self.dist_sensor_values = [0 for i in range(self.num_dist_sensors)]
       self.dist_sensors = [self.getDistanceSensor('ps'+str(x)) for x in range(self.num_dist_sensors)]  # distance sensors
@@ -220,8 +220,15 @@ class EpuckBasic (DifferentialWheels):
 
   def get_proximities(self):
       for i in range(self.num_dist_sensors):
-	  self.dist_sensor_values[i] = self.dist_sensors[i].getValue()
+        self.dist_sensor_values[i] = self.dist_sensors[i].getValue()
       return self.dist_sensor_values
+
+# Ir sensors
+
+  def get_lightValues(self):
+    for i in range(self.num_ir_sensors):
+      self.ir_sensor_values[i] = self.ir_sensors[i].getValue()
+    return self.ir_sensor_values
 
 
 
@@ -358,4 +365,3 @@ class EpuckBasic (DifferentialWheels):
 #controller = EpuckBasic()
 #controller.basic_setup()
 #controller.continuous_run()
-
