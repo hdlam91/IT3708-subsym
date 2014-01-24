@@ -77,7 +77,6 @@ def stagnation():
 
 controller = EpuckBasic()
 controller.basic_setup()
-controller.move(0.1)
 #for i in range(0,2):
 while(True):
 	#print column_avg(controller.get_image())[0]
@@ -85,12 +84,12 @@ while(True):
 	#print get_red_image(controller.get_image())
 	#print controller.camera.getImageArray()[0]
 	#print imageArrayAvg(controller.camera.getImageArray())
-	# if(stag):
-	# 	stagnation()
-	# elif(retr):
-	# 	retrieval()
-	# else:
-	search()
+	if(stag):
+		stagnation()
+	elif(retr):
+		retrieval()
+	else:
+		search()
 
 controller.stop_moving()
 
