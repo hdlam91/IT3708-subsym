@@ -1,4 +1,4 @@
-#VRML_SIM V6.0 utf8
+#VRML_SIM V7.3.0 utf8
 WorldInfo {
   info [
     "Description"
@@ -17,6 +17,7 @@ Background {
 }
 DirectionalLight {
   direction 0 -1 0
+  intensity 0.5
 }
 EPuck {
   translation -0.595708 -6.39509e-05 0.292608
@@ -165,6 +166,7 @@ DEF FOOD Solid {
   rotation -0.794445 0.10399 -0.598367 -3.87352e-17
   children [
     PointLight {
+      attenuation 0 0 10
       color 1 0 0
       intensity 0.275
       location 0 -0.075 0

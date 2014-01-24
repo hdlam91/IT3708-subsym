@@ -81,6 +81,7 @@ def select_behavior(IR_sensor_value):
 	for i in range(0,NB_LEDS):
 		if (IR_sensor_value[i] < PUSH_THRESHOLD):
 			push = True
+
 		
 #/******************************
 # * External functions
@@ -89,7 +90,7 @@ def select_behavior(IR_sensor_value):
 #Converge, push, and stagnation recovery */
 def swarm_retrieval(IR_sensor_value, IR_threshold):
 	select_behavior(IR_sensor_value)
-	print push
+	# print push
 	if(push):
 		push_box(IR_sensor_value, IR_threshold)
 	else: #converge

@@ -105,7 +105,7 @@ def realign(distance_value):
 			left_wheel_speed = -500
 		
 	
-	has_recovered = TRUE
+	has_recovered = True
 	green_LED_state = OFF
 
 
@@ -115,7 +115,7 @@ def realign(distance_value):
 
 def find_new_spot(distance_value, DIST_THRESHOLD):
 	if(twice == 2): # // Reverse, Turn, Forward, Turn(opposite), Forward.
-		has_recovered = TRUE
+		has_recovered = True
 		green_LED_state = OFF
 		align_counter = 0
 	elif(reverse_counter != REVERSE_LIMIT):# // Make space by moving away from the box
@@ -129,9 +129,9 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 		#// Roll a dice, left or right?
 		double ran = random.random()
 		if (ran > 0.5):
-			turn_left = FALSE
+			turn_left = False
 		else:
-			turn_left = TRUE
+			turn_left = True
 
 		if(turn_left): # // Turn left
 			left_wheel_speed = -300
@@ -145,9 +145,9 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 			twice = twice +1
 			turn_counter = 0
 			if(turn_left):
-				turn_left = FALSE
+				turn_left = False
 			else:
-				turn_left = TRUE
+				turn_left = True
 		update_search_speed(distance_value, DIST_THRESHOLD)
 		left_wheel_speed = get_search_left_wheel_speed()
 		right_wheel_speed = get_search_right_wheel_speed()
@@ -157,7 +157,7 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 
 
 def reset_stagnation():
-	has_recovered = FALSE
+	has_recovered = False
 	reverse_counter = 0
 	turn_counter = 0
 	forward_counter = 0
@@ -174,25 +174,25 @@ def stagnation_recovery(distance_sensors_value,  DIST_THRESHOLD):
 		find_new_spot(distance_sensors_value, DIST_THRESHOLD)
 
 # /* To keep pushing or not to keep pushing, that is the question */
-def valuate_pushing(double dist_value[8], double prev_dist_value[8]):
+def valuate_pushing(dist_value, prev_dist_value):
 	#// Only assess this situation once
 	#// The front IR sensors pushing against the box
 	dist_diff7 = prev_dist_value[7] - dist_value[7]
 	dist_diff0 = prev_dist_value[0] - dist_value[0]
 
 	if((abs(dist_diff7)> DISTANCE_DIFF_THRESHOLD) and (abs(dist_diff0)> DISTANCE_DIFF_THRESHOLD)):
-		has_recovered = TRUE #// Keep pushing, it is working
+		has_recovered = True #// Keep pushing, it is working
 		green_LED_state = OFF #// No more recovery
 		align_counter = 0
 	elif((dist_value[5] >NEIGHBOR_LIMIT)&&(dist_value[2]>NEIGHBOR_LIMIT)):#{ //Has any neighbors
-		has_recovered = TRUE # // Keep pushing, it is working
+		has_recovered = True # // Keep pushing, it is working
 		green_LED_state = OFF # // No more recovery
 		align_counter = 0
 	elif((dist_value[5] >NEIGHBOR_LIMIT) or (dist_value[2]>NEIGHBOR_LIMIT)): #{ //Has any neighbors
 		#// Roll a dice, do i trust just one team-mate?
 		double ran = random.random()
 		if (ran > 0.5):
-			has_recovered = TRUE #// Keep pushing, it is working
+			has_recovered = True #// Keep pushing, it is working
 			green_LED_state = OFF #// No more recovery
 			align_counter = 0
 	
@@ -201,8 +201,8 @@ def valuate_pushing(double dist_value[8], double prev_dist_value[8]):
 def get_stagnation_state():
 
 	if(has_recovered):
-		return FALSE #// Recovered, stagnation behavior done
-	return TRUE # // Still processing
+		return False #// Recovered, stagnation behavior done
+	return True # // Still processing
 
 
 #/* Returns the state (ON/OFF) for green LED*/
