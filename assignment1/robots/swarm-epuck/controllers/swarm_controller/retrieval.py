@@ -74,6 +74,10 @@ def push_box(IR_sensor_value, IR_threshold):
 
 # Selects the behavior push or converge */
 def select_behavior(IR_sensor_value):
+	global left_wheel_speed 
+	global right_wheel_speed
+	left_wheel_speed = 0
+	right_wheel_speed = 0
 	global push
 	push = False
 	global converge

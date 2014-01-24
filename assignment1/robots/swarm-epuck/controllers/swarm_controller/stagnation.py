@@ -24,7 +24,7 @@
 #define NEIGHBOR_LIMIT 300
 
 import random
-
+from search import *
 NEUTRAL = 3
 ON = 1
 OFF = 0
@@ -54,11 +54,11 @@ turn_left = NEUTRAL
 green_LED_state = OFF # // Visual feedback
 
 #/* Counters */
- reverse_counter = 0
- turn_counter = 0
- forward_counter = 0
- twice = 0
- align_counter = 0
+reverse_counter = 0
+turn_counter = 0
+forward_counter = 0
+twice = 0
+align_counter = 0
 
 # /******************************
 #  * Internal functions
@@ -66,6 +66,7 @@ green_LED_state = OFF # // Visual feedback
 
 # /* Let it shine baby! */
 def LED_blink():
+	global green_LED_state
 	if(green_LED_state):
 		green_LED_state = OFF
 	else:
@@ -74,7 +75,9 @@ def LED_blink():
 def realign(distance_value):
 	#// Find the difference of the two front IR sensors
 	dist_diff_front = distance_value[7] - distance_value[0]
-
+	global right_wheel_speed
+	global left_wheel_speed
+	global has_recovered
 	#// Are we pushing straight? If not, maybe we should try. If we are, maybe we should
 	#// try pushing from another angle.
 	if(abs(dist_diff_front) > ALIGN_STRAIGTH_THRESHOLD):# // True = we are not pushing straight
@@ -94,7 +97,7 @@ def realign(distance_value):
 	#// We are standing straight, lets try pushing with another angle.
 	else:
 		#// Roll a dice, left angle or right angle?
-		double ran = random.random()
+		ran = random.random()
 		if (ran > 0.5):
 			right_wheel_speed = -500
 			left_wheel_speed = 500
@@ -114,6 +117,16 @@ def realign(distance_value):
 # *******************************/
 
 def find_new_spot(distance_value, DIST_THRESHOLD):
+	global has_recovered
+	global align_counter
+	global reverse_counter
+	global turn_counter
+	global turn_left
+	global turn_right
+	global left_wheel_speed
+	global right_wheel_speed
+	global twice
+	global forward_counter
 	if(twice == 2): # // Reverse, Turn, Forward, Turn(opposite), Forward.
 		has_recovered = True
 		green_LED_state = OFF
@@ -122,16 +135,16 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 		reverse_counter = reverse_counter +1
 		left_wheel_speed = -800
 		right_wheel_speed = -800
-	else if(turn_counter != TURN_LIMIT): # // Line up with one of the sides of the box
+	elif(turn_counter != TURN_LIMIT): # // Line up with one of the sides of the box
 		turn_counter = turn_counter +1
 		forward_counter = 0
 		if(turn_left == NEUTRAL):
 		#// Roll a dice, left or right?
-		double ran = random.random()
-		if (ran > 0.5):
-			turn_left = False
-		else:
-			turn_left = True
+			ran = random.random()
+			if (ran > 0.5):
+				turn_left = False
+			else:
+				turn_left = True
 
 		if(turn_left): # // Turn left
 			left_wheel_speed = -300
@@ -157,14 +170,21 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 
 
 def reset_stagnation():
+	global has_recovered
 	has_recovered = False
+	global reverse_counter
 	reverse_counter = 0
+	global turn_counter
 	turn_counter = 0
+	global forward_counter
 	forward_counter = 0
+	global turn_left
 	turn_left = NEUTRAL
+	global twice
 	twice = 0
 
 def stagnation_recovery(distance_sensors_value,  DIST_THRESHOLD):
+	global align_counter
 	if (align_counter < 2): #// Align
 		align_counter = align_counter + 1
 		realign(distance_sensors_value)
@@ -177,6 +197,9 @@ def stagnation_recovery(distance_sensors_value,  DIST_THRESHOLD):
 def valuate_pushing(dist_value, prev_dist_value):
 	#// Only assess this situation once
 	#// The front IR sensors pushing against the box
+	global has_recovered
+	global green_LED_state
+	global align_counter
 	dist_diff7 = prev_dist_value[7] - dist_value[7]
 	dist_diff0 = prev_dist_value[0] - dist_value[0]
 
@@ -184,13 +207,13 @@ def valuate_pushing(dist_value, prev_dist_value):
 		has_recovered = True #// Keep pushing, it is working
 		green_LED_state = OFF #// No more recovery
 		align_counter = 0
-	elif((dist_value[5] >NEIGHBOR_LIMIT)&&(dist_value[2]>NEIGHBOR_LIMIT)):#{ //Has any neighbors
+	elif((dist_value[5] >NEIGHBOR_LIMIT) and (dist_value[2]>NEIGHBOR_LIMIT)):#{ //Has any neighbors
 		has_recovered = True # // Keep pushing, it is working
 		green_LED_state = OFF # // No more recovery
 		align_counter = 0
 	elif((dist_value[5] >NEIGHBOR_LIMIT) or (dist_value[2]>NEIGHBOR_LIMIT)): #{ //Has any neighbors
 		#// Roll a dice, do i trust just one team-mate?
-		double ran = random.random()
+		ran = random.random()
 		if (ran > 0.5):
 			has_recovered = True #// Keep pushing, it is working
 			green_LED_state = OFF #// No more recovery
