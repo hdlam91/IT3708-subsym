@@ -85,12 +85,13 @@ while(True):
 	if(stag):
 		stagnation()
 		#retrieve:
-	distances = controller.get_proximities()
-	select_behavior(distances)
-	swarm_retrieval(distances, 200)
+
+	lights = controller.get_lightValues()
+	select_behavior(lights)
+	swarm_retrieval(lights, 200)
 	controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
 	if(get_retrieval_left_wheel_speed() == 0 and get_retrieval_right_wheel_speed() == 0):
-		controller.move()
+		search()
 	
 
 
