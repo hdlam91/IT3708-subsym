@@ -92,7 +92,7 @@ while(True):
 	if(get_retrieval_left_wheel_speed() == 0 and get_retrieval_right_wheel_speed() == 0):
 		controller.move()
 	
-	
+
 
 controller.stop_moving()
 
