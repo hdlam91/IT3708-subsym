@@ -49,6 +49,10 @@ class EpuckBasic (DifferentialWheels):
       self.camera = self.getCamera('camera')
       self.led = [self.getLED('led' +str(i)) for i in range(0,9)]
       self.camera.enable(4*self.timestep)
+      
+
+      self.ir_sensors = [self.getLightSensor('ls' + str(i)) for i in range(0,8)]
+      map((lambda s: s.enable(self.timestep)), self.ir_sensors)
       #print "Camera width: " , self.camera.getWidth()
 
       self.dist_sensor_values = [0 for i in range(self.num_dist_sensors)]

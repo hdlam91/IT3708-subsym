@@ -82,7 +82,6 @@ def column_avg(image,band='red'):
       for j in range(y):
          sum_band += func(image,i,j)
       a[i] = float(sum_band)/float(y)
-      print a[i]
    return a
 
 def imageArrayAvg(array):
