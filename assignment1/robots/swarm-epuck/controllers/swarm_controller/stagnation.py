@@ -212,7 +212,7 @@ def valuate_pushing(dist_value, prev_dist_value):
 	dist_diff7 = prev_dist_value[7] - dist_value[7]
 	dist_diff0 = prev_dist_value[0] - dist_value[0]
 
-1	if((abs(dist_diff7)> DISTANCE_DIFF_THRESHOLD) and (abs(dist_diff0)> DISTANCE_DIFF_THRESHOLD)):
+	if((abs(dist_diff7)> DISTANCE_DIFF_THRESHOLD) and (abs(dist_diff0)> DISTANCE_DIFF_THRESHOLD)):
 		has_recovered = True #// Keep pushing, it is working # no it's not, but oh well
 		green_LED_state = OFF #// No more recovery
 		#align_counter = 0
