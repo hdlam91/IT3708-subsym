@@ -74,10 +74,6 @@ def push_box(IR_sensor_value, IR_threshold):
 
 # Selects the behavior push or converge */
 def select_behavior(IR_sensor_value):
-	global left_wheel_speed 
-	global right_wheel_speed
-	left_wheel_speed = 0
-	right_wheel_speed = 0
 	global push
 	push = False
 	global converge
@@ -100,7 +96,15 @@ def swarm_retrieval(IR_sensor_value, IR_threshold):
 	else: #converge
 		converge_to_box(IR_sensor_value, IR_threshold)
 
-
+#improv
+def reset_retrieval_wheels():
+	global left_wheel_speed
+	left_wheel_speed = 0
+	global right_wheel_speed
+	right_wheel_speed = 0
+	global LED
+	for i in range(0,NB_LEDS):
+		LED[i]=OFF
 
 def get_retrieval_left_wheel_speed():
 
@@ -115,5 +119,5 @@ def get_retrieval_right_wheel_speed():
 
 #/* Returns the state (ON/OFF) of the given LED number */
 def get_LED_state(LED_num):
-
+	global LED
 	return LED[LED_num]
