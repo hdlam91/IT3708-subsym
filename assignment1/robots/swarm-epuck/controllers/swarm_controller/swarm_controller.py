@@ -29,7 +29,7 @@ while(True):
 		valuate_pushing(distances, previousDist)
 		
 
-	if(get_stagnation_state()):
+	if(True):
 		#retrieve:
 		controller.led[8].set(0)
 		lights = controller.get_lightValues()
