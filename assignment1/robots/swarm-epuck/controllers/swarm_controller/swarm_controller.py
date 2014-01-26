@@ -18,6 +18,13 @@ controller.basic_setup()
 
 previousDist = Queue.Queue(10)
 prev1 = 0
+counter = 0
+first = 0
+second  = 0
+SECOND = 5
+FIRST = 20 
+prev10 = None
+twoBox = True
 while(True):
 	distances = controller.get_proximities()
 	distance_thresh = 200
@@ -27,9 +34,20 @@ while(True):
 	if(previousDist.full()):
 		prev10 = previousDist.get()
 		
-		
-	
-	if(not get_stagnation_state()):
+	if(counter >= 50 and twoBox):
+		print "1000 iter"
+		if(first <= FIRST ):
+			controller.move_wheels(-1000,-1000, 0.1)
+			first += 1
+		elif(second <= SECOND):
+			controller.move_wheels(-1000, 1000, 0.1)
+		else:
+			second = 0
+			first = 0
+			counter = 0
+			move_wheels(1,1,0.1)
+			reset_retrieval_wheels()
+	elif(not get_stagnation_state()):
 		#retrieve:
 		
 		controller.led[8].set(0)
@@ -52,6 +70,8 @@ while(True):
 		else:
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
 			controller.led[0].set(get_LED_state(0))
+			counter += 1
+			print "iter:" + str(counter)
 			for i in range(1,8):
 				controller.led[i].set(0)
 			
