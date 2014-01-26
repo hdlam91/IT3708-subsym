@@ -71,7 +71,7 @@
 \pagenumbering{arabic}
 
 \subsection{System}
-The system consist of a webots simulation which uses a world file provided by the course stab. The world file consists of a food-box inside a closed square arena (4 walls) with 7 e-pucks. The box is emitting light to act as a food source, and there is also another global directional light to make the world more visible.
+The system consist of a webots simulation which uses a world file provided by the course staff. The world file consists of a food-box inside a closed square arena (4 walls) with 7 e-pucks. The box is emitting light to act as a food source, and there is also another global directional light to make the world more visible.
 
 
 The underlying controller-logic for controlling the epucks is largely based upon the provided framework, where we have made some changes in epuck\_basic to have access to features such as led lights and the light sensors. We also altered search, retrieval and stagnation in our attempt to solve the task more effectively. Finally swarm\_controller is where most of our own logic is consolidated that makes use of all the functions and logic in the other files. 
@@ -80,10 +80,10 @@ The changes we made to the world file was dimming the directional light a bit so
 \subsection{Box pushing}
 %Implement control system for the box pushing task as provided in the assignment text and
 %describe the expected and unexpected behaviours observed during simulation.
-The bots uses the distance sensor in the search behavior where they walk aimlessly around searching for the food source. Whenever they see the box/food in front of them they will start the retrieval behavior which uses the light sensors to locate the box (this is possible because it is emitting light). The light sensors reports lower values if the closer it gets to a stronger light, and higher values otherwise.
+The bots uses the distance sensor in the search behavior where they walk around searching for the food source. Whenever they see the box/food in front of them they will start the retrieval behavior which uses the light sensors to locate the box (this is possible because it is emitting light). The light sensors reports lower values the closer it gets to a stronger light, and higher values otherwise.
 
 The e-pucks only uses the light sensor [0,1,6,7] which are the four sensors in front of it. We are using the different behaviours for this assignment, search, retrieval and stagnation as provided in the .c files, but that we translated into python code. 
-The search behaviour makes the bot search aimlessly around without colliding into the other bots, while retrieval will make the bot converge to the box if it can find it. After the converging is done the retrieval behaviour intiates a push box behaviour. If the bot is stuck pushing the box for a while without any results it will use stagnation to attempt to realign itself so the pushing becomes more effective. If it has tried to realign two times a "find new spot" command is issued. This makes the bot drive in a sequence of moves to let it find the side of the box to either the left or the right of its current position.
+The search behaviour makes the bot search the environment without colliding into the other bots, while retrieval will make the bot converge to the box if it can find it. After the converging is done the retrieval behaviour intiates a push box behaviour. If the bot is stuck pushing the box for a while without any results it will use stagnation to attempt to realign itself so the pushing becomes more effective. If it has tried to realign two times a "find new spot" command is issued. This makes the bot drive in a sequence of moves to let it find the side of the box to either the left or the right of its current position.
 \includegraphics[width=\linewidth]{Brooks-lite.png}
 
 
@@ -100,7 +100,7 @@ The stagnation file provided doesn't differentiate between whether the bot is cl
 The bots doesn't always accomplish the mission either, they tend to get stuck now and then. This usually happens when there's two or three bots on both opposite sides of the box. Both "teams" think they are pushing the box, and they trust their neighbours. 
 In the start we decided to try to find the box by using the camera (because we thought that the food source was the only red object), however there's red colors in the grey floor and on the led of the e-puck bots too. The camera approach didn't work as well as we had hoped it would, so we decided to scrap it.
 
-The bots could also be trapped either inside a swarm of e-pucks or between the box and the wall. Because they only have three behaviours established they don't know if the box has reached its location or not. This makes it so the bots runs for ever even though they've accomplished the task.
+The bots could also be trapped either inside a swarm of e-pucks or between the box and the wall. Because they only have three behaviours established they don't know if the box has reached its location or not. This makes it so the bots run forever even though they've accomplished the task.
 
 It would be very helpful if the epucks had a larger sense of self, and knew for example whether it had travelled a certain distance instead of assuming that the commands its given takes it there. This would allow it to make better decisions. During the stagnation process for example the bots used the search class to determine if it is colliding with someone or something, and thus takes evasive maneuvers. This brings the bot to a place other than where it assumes it, which means that the set of commands it follows that is engineered to perform a certain sequence of moves will take it somewhere else then planned. Had the bot known how to properly handle this information, and understood the importance of location, the outcome could always turn out the same, as the bot would correct itself whenever something unanticipated happend. 
 
@@ -121,6 +121,8 @@ The way we decided to handle the problem with epuck location was to ignore colli
 
 \subsection{New architecture}
 When the bots have pushed one box for long enough, it should run a different behaviour which repositions the e-puck bots to the other box. For instance we could turn the bot 180$^{\circ}$ and let it run search behaviour again. This could be done after a certain number of iterations or if a box has been pushed for a while. This behaviour will ensure that the bots doesn't stay stuck at one box but run back and forth trying to push both of them.
+
+Another approach is to always have the bots find another bot to team up with from the search stage, meaning at least two bots find one another and go together to try complete the task at hand. We would have to implement the unstuck method above as well, to ensure they don't all end up on the same box, but this approach may speed up the process somewhat. 
 \subsection{Modifications}
 We were a bit short on time so we have not been able to complete this task.
 
