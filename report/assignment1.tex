@@ -68,15 +68,18 @@
 Modifications and translation of the provided code etc.
 
 \subsection{System}
-The system consist is a webot simulation which uses a world file provided by the course stab. The world file consists of a "food"-box inside a closed  square arena (4 walls) with 7 e-pucks. The box is emitting light along with another global directional light.
+The system consist is a webots simulation which uses a world file provided by the course stab. The world file consists of a food-box inside a closed square arena (4 walls) with 7 e-pucks. The box is emitting light along with another global directional light.
 
 The changes we made to the world file was dimming the directional light a bit so the e-puck bots would be more sensitive to the light emitter from the food source, and we changed the attenuation of the box. The attenuation of a point light is calculated as such: $ att = \frac{1}{x+y*r+z*r^2} $ where $r$ is the distance to the emitter. We changed the value of $x$ to 0 and $z$ to 10 - this is because according to the documentation it is recommended to change default attenuation to $[0,0,4\pi]$ which is more realistic. 
 \subsection{Box pushing}
-
+%Implement control system for the box pushing task as provided in the assignment text and
+%describe the expected and unexpected behaviours observed during simulation.
+The bots uses the distance sensor in the search behavior where they walk aimlessly around searching for the food source. Whenever they see the box/food in front of them they will start the retrieval behavior which uses the light sensors to locate the box (this is possible because it is emitting light).
 
 
 \section{Discovered weaknesses}
-Everything sucks atm...
+ %Identify areas of the system that may be improved in the single box scenario. These areas may be in overall architecture of controller or at the individual sub-behaviour task. Provide suggestions (one or more) to address these improvements
+
 
 \subsection{Possible improvements}
 \subsection{Results from the changes made based upon our improvements}
@@ -84,7 +87,7 @@ Everything sucks atm...
 
 
 \section{Advanced features}
-TODO
+%TODO
 
 \subsection{New architecture}
 \subsection{Modifications}
