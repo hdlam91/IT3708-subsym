@@ -92,7 +92,7 @@ We expected the bots to find the box relatively fast and then push it to the wal
 Unexpected results we encountered was e-puck tipping each other or the food box when clumping together for the task.\\
 \includegraphics[width=\linewidth]{1.mandown.png}
 
-\section{Weaknesses and the resulting modidifications}
+\section{Improvements}
 \subsection{Discovered weaknesses}
  %Identify areas of the system that may be improved in the single box scenario. These areas may be in overall architecture of controller or at the individual sub-behaviour task. Provide suggestions (one or more) to address these improvements
 
@@ -104,6 +104,10 @@ The bots could also be trapped either inside a swarm of e-pucks or between the b
 
 The bots only have three behaviours established so they don't know if the box has reached its location or not. This makes it so the bots runs for ever even though they've accomplished the task.
 
+It would be very helpful if the epucks had a larger sense of self, and knew for example whether it had travelled a certain distance instead of assuming that the commands its given takes it there. This would allow it to make better decisions. During the stagnation process for example the bots used the search class to determine if it is colliding with someone or something, and thus takes evasive maneuvers. This brings the bot to a place other than where it assumes it, which means that the set of commands it follows that is engineered to perform a certain sequence of moves will take it somewhere else then planned. Had the bot known how to properly handle this information, and understood the importance of location, the outcome could always turn out the same, as the bot would correct itself whenever something unanticipated happend. 
+
+One way of handling this would be to have the robots keep a map of where it has been and thus make it easier to tell if it has deviated from its course. 
+
 
 
 \subsection{Results from the changes made}
@@ -112,12 +116,7 @@ When we implemented the distance checking before changing to stagnation behavior
 
 We decided to scrap the camera approach for locating the box and use the retrieval.c file provided (translated to python). This "new" approach uses lightsensor to converge to the box, which is more effective because the bot can use more sensors to get a certain idea where the box is located. The camera approach could easily pick up noise from for example the other bots and the floor (because gray color contains red as well).
 
-\subsection{Possible improvements}
-It would be very helpful if the epucks had a larger sense of self, and knew for example whether it had travelled a certain distance instead of assuming that the commands its given takes it there. This would allow it to make better decisions. During the stagnation process for example the bots uses the search class to determine if it is colliding with someone or something, and thus takes evasive maneuvers. This brings the bot to a place other than where it assumes it, which means that the set of commands it follows that is engineered to perform a certain sequence of moves will take it somewhere else then planned. Had the bot known how to properly handle this information, and understood the importance of location, the outcome could always turn out the same, as the bot would correct itself whenever something unanticipated happend. 
-
-One way of handling this would be to have the robots keep a map of where it has been and thus make it easier to tell if it has deviated from its course. The way we decided improve this one was to ignore collisions, the bots would just keep on driving in the given pattern even if there were other bots in the way. This increased the probability of it being able to reach the destination it aimed for. However sometimes it's not possible to drive in the given apttern if there's obstacles along the way.\\
-
-
+The way we decided to handle the problem with epuck location was to ignore collisions, so the bots would just keep on driving in the given pattern even if there were other bots in the way. This increased the probability of it being able to reach the destination it aimed for. However sometimes it's not possible to drive in the given pattern if there's obstacles along the way, meaning that the bots sometimes just stand still whilst trying to move to another position.\\
 
 \section{Advanced features}
 %TODO
