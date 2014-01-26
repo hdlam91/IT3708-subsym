@@ -74,14 +74,15 @@ Modifications and translation of the provided code etc.
 \subsection{System}
 The system consist of a webots simulation which uses a world file provided by the course stab. The world file consists of a food-box inside a closed square arena (4 walls) with 7 e-pucks. The box is emitting light to act as a food source, and there is also another global directional light to make the world more visible.
 
-The changes we made to the world file was dimming the directional light a bit so the e-puck bots would be more sensitive to the light emitter from the food source, and we changed the attenuation of the box. The attenuation of a point light is calculated as such: $ att = \frac{1}{x+y*r+z*r^2} $ where $r$ is the distance to the emitter. We changed the value of $x$ to 0 and $z$ to 6 - this is because according to the documentation it is recommended to change default attenuation to $[0,0,4\pi]$ which is more realistic in a real world scenario, but $4\pi$ is too high for the bots to efficiently find the light source, thus we settled for half the suggested value.  
+The changes we made to the world file was dimming the directional light a bit so the e-puck bots would be more sensitive to the light emitted from the food source, and we changed the attenuation of the box. The attenuation of a point light is calculated as such: $ att = \frac{1}{x+y*r+z*r^2} $ where $r$ is the distance to the emitter. We changed the value of $x$ to 0 and $z$ to 6 - this is because according to the documentation it is recommended to change default attenuation to $[0,0,4\pi]$ which is more realistic in a real world scenario, but $4\pi$ is too high for the bots to efficiently find the light source, thus we settled for half the suggested value.  
 \subsection{Box pushing}
 %Implement control system for the box pushing task as provided in the assignment text and
 %describe the expected and unexpected behaviours observed during simulation.
 The bots uses the distance sensor in the search behavior where they walk aimlessly around searching for the food source. Whenever they see the box/food in front of them they will start the retrieval behavior which uses the light sensors to locate the box (this is possible because it is emitting light). The light sensors reports lower values if the closer it gets to a stronger light, and higher values otherwise.
+
 The e-pucks only uses the light sensor [0,1,6,7] which are the four sensors in front of it. We are using the different behaviours for this assignment, search, retrieval and stagnation as provided in the .c files, but that we translated into python code. 
 The search behaviour makes the bots search aimlessly around without colliding into each other while the retrieval will make the bot converge to the box if it can find it. After the converging is done the retrieval behaviour intiates a push box behaviour. If the bot is stuck pushing the box for a while without any results it will use stagnation to attempt to realign itself so the pushing becomes more effective. If it have tried to realign two times a "find new spot" command is issued. This makes the bot drive in a sequence of moves to let it find the side of the box to either the left or the right of its current position.
-\includegraphics[width=15cm]{Brooks-lite.png}
+\includegraphics[width=\linewidth]{Brooks-lite.png}
 
 We expected the bots to find the box relatively fast and then push it to the wall. This happened in certain 
 Unexpected results we encountered was e-puck tipping each other or the food box when clumping together for the task.\\
@@ -98,7 +99,7 @@ The bots doesn't always accomplish the mission either, they tend to get stuck no
 \subsection{Results from the changes made based upon our improvements}
 When we implemented the distance checking before changing to stagnation behavior it was able to push the box into the wall.
 
-\includegraphics[width=15cm]{1.finalState}
+\includegraphics[width=\linewidth]{1.finalState}
 
 
 \section{Advanced features}
