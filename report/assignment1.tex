@@ -92,7 +92,8 @@ We expected the bots to find the box relatively fast and then push it to the wal
 Unexpected results we encountered was e-puck tipping each other or the food box when clumping together for the task.\\
 \includegraphics[width=\linewidth]{1.mandown.png}
 
-\section{Discovered weaknesses}
+\section{Weaknesses and the resulting modidifications}
+\subsection{Discovered weaknesses}
  %Identify areas of the system that may be improved in the single box scenario. These areas may be in overall architecture of controller or at the individual sub-behaviour task. Provide suggestions (one or more) to address these improvements
 
 The stagnation file provided doesn't differentiate between whether the bot is close to the box or not - this led to the bots trying to find new spot before it even reached the box. We had to check this ourselves by using the distance sensors in the front. 
@@ -102,24 +103,19 @@ In the start we decided to try to find the box by using the camera (because the 
 The bots could also be trapped either inside a swarm of e-pucks or between the box and the wall.
 
 The bots only have these three behaviour so they don't know if the box has reached its location or not. This makes it so the bots runs for ever even though they've accomplished the task.
-\subsection{Possible improvements}
-It would be very helpful if the epucks had a larger sense of self, and knew for example whether it had travelled a certain distance instead of assuming that the commands its given takes it there. This would allow it to make better decisions. During the stagnation process for example the bots uses the search class to determine if it is colliding with someone or something, and thus takes evasive maneuvers. This brings the bot to a place other than where it assumes it, which means that the set of commands it follows that is engineered to perform a certain sequence of moves will take it somewhere else then planned. Had the bot known how to properly handle this information, and understood the importance of location, the outcome could always turn out the same, as the bot would correct itself whenever something unanticipated happend. 
-
-One way of handling this would be to have the robots keep a map of where it has been and thus make it easier to tell if it has deviated from its course. \\
-
-
-Furthermore it 
 
 
 
-
-
-
-\subsection{Results from the changes made based upon our improvements}
+\subsection{Results from the changes made}
 When we implemented the distance checking before changing to stagnation behavior it was able to push the box into the wall. We also implemented a counter for each bot, which counts how many times it believes that the pushing is not working. The first two times it will try to realign itself to it is perpendicular to the box, but if it still believes that it's not able to push the box it will start to find a new spot. This is done by reversing, turn 90$^{\circ}$, drive forward, turn 90$^{\circ}$ the other way, drive forward again, and turn towards the box. \\
 \includegraphics[width=\linewidth]{1.finalState}
 
 We decided to scrap the camera approach for locating the box and use the retrieval.c file provided (translated to python). This "new" approach uses lightsensor to converge to the box, which is more effective because the bot can use more sensors to get a certain idea where the box is located. The camera approach could easily pick up noise from for example the other bots and the floor (because gray color contains red as well).
+
+\subsection{Possible improvements}
+It would be very helpful if the epucks had a larger sense of self, and knew for example whether it had travelled a certain distance instead of assuming that the commands its given takes it there. This would allow it to make better decisions. During the stagnation process for example the bots uses the search class to determine if it is colliding with someone or something, and thus takes evasive maneuvers. This brings the bot to a place other than where it assumes it, which means that the set of commands it follows that is engineered to perform a certain sequence of moves will take it somewhere else then planned. Had the bot known how to properly handle this information, and understood the importance of location, the outcome could always turn out the same, as the bot would correct itself whenever something unanticipated happend. 
+
+One way of handling this would be to have the robots keep a map of where it has been and thus make it easier to tell if it has deviated from its course. \\
 
 
 
