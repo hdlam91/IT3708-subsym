@@ -115,7 +115,7 @@ We decided to scrap the camera approach for locating the box and use the retriev
 \subsection{Possible improvements}
 It would be very helpful if the epucks had a larger sense of self, and knew for example whether it had travelled a certain distance instead of assuming that the commands its given takes it there. This would allow it to make better decisions. During the stagnation process for example the bots uses the search class to determine if it is colliding with someone or something, and thus takes evasive maneuvers. This brings the bot to a place other than where it assumes it, which means that the set of commands it follows that is engineered to perform a certain sequence of moves will take it somewhere else then planned. Had the bot known how to properly handle this information, and understood the importance of location, the outcome could always turn out the same, as the bot would correct itself whenever something unanticipated happend. 
 
-One way of handling this would be to have the robots keep a map of where it has been and thus make it easier to tell if it has deviated from its course. \\
+One way of handling this would be to have the robots keep a map of where it has been and thus make it easier to tell if it has deviated from its course. The way we decided improve this one was to ignore collisions, the bots would just keep on driving in the given pattern even if there were other bots in the way. This increased the probability of it being able to reach the destination it aimed for. However sometimes it's not possible to drive in the given apttern if there's obstacles along the way.\\
 
 
 
