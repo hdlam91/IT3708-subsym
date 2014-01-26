@@ -54,18 +54,21 @@
          % otherwise the current date is printed 
  
 \begin{document}
+\pagenumbering{gobble}
 \maketitle
 %\begin{abstract}
 % 
 %Abstract
 % 
 %\end{abstract}
- 
 \newpage
+
 \tableofcontents
+\pagenumbering{roman}
 \newpage
 
 \section{Implementation of the proposed system}
+\pagenumbering{arabic}
 Modifications and translation of the provided code etc.
 
 \subsection{System}
@@ -80,12 +83,16 @@ The e-pucks only uses the light sensor [0,1,6,7] which are the four sensors in f
 The search behaviour makes the bots search aimlessly around without colliding into each other while the retrieval will make the bot converge to the box if it can find it. After the converging is done the retrieval behaviour intiates a push box behaviour. If the bot is stuck pushing the box for a while without any results it will use stagnation to attempt to realign itself so the pushing becomes more effective. If it have tried to realign two times a "find new spot" command is issued. This makes the bot drive in a sequence of moves to let it find the side of the box to either the left or the right of its current position.
 \includegraphics[width=15cm]{Brooks-lite.png}
 
+We expected the bots to find the box relatively fast and then push it to the wall. This happened in certain 
+Unexpected results we encountered was e-puck tipping each other or the food box when clumping together for the task.\\
+\includegraphics[width=15cm]{1.mandown.png}
 
 \section{Discovered weaknesses}
  %Identify areas of the system that may be improved in the single box scenario. These areas may be in overall architecture of controller or at the individual sub-behaviour task. Provide suggestions (one or more) to address these improvements
 
 The stagnation file provided doesn't differentiate between whether the bot is close to the box or not - this led to the bots trying to find new spot before it even reached the box. We had to check this ourselves by using the distance sensors in the front. 
 The bots doesn't always accomplish the mission either, they tend to get stuck now and then. This usually happens when there's two or three bots on both opposite side of the box. Both "team" think they are pushing the box, and they trust their neighbours. 
+
 \subsection{Possible improvements}
 
 \subsection{Results from the changes made based upon our improvements}
