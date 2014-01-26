@@ -35,7 +35,7 @@ REVERSE_LIMIT  = 20
 TURN_LIMIT = 10
 FORWARD_LIMIT = 40
 NEIGHBOR_LIMIT = 300
-REALIGN_LIMIT = 20
+REALIGN_LIMIT = 2
 #define ALIGN_STRAIGTH_THRESHOLD 10 // If bigger, align straight
 #define LOW_DIST_VALUE 10 // if lower (and detecting IR), the sensor is close.
 
@@ -140,8 +140,8 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 
 	elif(reverse_counter != REVERSE_LIMIT):# // Make space by moving away from the box
 		reverse_counter = reverse_counter +1
-		left_wheel_speed = -400
-		right_wheel_speed = -400
+		left_wheel_speed = -500
+		right_wheel_speed = -500
 	elif(turn_counter != TURN_LIMIT): # // Line up with one of the sides of the box
 		turn_counter = turn_counter +1
 		forward_counter = 0
@@ -154,16 +154,16 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 				turn_left = True
 
 		if(turn_left): # // Turn left
-			left_wheel_speed = -300
+			left_wheel_speed = 0
 			right_wheel_speed = 700
 		else: # // Turn right
 			left_wheel_speed = 700
-			right_wheel_speed = -300
+			right_wheel_speed = 0
 	elif(forward_counter != FORWARD_LIMIT):
 		forward_counter = forward_counter +1
 		if(forward_counter == FORWARD_LIMIT-1):
 			twice = twice +1
-			print twice
+			print "turning" + str(twice)
 			turn_counter = 0
 			if(turn_left and twice < 2):
 				turn_left = False
@@ -173,11 +173,17 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 		# left_wheel_speed = get_search_left_wheel_speed()
 		# right_wheel_speed = get_search_right_wheel_speed()
 		# if((left_wheel_speed > 0) and (right_wheel_speed> 0) ):
-		right_wheel_speed = 200
-		left_wheel_speed = 200
+		if twice == 2:
+			right_wheel_speed = 100
+			left_wheel_speed = 100
+		else:
+			right_wheel_speed = 400
+			left_wheel_speed = 400
 
 
 def reset_stagnation():
+	global align_counter
+	align_counter = 0
 	global has_recovered
 	has_recovered = False
 	global reverse_counter

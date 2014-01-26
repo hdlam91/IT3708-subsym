@@ -47,6 +47,7 @@ def update_speed(IR_number):
 	
 #The movement for converging to the box */
 def converge_to_box(IR_sensor_value, IR_threshold):
+	global LED
 	for i in range(0,NB_LEDS):
 		if(IR_sensor_value[i] < IR_threshold):
 			LED[i] = ON
@@ -58,6 +59,7 @@ def converge_to_box(IR_sensor_value, IR_threshold):
 def push_box(IR_sensor_value, IR_threshold):
 	global left_wheel_speed 
 	global right_wheel_speed
+	global LED
 	# Blink for visual pushing feedback
 	for i in range(0,NB_LEDS):
 		if(LED[i]):
@@ -82,10 +84,7 @@ def select_behavior(IR_sensor_value):
 		if (IR_sensor_value[i] < PUSH_THRESHOLD):
 			push = True
 
-	global left_wheel_speed
-	global right_wheel_speed
-	left_wheel_speed = 0
-	right_wheel_speed = 0
+	reset_retrieval_wheels()
 		
 #/******************************
 # * External functions

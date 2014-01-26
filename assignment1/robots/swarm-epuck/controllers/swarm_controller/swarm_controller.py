@@ -31,7 +31,7 @@ while(True):
 		prev10 = previousDist.get()
 		
 		
-
+	
 	if(not get_stagnation_state()):
 		#retrieve:
 		
@@ -43,26 +43,28 @@ while(True):
 			#search
 			# print "print retr"
 			distance_thresh = 200
+			for i in range(1,8):
+				controller.led[i].set(1)
 			update_search_speed(controller.get_proximities(), distance_thresh)
 			controller.move_wheels(get_search_left_wheel_speed(), get_search_right_wheel_speed(), 0.1)
 		elif(get_retrieval_left_wheel_speed() == 1000 and get_retrieval_right_wheel_speed() == 1000):
-			if prev10:
+			if(prev10 and get_close_to_box(distances, 2000)):
 				valuate_pushing(distances, prev10)
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
-			for i in range(0,8):
-				controller.led[i].set(1)
+			controller.led[0].set(1)
 		#run retrieval mode
 		else:
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
-			for i in range(0,8):
-				controller.led[i].set(get_LED_state(i))
+			# for i in range(0,8):
+			controller.led[0].set(get_LED_state(0))
+			for i in range(1,8):
+				controller.led[i].set(0)
 			
 	else: #stagnation:
-		controller.led[8].set(1)
-		for i in range(0,8):
-			controller.led[i].set(0)
+		controller.led[8].set(get_green_LED_state())
+		controller.led[0].set(0)
 		stagnation_recovery(distances, distance_thresh)
-		controller.move_wheels(get_stagnation_left_wheel_speed(),get_stagnation_right_wheel_speed(), 0.1)
+		controller.move_wheels(get_stagnation_left_wheel_speed()*2,get_stagnation_right_wheel_speed()*2, 0.05)
 		#reset_retrieval_wheels()
 	if(not previousDist.full()):
 		previousDist.put(deepcopy(distances))
