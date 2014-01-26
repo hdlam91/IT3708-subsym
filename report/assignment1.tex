@@ -69,7 +69,6 @@
 
 \section{Implementation of the proposed system}
 \pagenumbering{arabic}
-Modifications and translation of the provided code etc.
 
 \subsection{System}
 The system consist of a webots simulation which uses a world file provided by the course stab. The world file consists of a food-box inside a closed square arena (4 walls) with 7 e-pucks. The box is emitting light to act as a food source, and there is also another global directional light to make the world more visible.
@@ -96,9 +95,9 @@ Unexpected results we encountered was e-puck tipping each other or the food box 
 \subsection{Discovered weaknesses}
  %Identify areas of the system that may be improved in the single box scenario. These areas may be in overall architecture of controller or at the individual sub-behaviour task. Provide suggestions (one or more) to address these improvements
 
-The stagnation file provided doesn't differentiate between whether the bot is close to the box or not - this led to the bots trying to find new spot before it even reached the box. We had to check this ourselves by using the distance sensors in the front. 
+The stagnation file provided doesn't differentiate between whether the bot is close to the box or not - this led to the bots trying to find a new spot before it even reached the box. We had to check this ourselves by using the distance sensors in the front. 
 
-The bots doesn't always accomplish the mission either, they tend to get stuck now and then. This usually happens when there's two or three bots on both opposite side of the box. Both "team" think they are pushing the box, and they trust their neighbours. 
+The bots doesn't always accomplish the mission either, they tend to get stuck now and then. This usually happens when there's two or three bots on both opposite sides of the box. Both "teams" think they are pushing the box, and they trust their neighbours. 
 In the start we decided to try to find the box by using the camera (because the food source is the only object that is red), however there's red colors in the grey floor and on the led of the e-puck bots too. The camera approach didn't work as well as we had hoped it would, so we decided to scrap it.
 The bots could also be trapped either inside a swarm of e-pucks or between the box and the wall.
 
@@ -116,7 +115,7 @@ When we implemented the distance checking before changing to stagnation behavior
 
 We decided to scrap the camera approach for locating the box and use the retrieval.c file provided (translated to python). This "new" approach uses lightsensor to converge to the box, which is more effective because the bot can use more sensors to get a certain idea where the box is located. The camera approach could easily pick up noise from for example the other bots and the floor (because gray color contains red as well).
 
-The way we decided to handle the problem with epuck location was to ignore collisions, so the bots would just keep on driving in the given pattern even if there were other bots in the way. This increased the probability of it being able to reach the destination it aimed for. However sometimes it's not possible to drive in the given pattern if there's obstacles along the way, meaning that the bots sometimes just stand still whilst trying to move to another position.\\
+The way we decided to handle the problem with epuck location was to ignore collisions, so the bots would just keep on driving in the given pattern even if there were other bots in the way. This increased the probability of it being able to reach the destination it aimed for. However sometimes it's not possible to drive in the given pattern if there's obstacles along the way, meaning that the bots sometimes just stand still whilst trying to move to another position.
 
 \section{Advanced features}
 %TODO
@@ -124,6 +123,6 @@ The way we decided to handle the problem with epuck location was to ignore colli
 \subsection{New architecture}
 When the bots have pushed one box for long enough, it should run a different behaviour which repositions the e-puck bots to the other box. For instance we could turn the bot 180$^{\circ}$ and let it run search behaviour again. This could be done after a certain number of iterations or if a box has been pushed for a while. This behaviour will ensure that the bots doesn't stay stuck at one box but run back and forth trying to push both of them.
 \subsection{Modifications}
-
+We were a bit short on time so we have not been able to complete this task.
 
 \end{document}
