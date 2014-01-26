@@ -37,7 +37,7 @@ while(True):
 		
 		controller.led[8].set(0)
 		lights = controller.get_lightValues()
-		swarm_retrieval(lights, light_thresh)
+		# swarm_retrieval(lights, light_thresh)
 
 		if(get_retrieval_left_wheel_speed() == 0 and get_retrieval_right_wheel_speed() == 0):
 			#search
