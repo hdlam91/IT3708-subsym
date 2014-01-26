@@ -169,7 +169,7 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 				turn_left = False
 			elif(not turn_left and twice < 2):
 				turn_left = True
-		update_search_speed(distance_value, DIST_THRESHOLD)
+		#update_search_speed(distance_value, DIST_THRESHOLD)
 		# left_wheel_speed = get_search_left_wheel_speed()
 		# right_wheel_speed = get_search_right_wheel_speed()
 		# if((left_wheel_speed > 0) and (right_wheel_speed> 0) ):
