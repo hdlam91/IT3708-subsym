@@ -122,7 +122,7 @@ The way we decided to handle the problem with epuck location was to ignore colli
 \subsection{New architecture}
 When the bots have pushed one box for long enough, it should run a different behaviour which repositions the e-puck bots to the other box. For instance we could turn the bot 180$^{\circ}$ and let it run search behaviour again. This could be done after a certain number of iterations or if a box has been pushed for a while. This behaviour will ensure that the bots doesn't stay stuck at one box but run back and forth trying to push both of them.
 
-Another approach is to always have the bots find another bot to team up with, meaning at least two bots find one another and go together to try complete the task at hand. We would have to implement the unstuck method above as well, to ensure they don't all end up on the same box, but this approach may speed up the process somewhat. 
+Another approach is to always have the bots find another bot to team up with from the search stage, meaning at least two bots find one another and go together to try complete the task at hand. We would have to implement the unstuck method above as well, to ensure they don't all end up on the same box, but this approach may speed up the process somewhat. 
 \subsection{Modifications}
 We were a bit short on time so we have not been able to complete this task.
 
