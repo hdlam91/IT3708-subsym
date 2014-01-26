@@ -101,12 +101,15 @@ The bots doesn't always accomplish the mission either, they tend to get stuck no
 In the start we decided to try to find the box by using the camera (because the food source is the only object that is red), however there's red colors in the grey floor and on the led of the e-puck bots too. The camera approach didn't work as well as we had hoped it would, so we decided to scrap it.
 The bots could also be trapped either inside a swarm of e-pucks or between the box and the wall.
 
+The bots only have these three behaviour so they don't know if the box has reached its location or not. This makes it so the bots runs for ever even though they've accomplished the task.
 \subsection{Possible improvements}
 
 \subsection{Results from the changes made based upon our improvements}
-When we implemented the distance checking before changing to stagnation behavior it was able to push the box into the wall.
-
+When we implemented the distance checking before changing to stagnation behavior it was able to push the box into the wall. We also implemented a counter for each bot, which counts how many times it believes that the pushing is not working. The first two times it will try to realign itself to it is perpendicular to the box, but if it still believes that it's not able to push the box it will start to find a new spot. This is done by reversing, turn 90$^{\circ}$, drive forward, turn 90$^{\circ}$ the other way, drive forward again, and turn towards the box. \\
 \includegraphics[width=\linewidth]{1.finalState}
+
+We decided to scrap the camera approach for locating the box and use the retrieval.c file provided (translated to python). This "new" approach uses lightsensor to converge to the box, which is more effective because the bot can use more sensors to get a certain idea where the box is located. The camera approach could easily pick up noise from for example the other bots and the floor (because gray color contains red as well).
+
 
 
 \section{Advanced features}
