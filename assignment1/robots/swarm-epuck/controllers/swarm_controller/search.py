@@ -11,29 +11,20 @@
 #  *      Author: jannik
 #  */
 
-#include <stdlib.h>
-#include <time.h>
-
-#define COUNTLIMIT 20
 import random
 COUNTLIMIT = 20
 #/* Case scenarios for for navigation */
 case_script = [[0,0,0,0,1,1],[0,0,0,1,1,0],[0,0,1,0,1,0],[0,0,1,1,1,0],[0,1,0,0,0,1],[0,1,0,1,1,0],[0,1,1,0,0,1],[0,1,1,1,1,0],[1,0,0,0,0,1],[1,0,0,1,1,0],[1,0,1,0,0,1],[1,0,1,1,1,0],[1,1,0,0,0,1],[1,1,0,1,1,0],[1,1,1,0,0,1],[1,1,1,1,0,1]]
 
 #/* Wheel speed variables */
-#static double 
 left_wheel_speed = 0 # // default 0
-#static double
 right_wheel_speed = 0#
 
 #/* Random search speed */
-#static double 
 rand_double_left = 0
-#static double 
 rand_double_right = 0
 
 #/* Counter */
-#static int 
 counter = 0
 
 # /******************************

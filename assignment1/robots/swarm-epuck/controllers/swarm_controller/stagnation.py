@@ -7,21 +7,6 @@
 #  *  Created on: 23. mars 2011
 #  *      Author: jannik
 #  */
-#include "search.h"
-#include <stdlib.h>
-#include <stdio.h>
-
-#define TRUE 1
-#define FALSE 0
-#define NEUTRAL 3
-#define ON 1
-#define OFF 0
-#define IR_DIFF_THRESHOLD 4
-#define DISTANCE_DIFF_THRESHOLD 10
-#define REVERSE_LIMIT 20
-#define TURN_LIMIT 10
-#define FORWARD_LIMIT 40
-#define NEIGHBOR_LIMIT 300
 
 import random
 from search import *
@@ -36,16 +21,12 @@ TURN_LIMIT = 10
 FORWARD_LIMIT = 40
 NEIGHBOR_LIMIT = 300
 REALIGN_LIMIT = 2
-#define ALIGN_STRAIGTH_THRESHOLD 10 // If bigger, align straight
-#define LOW_DIST_VALUE 10 // if lower (and detecting IR), the sensor is close.
 
 ALIGN_STRAIGTH_THRESHOLD = 10
 LOW_DIST_VALUE = 10
 
 #/* Wheel speed variables */
-#static double
 left_wheel_speed = 0
-#static double 
 right_wheel_speed = 0
 
 #/* Boolean variables */
@@ -169,10 +150,6 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 				turn_left = False
 			elif(not turn_left and twice < 2):
 				turn_left = True
-		#update_search_speed(distance_value, DIST_THRESHOLD)
-		# left_wheel_speed = get_search_left_wheel_speed()
-		# right_wheel_speed = get_search_right_wheel_speed()
-		# if((left_wheel_speed > 0) and (right_wheel_speed> 0) ):
 		if twice == 2:
 			right_wheel_speed = 100
 			left_wheel_speed = 100
@@ -221,12 +198,10 @@ def valuate_pushing(dist_value, prev_dist_value):
 	if((abs(dist_diff7)> DISTANCE_DIFF_THRESHOLD) and (abs(dist_diff0)> DISTANCE_DIFF_THRESHOLD)):
 		has_recovered = True #// Keep pushing, it is working # no it's not, but oh well
 		green_LED_state = OFF #// No more recovery
-		# align_counter = 0
 		print "push is working0"
 	elif((dist_value[5] >NEIGHBOR_LIMIT) and (dist_value[2]>NEIGHBOR_LIMIT)):#{ //Has any neighbors
 		has_recovered = True # // Keep pushing, it is working
 		green_LED_state = OFF # // No more recovery
-		# align_counter = 0
 		print "push is working1"
 	elif((dist_value[5] >NEIGHBOR_LIMIT) or (dist_value[2]>NEIGHBOR_LIMIT)): #{ //Has any neighbors
 		#// Roll a dice, do i trust just one team-mate?
@@ -235,10 +210,8 @@ def valuate_pushing(dist_value, prev_dist_value):
 			has_recovered = True #// Keep pushing, it is working
 			print "push is working2"
 			green_LED_state = OFF #// No more recovery
-			# align_counter = 0
 		else:
 			has_recovered = False
-			# print "random < 0.5"
 	else:
 		has_recovered = False
 		print "push is not working"

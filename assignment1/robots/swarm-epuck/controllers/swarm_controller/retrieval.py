@@ -4,16 +4,12 @@ OFF = 0
 PUSH_THRESHOLD = 500
 
 #Wheel speed variables */
-#static double 
 left_wheel_speed = 0
-#static double 
 right_wheel_speed = 0
 
 # LED variables */
 LED =  [0]*8
 
-# iterator */
-#i = 0 not needed
 
 # Boolean variables */
 converge = False # Moving towards the box

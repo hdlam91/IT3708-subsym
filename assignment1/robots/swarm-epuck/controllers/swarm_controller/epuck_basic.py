@@ -349,7 +349,6 @@ class EpuckBasic (DifferentialWheels):
       result = True
       print# "Enter robot commands.  Type 'help for the command list and 'quit to stop"
       while result:
-	  # print# "Command: "
 	  command = raw_input()
 	  result = self.interp_command(command)
 
