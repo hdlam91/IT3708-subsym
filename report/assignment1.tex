@@ -84,7 +84,7 @@ The e-pucks only uses the light sensor [0,1,6,7] which are the four sensors in f
 The search behaviour makes the bots search aimlessly around without colliding into each other while the retrieval will make the bot converge to the box if it can find it. After the converging is done the retrieval behaviour intiates a push box behaviour. If the bot is stuck pushing the box for a while without any results it will use stagnation to attempt to realign itself so the pushing becomes more effective. If it have tried to realign two times a "find new spot" command is issued. This makes the bot drive in a sequence of moves to let it find the side of the box to either the left or the right of its current position.
 \includegraphics[width=\linewidth]{Brooks-lite.png}
 
-We expected the bots to find the box relatively fast and then push it to the wall. This happened in certain 
+We expected the bots to find the box relatively fast and then push it to the wall. This happened in certain runs, but some of them took longer than other depending on when and how the bots converged to the box. Sometimes they pushed the box in a circular motion before they were able to push it to the wall.
 Unexpected results we encountered was e-puck tipping each other or the food box when clumping together for the task.\\
 \includegraphics[width=\linewidth]{1.mandown.png}
 
@@ -93,6 +93,7 @@ Unexpected results we encountered was e-puck tipping each other or the food box 
 
 The stagnation file provided doesn't differentiate between whether the bot is close to the box or not - this led to the bots trying to find new spot before it even reached the box. We had to check this ourselves by using the distance sensors in the front. 
 The bots doesn't always accomplish the mission either, they tend to get stuck now and then. This usually happens when there's two or three bots on both opposite side of the box. Both "team" think they are pushing the box, and they trust their neighbours. 
+In the start we decided to try to find the box by using the camera (because the food source is the only object that is red), however there's red colors in the grey floor and on the led of the e-puck bots too. The camera approach didn't work as well as we had hoped it would, so we decided to scrap it.
 
 \subsection{Possible improvements}
 

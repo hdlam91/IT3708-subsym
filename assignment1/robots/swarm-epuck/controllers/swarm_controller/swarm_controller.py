@@ -49,7 +49,7 @@ while(True):
 			controller.move_wheels(get_search_left_wheel_speed(), get_search_right_wheel_speed(), 0.1)
 		elif(get_retrieval_left_wheel_speed() == 1000 and get_retrieval_right_wheel_speed() == 1000):
 			if(prev10 and get_close_to_box(distances, 2000)):
-				valuate_pushing(distances, prev10)
+				valuate_pushing(distances, prev1)
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
 			controller.led[0].set(1)
 		#run retrieval mode
