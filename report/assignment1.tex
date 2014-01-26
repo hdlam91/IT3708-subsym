@@ -85,7 +85,7 @@ The bots uses the distance sensor in the search behavior where they walk aimless
 The e-pucks only uses the light sensor [0,1,6,7] which are the four sensors in front of it. We are using the different behaviours for this assignment, search, retrieval and stagnation as provided in the .c files, but that we translated into python code. 
 The search behaviour makes the bot search aimlessly around without colliding into the other bots, while retrieval will make the bot converge to the box if it can find it. After the converging is done the retrieval behaviour intiates a push box behaviour. If the bot is stuck pushing the box for a while without any results it will use stagnation to attempt to realign itself so the pushing becomes more effective. If it has tried to realign two times a "find new spot" command is issued. This makes the bot drive in a sequence of moves to let it find the side of the box to either the left or the right of its current position.
 \includegraphics[width=\linewidth]{Brooks-lite.png}
-
+As you can see in the picture, we use three different behaviors.
 
 We expected the bots to find the box relatively fast and then push it to the wall. This happened in certain runs, but some of them took longer than other depending on when and how the bots converged to the box. Sometimes they pushed the box in a circular motion before they were able to push it to the wall.
 Unexpected results we encountered was e-puck tipping each other or the food box when clumping together for the task.\\
