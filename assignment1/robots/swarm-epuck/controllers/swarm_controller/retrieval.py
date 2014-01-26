@@ -82,6 +82,10 @@ def select_behavior(IR_sensor_value):
 		if (IR_sensor_value[i] < PUSH_THRESHOLD):
 			push = True
 
+	global left_wheel_speed
+	global right_wheel_speed
+	left_wheel_speed = 0
+	right_wheel_speed = 0
 		
 #/******************************
 # * External functions

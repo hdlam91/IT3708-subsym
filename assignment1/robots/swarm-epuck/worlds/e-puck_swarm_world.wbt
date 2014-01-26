@@ -166,7 +166,7 @@ DEF FOOD Solid {
   rotation -0.794445 0.10399 -0.598367 -3.87352e-17
   children [
     PointLight {
-      attenuation 0 0 10
+      attenuation 0 0 6
       color 1 0 0
       intensity 0.275
       location 0 -0.075 0

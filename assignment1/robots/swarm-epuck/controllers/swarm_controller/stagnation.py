@@ -170,11 +170,11 @@ def find_new_spot(distance_value, DIST_THRESHOLD):
 			elif(not turn_left and twice < 2):
 				turn_left = True
 		update_search_speed(distance_value, DIST_THRESHOLD)
-		left_wheel_speed = get_search_left_wheel_speed()
-		right_wheel_speed = get_search_right_wheel_speed()
-		if((left_wheel_speed > 0) and (right_wheel_speed> 0) ):
-			right_wheel_speed = 200
-			left_wheel_speed = 200
+		# left_wheel_speed = get_search_left_wheel_speed()
+		# right_wheel_speed = get_search_right_wheel_speed()
+		# if((left_wheel_speed > 0) and (right_wheel_speed> 0) ):
+		right_wheel_speed = 200
+		left_wheel_speed = 200
 
 
 def reset_stagnation():
@@ -215,12 +215,12 @@ def valuate_pushing(dist_value, prev_dist_value):
 	if((abs(dist_diff7)> DISTANCE_DIFF_THRESHOLD) and (abs(dist_diff0)> DISTANCE_DIFF_THRESHOLD)):
 		has_recovered = True #// Keep pushing, it is working # no it's not, but oh well
 		green_LED_state = OFF #// No more recovery
-		#align_counter = 0
+		# align_counter = 0
 		print "push is working0"
 	elif((dist_value[5] >NEIGHBOR_LIMIT) and (dist_value[2]>NEIGHBOR_LIMIT)):#{ //Has any neighbors
 		has_recovered = True # // Keep pushing, it is working
 		green_LED_state = OFF # // No more recovery
-		#align_counter = 0
+		# align_counter = 0
 		print "push is working1"
 	elif((dist_value[5] >NEIGHBOR_LIMIT) or (dist_value[2]>NEIGHBOR_LIMIT)): #{ //Has any neighbors
 		#// Roll a dice, do i trust just one team-mate?
@@ -229,10 +229,10 @@ def valuate_pushing(dist_value, prev_dist_value):
 			has_recovered = True #// Keep pushing, it is working
 			print "push is working2"
 			green_LED_state = OFF #// No more recovery
-			#align_counter = 0
-		# else:
-		# 	has_recovered = False
-		# 	print "random < 0.5"
+			# align_counter = 0
+		else:
+			has_recovered = False
+			# print "random < 0.5"
 	else:
 		has_recovered = False
 		print "push is not working"
@@ -261,3 +261,8 @@ def get_stagnation_right_wheel_speed():
 
 	return right_wheel_speed
 
+def get_close_to_box(dist,dist_threshold):
+	if (dist[0] > dist_threshold and dist[7] >dist_threshold):
+		return True
+	else:
+		return False

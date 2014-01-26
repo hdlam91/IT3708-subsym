@@ -32,12 +32,12 @@ while(True):
 		
 		
 
-	if(True):
+	if(not get_stagnation_state()):
 		#retrieve:
 		
 		controller.led[8].set(0)
 		lights = controller.get_lightValues()
-		# swarm_retrieval(lights, light_thresh)
+		swarm_retrieval(lights, light_thresh)
 
 		if(get_retrieval_left_wheel_speed() == 0 and get_retrieval_right_wheel_speed() == 0):
 			#search
@@ -45,11 +45,12 @@ while(True):
 			distance_thresh = 200
 			update_search_speed(controller.get_proximities(), distance_thresh)
 			controller.move_wheels(get_search_left_wheel_speed(), get_search_right_wheel_speed(), 0.1)
-		#elif(get_retrieval_left_wheel_speed() == 1000 and get_retrieval_right_wheel_speed() == 1000):
-		#	valuate_pushing(distances, prev1)
-		#	controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
-		#	for i in range(0,8):
-		#		controller.led[i].set(1)
+		elif(get_retrieval_left_wheel_speed() == 1000 and get_retrieval_right_wheel_speed() == 1000):
+			if prev10:
+				valuate_pushing(distances, prev10)
+			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
+			for i in range(0,8):
+				controller.led[i].set(1)
 		#run retrieval mode
 		else:
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
