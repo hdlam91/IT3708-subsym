@@ -117,13 +117,18 @@ We decided to scrap the camera approach for locating the box and use the retriev
 The way we decided to handle the problem with epuck location was to ignore collisions, so the bots would just keep on driving in the given pattern even if there were other bots in the way. This increased the probability of it being able to reach the destination it aimed for. However sometimes it's not possible to drive in the given pattern if there's obstacles along the way, meaning that the bots sometimes just stand still whilst trying to move to another position.
 
 \section{Advanced features}
-%TODO
 
 \subsection{New architecture}
 When the bots have pushed one box for long enough, it should run a different behaviour which repositions the e-puck bots to the other box. For instance we could turn the bot 180$^{\circ}$ and let it run search behaviour again. This could be done after a certain number of iterations or if a box has been pushed for a while. This behaviour will ensure that the bots doesn't stay stuck at one box but run back and forth trying to push both of them.
 
 Another approach is to always have the bots find another bot to team up with from the search stage, meaning at least two bots find one another and go together to try complete the task at hand. We would have to implement the unstuck method above as well, to ensure they don't all end up on the same box, but this approach may speed up the process somewhat. 
-\subsection{Modifications}
-We were a bit short on time so we have not been able to complete this task.
 
+\includegraphics[width=\linewidth]{Brooks-lite-extended.png}
+
+\subsection{Modifications}
+What we decided to do was to count the number of iterations the bots were in the retrieval state. When it has been in retrieval state for a certain number of iterations the bot will start to move backwards and then spin for a about 90 degrees. This added randomness will hopefully make the bots able to locate the other box after it has pushed the first box for a while.
+We call this new behaviour for "relocate", which is added on top of the stagnation.
+
+The bots were able to find the boxes and push them into the wall:\\
+\includegraphics[width=\linewidth]{1.finalStateMulti.png}
 \end{document}

@@ -1,3 +1,12 @@
+# /*
+#  * retrieval.c - Follow and push behavior.
+#  *
+#  *	Made to make the e-puck converge and push the box.
+#  *  Created on: 17. mars 2011
+#  *      Author: jannik
+#  */
+#translated to python
+
 NB_LEDS = 8
 ON = 1
 OFF = 0
@@ -89,13 +98,12 @@ def select_behavior(IR_sensor_value):
 #Converge, push, and stagnation recovery */
 def swarm_retrieval(IR_sensor_value, IR_threshold):
 	select_behavior(IR_sensor_value)
-	# print push
 	if(push):
 		push_box(IR_sensor_value, IR_threshold)
 	else: #converge
 		converge_to_box(IR_sensor_value, IR_threshold)
 
-#improv
+#new added to reset retrieval.
 def reset_retrieval_wheels():
 	global left_wheel_speed
 	left_wheel_speed = 0

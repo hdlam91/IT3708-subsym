@@ -137,6 +137,8 @@ class EpuckBasic (DifferentialWheels):
 # version permits turning, since both wheel speeds can be specified independently.
 
   def move_wheels(self, left = 0.0, right = 0.0, duration = 1.0):
+      #these two lines ensures correct speed on the wheels
+      #because the framework wants numbers from -1 to 1.
       left = left/1000.0
       right = right/1000.0
       ls = max(-1.0, min(1.0, left)) 
