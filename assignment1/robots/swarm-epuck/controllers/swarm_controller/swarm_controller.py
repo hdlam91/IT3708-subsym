@@ -22,7 +22,7 @@ previousDist = Queue.Queue(10)
 relocateCounter = 0
 backCount = 0
 spincCount  = 0
-SPINCAP = 5
+SPINCAP = 10
 BACKWARDCAP = 20 
 prev10 = None
 twoBox = True #used for debugging, and maybe demo
@@ -36,13 +36,13 @@ while(True):
 		prev10 = previousDist.get()
 		
 	#relocate
-	if(relocateCounter >= 20 and twoBox):
+	if(relocateCounter >= 1000 and twoBox):
 		#move backwards
 		if(backCount <= BACKWARDCAP ):
 			controller.move_wheels(-1000,-1000, 0.1)
 			backCount += 1
 		elif(spincCount <= SPINCAP):
-			controller.move_wheels(-1000, 1000, 0.1)
+			controller.move_wheels(0, 700, 0.1)
 			spincCount+=1
 
 		else:
@@ -75,7 +75,7 @@ while(True):
 		else: #retrieval
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
 			controller.led[0].set(get_LED_state(0))
-			relocateCounter += 1
+			# relocateCounter += 1
 			print "relocate iteration:" + str(relocateCounter)
 			for i in range(1,8):
 				controller.led[i].set(0)
