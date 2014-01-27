@@ -50,7 +50,7 @@ while(True):
 			#start search
 			spincCount = 0
 			backCount = 0
-			counter = 0
+			relocateCounter = 0
 			controller.move_wheels(1,1,0.1)
 			reset_retrieval_wheels()
 	elif(not get_stagnation_state()):
@@ -75,7 +75,7 @@ while(True):
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
 			controller.led[0].set(get_LED_state(0))
 			relocateCounter += 1
-			print "relocate iteration:" + str(counter)
+			print "relocate iteration:" + str(relocateCounter)
 			for i in range(1,8):
 				controller.led[i].set(0)
 			
