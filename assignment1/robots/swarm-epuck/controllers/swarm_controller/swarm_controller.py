@@ -23,7 +23,7 @@ relocateCounter = 0
 backCount = 0
 spincCount  = 0
 SPINCAP = 10
-BACKWARDCAP = 20 
+BACKWARDCAP = 30 
 prev10 = None
 twoBox = True #used for debugging, and maybe demo
 while(True):
