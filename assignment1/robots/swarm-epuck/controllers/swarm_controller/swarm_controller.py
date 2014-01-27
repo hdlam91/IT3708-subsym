@@ -41,11 +41,12 @@ while(True):
 			first += 1
 		elif(second <= SECOND):
 			controller.move_wheels(-1000, 1000, 0.1)
+			second += 1
 		else:
 			second = 0
 			first = 0
 			counter = 0
-			move_wheels(1,1,0.1)
+			controller.move_wheels(1,1,0.1)
 			reset_retrieval_wheels()
 	elif(not get_stagnation_state()):
 		#retrieve:
