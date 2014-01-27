@@ -124,6 +124,8 @@ When the bots have pushed one box for long enough, it should run a different beh
 
 Another approach is to always have the bots find another bot to team up with from the search stage, meaning at least two bots find one another and go together to try complete the task at hand. We would have to implement the unstuck method above as well, to ensure they don't all end up on the same box, but this approach may speed up the process somewhat. 
 
+\includegraphics[width=\linewidth]{Brooks-lite-extended.png}
+
 \subsection{Modifications}
 What we decided to do was to count the number of iterations the bots were in the retrieval state. When it has been in retrieval state for 50 iterations the bot will start to move backwards and then spin for a certain amount of time. This added randomness will hopefully make the bots able to locate the other box after it has pushed the first box for a while.
 We call this new behaviour for "relocate", which is added on top of the stagnation.
