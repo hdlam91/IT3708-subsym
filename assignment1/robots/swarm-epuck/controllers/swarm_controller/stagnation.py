@@ -7,6 +7,7 @@
 #  *  Created on: 23. mars 2011
 #  *      Author: jannik
 #  */
+#translated to python
 
 import random
 from search import *
@@ -102,6 +103,11 @@ def realign(distance_value):
 # *******************************/
 
 def find_new_spot(distance_value, DIST_THRESHOLD):
+	#This method is modified so the bots goes:
+	# // Reverse, Turn, Forward, Turn(opposite) of first, Forward
+	#Turn same as second, Forward again.
+	#This ensures that it will find a side perpendicular to the one
+	#it started with
 	global has_recovered
 	global align_counter
 	global reverse_counter
@@ -189,6 +195,8 @@ def stagnation_recovery(distance_sensors_value,  DIST_THRESHOLD):
 def valuate_pushing(dist_value, prev_dist_value):
 	#// Only assess this situation once
 	#// The front IR sensors pushing against the box
+
+	#This is modified so it sets has_recovered to false for a certain case.
 	global has_recovered
 	global green_LED_state
 	global align_counter
@@ -240,6 +248,8 @@ def get_stagnation_right_wheel_speed():
 
 	return right_wheel_speed
 
+
+#New added method, returns true/false depending on if the bot is close to an object.
 def get_close_to_box(dist,dist_threshold):
 	if (dist[0] > dist_threshold and dist[7] >dist_threshold):
 		return True
