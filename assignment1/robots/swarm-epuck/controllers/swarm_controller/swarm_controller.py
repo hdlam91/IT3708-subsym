@@ -71,6 +71,7 @@ while(True):
 				valuate_pushing(distances, prev10)
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
 			controller.led[0].set(1)
+			relocateCounter += 1
 		else: #retrieval
 			controller.move_wheels(get_retrieval_left_wheel_speed(), get_retrieval_right_wheel_speed(), 0.1)
 			controller.led[0].set(get_LED_state(0))
