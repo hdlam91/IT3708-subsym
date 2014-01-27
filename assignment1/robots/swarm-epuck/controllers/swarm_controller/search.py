@@ -10,6 +10,7 @@
 #  *  Created on: 17. mars 2011
 #  *      Author: jannik
 #  */
+#translated to python
 
 import random
 COUNTLIMIT = 20
