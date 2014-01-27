@@ -19,10 +19,10 @@ controller.basic_setup()
 previousDist = Queue.Queue(10)
 prev1 = 0
 counter = 0
-first = 0
-second  = 0
-SECOND = 5
-FIRST = 20 
+backCount = 0
+spincCount  = 0
+SPINCAP = 5
+BACKWARDCAP = 20 
 prev10 = None
 twoBox = True
 while(True):
@@ -34,18 +34,18 @@ while(True):
 	if(previousDist.full()):
 		prev10 = previousDist.get()
 		
-	if(counter >= 50 and twoBox):
-		print "1000 iter"
-		if(first <= FIRST ):
+	if(counter >= 20 and twoBox):
+		if(backCount <= BACKWARDCAP ):
 			controller.move_wheels(-1000,-1000, 0.1)
-			first += 1
-		elif(second <= SECOND):
+			backCount += 1
+		elif(spincCount <= SPINCAP):
 			controller.move_wheels(-1000, 1000, 0.1)
+			spincCount+=1
 		else:
-			second = 0
-			first = 0
+			spincCount = 0
+			backCount = 0
 			counter = 0
-			move_wheels(1,1,0.1)
+			controller.move_wheels(1,1,0.1)
 			reset_retrieval_wheels()
 	elif(not get_stagnation_state()):
 		#retrieve:
