@@ -1,0 +1,12 @@
+// size
+3,3
+// start Pos
+0,0
+// poison
+2
+// food
+2
+// board
+301
+202
+100

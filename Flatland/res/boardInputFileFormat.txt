@@ -1,0 +1,13 @@
+// row length, column length
+x,y
+// start position
+i,j
+// Number of poison nodes
+N
+// Number of Food nodes
+M
+//Board
+0 = nothing
+1 = poison
+2 = food 
+3 = robot
