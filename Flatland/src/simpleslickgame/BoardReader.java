@@ -18,6 +18,8 @@ public class BoardReader {
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
 			buildFromFile();
+			if(board[startY][startX]!=3)
+				System.err.println("The board doesnt match the given robot position");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("something wrong with reading the file");
@@ -91,6 +93,14 @@ public class BoardReader {
 	
 	public int getStartY(){
 		return startY;
+	}
+	
+	public int getSizeX(){
+		return sizeX;
+	}
+	
+	public int getSizeY(){
+		return sizeY;
 	}
 	
 	
