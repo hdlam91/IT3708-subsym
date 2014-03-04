@@ -1,7 +1,12 @@
 package simpleslickgame;
+import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//graphing
+import javax.swing.JFrame;
+
+import org.math.plot.Plot2DPanel;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -48,6 +53,8 @@ public class SimpleSlickGame extends BasicGame
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
+		gc.sleep(1000);
+		gc.setForceExit(true);
 		counter++;
 		robot.update();
 		robotImage.setRotation(robot.getDirection());
@@ -99,10 +106,39 @@ public class SimpleSlickGame extends BasicGame
 			appgc = new AppGameContainer(new SimpleSlickGame("Flatland"));
 			appgc.setDisplayMode(w, h, false);
 			appgc.start();
+			
+			System.out.println("hello");
 		}
 		catch (SlickException ex)
 		{
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		
+		int numberOfIterations = 50;
+		double[] x = new double[numberOfIterations];
+		double[] bestFitness = new double[numberOfIterations];
+		
+		for (int i = 0; i < numberOfIterations; i++) {
+			x[i] = i;
+			bestFitness[i] = Math.random()*50;
+		}
+		
+		Plot2DPanel plot = new Plot2DPanel();
+		
+		// add a line plot to the PlotPanel
+		plot.addLinePlot("Best fitness", x, bestFitness);
+		
+		// put the PlotPanel in a JFrame, as a JPanel
+		JFrame frame = new JFrame("EA plot");
+		frame.setContentPane(plot);
+		frame.setVisible(true);
+		
+		frame.setLocation(100,100);
+		Dimension minSize = new Dimension(1200,800);
+		frame.setMinimumSize(minSize);
+		
+		
+		
+		
 	}
 }

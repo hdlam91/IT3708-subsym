@@ -20,7 +20,6 @@ public class Robot {
 		//TODO update position
 		//update direction
 		direction = Directions.values()[(int)(Math.random()*4)];
-		System.out.println(direction);
 	}
 	
 	public int getPosX(){
