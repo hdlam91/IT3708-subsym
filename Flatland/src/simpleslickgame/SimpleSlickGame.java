@@ -12,7 +12,10 @@ import org.newdawn.slick.SlickException;
 public class SimpleSlickGame extends BasicGame
 {
 	int counter;
-	Image myImage;
+	Image foodImage, robotImage, poisonImage;
+	int height;
+	int width;
+	int squareSize;
 	public SimpleSlickGame(String gamename)
 	{
 		super(gamename);
@@ -21,30 +24,46 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		counter = 0;
-		myImage = new Image("res/myimage.png");
-		myImage.setCenterOfRotation(myImage.getWidth()/2, myImage.getHeight()/2);
+		
+		//initiliaze images:
+		foodImage = new Image("res/food.png");
+		robotImage = new Image("res/robot.png");
+		poisonImage = new Image("res/poison.png");
+		
+		robotImage.setCenterOfRotation(robotImage.getWidth()/2, robotImage.getHeight()/2);
+		height = gc.getHeight();
+		width = gc.getWidth();
+		squareSize = 64;
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		myImage.rotate(1);
 		counter++;
+		robotImage.setRotation(counter);
 	}
-
+	
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-		myImage.drawCentered(320,240);
-		g.drawString("Howdy!" + counter, 100, 100);
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				//places the field in the middle somehwere
+				g.drawRect(i*squareSize+(width/2-squareSize*4),j*squareSize+(height/2-squareSize*4),squareSize,squareSize);
+			}
+			
+		}
+		robotImage.draw(5*squareSize+(width/2-squareSize*4),5*squareSize+(height/2-squareSize*4));
+		//g.drawString("Howdy!" + counter, 100, 100);
 	}
 
 	public static void main(String[] args)
 	{
+		int w=1280,h=720;
 		try
 		{
 			AppGameContainer appgc;
-			appgc = new AppGameContainer(new SimpleSlickGame("Simple Slick Game"));
-			appgc.setDisplayMode(640, 480, false);
+			appgc = new AppGameContainer(new SimpleSlickGame("Flatland"));
+			appgc.setDisplayMode(w, h, false);
 			appgc.start();
 		}
 		catch (SlickException ex)
