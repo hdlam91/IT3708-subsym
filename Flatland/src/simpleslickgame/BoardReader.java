@@ -37,8 +37,8 @@ public class BoardReader {
 		
 		line = reader.readLine();
 		content = line.split(",");
-		sizeX = Integer.parseInt(content[0]);
-		sizeY = Integer.parseInt(content[1]);
+		sizeY = Integer.parseInt(content[0]);
+		sizeX = Integer.parseInt(content[1]);
 		
 		board = new int[sizeX][sizeY];
 		
@@ -47,8 +47,8 @@ public class BoardReader {
 		line = reader.readLine();
 		content = line.split(",");
 		
-		startX = Integer.parseInt(content[0]);
-		startY = Integer.parseInt(content[1]);
+		startY = Integer.parseInt(content[0]);
+		startX = Integer.parseInt(content[1]);
 		
 		reader.readLine(); //
 		
@@ -64,9 +64,9 @@ public class BoardReader {
 		
 		reader.readLine(); //
 		
-		for (int i = 0; i < sizeX; i++) {
+		for (int i = 0; i < sizeY; i++) {
 			line = reader.readLine();
-			for (int j = 0; j < sizeY; j++) {
+			for (int j = 0; j < sizeX; j++) {
 				board[i][j] = Character.getNumericValue(line.charAt(j));
 			}
 		}
@@ -95,7 +95,7 @@ public class BoardReader {
 	
 	
 	public static void main(String[] args) {
-		BoardReader br = new BoardReader("res/test.txt");
+		BoardReader br = new BoardReader("res/test2.txt");
 		int[][] b = br.getBoard();
 		System.out.println("X: " +br.getStartX() + ", Y: " + br.startY);
 		System.out.println("p: "+ br.getNumberOfPoison() + ", f:" + br.getNumberOfFood());

@@ -1,7 +1,7 @@
 // row length, column length
-x,y
+y,x
 // start position
-i,j
+j,i
 // Number of poison nodes
 N
 // Number of Food nodes
