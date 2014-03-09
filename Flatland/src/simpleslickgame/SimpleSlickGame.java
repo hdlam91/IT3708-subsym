@@ -40,7 +40,7 @@ public class SimpleSlickGame extends BasicGame
 		robotImage.setCenterOfRotation(robotImage.getWidth()/2, robotImage.getHeight()/2);
 		
 		//sets up board and robot
-		br = new BoardReader("res/test2.txt");
+		br = new BoardReader("res/test.txt");
 		robot = new Robot(br.getStartX(), br.getStartY());
 		
 		//parameters used
