@@ -14,7 +14,6 @@ import org.newdawn.slick.SlickException;
 
 public class SimpleSlickGame extends BasicGame
 {
-	int counter;
 	Image foodImage, robotImage, poisonImage;
 	int height, width, squareSize;
 	Robot robot;
@@ -28,7 +27,6 @@ public class SimpleSlickGame extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		counter = 0;
 		
 		
 		
@@ -51,9 +49,8 @@ public class SimpleSlickGame extends BasicGame
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		gc.sleep(1000);
+		gc.sleep(200);
 		gc.setForceExit(true);
-		counter++;
 		robot.update();
 		robotImage.setRotation(robot.getDirection());
 	}
@@ -83,7 +80,7 @@ public class SimpleSlickGame extends BasicGame
 		}
 		robotImage.draw(boardPosX(robot.getPosX()),boardPosY(robot.getPosY()),squareSize,squareSize);
 		
-		g.drawString("Number of steps:" + counter + "/" + 56, boardPosX(0)-50,boardPosY(0)-50);
+		g.drawString("Number of steps:" + robot.getTimeStep() + "/" + 50, boardPosX(0)-50,boardPosY(0)-50);
 	}
 	
 	
