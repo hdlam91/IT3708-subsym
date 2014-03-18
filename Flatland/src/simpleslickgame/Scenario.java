@@ -69,7 +69,11 @@ public class Scenario {
 		return board;
 	}
 	
-	public void removeObjectAt(int y, int x){
+	public int getObjectAt(int x, int y){
+		return board[y][x];
+	}
+	
+	public void removeObjectAt(int x, int y){
 		if(board[y][x] == 2)
 			remainingFood --;
 		else if(board[y][x] == 1)
