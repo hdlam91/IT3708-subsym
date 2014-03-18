@@ -4,12 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //graphing
-
-
-
-
-
-import javax.print.DocFlavor.INPUT_STREAM;
 import javax.swing.JFrame;
 
 import org.math.plot.Plot2DPanel;
