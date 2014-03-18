@@ -15,10 +15,7 @@ import org.newdawn.slick.SlickException;
 public class SimpleSlickGame extends BasicGame
 {
 	int counter;
-	Image foodImage, robotImage, poisonImage;
-	int height, width, squareSize;
-	Robot robot;
-	BoardReader br;
+	
 	
 	
 	public SimpleSlickGame(String gamename)
@@ -32,21 +29,6 @@ public class SimpleSlickGame extends BasicGame
 		
 		
 		
-		//initiliaze images:
-		foodImage = new Image("res/food.png");
-		robotImage = new Image("res/robot.png");
-		poisonImage = new Image("res/poison.png");
-		
-		robotImage.setCenterOfRotation(robotImage.getWidth()/2, robotImage.getHeight()/2);
-		
-		//sets up board and robot
-		br = new BoardReader("res/test.txt");
-		robot = new Robot(br.getStartX(), br.getStartY(), br.getSizeX(), br.getSizeY());
-		
-		//parameters used
-		height = gc.getHeight();
-		width = gc.getWidth();
-		squareSize = 128;
 	}
 
 	@Override
@@ -54,45 +36,23 @@ public class SimpleSlickGame extends BasicGame
 		gc.sleep(1000);
 		gc.setForceExit(true);
 		counter++;
-		robot.update();
-		robotImage.setRotation(robot.getDirection());
 	}
 	
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		
-		for (int i = 0; i < br.getSizeY(); i++) {
-			for (int j = 0; j < br.getSizeX(); j++) {
-				//places the field in the middle somehwere
-				g.drawRect(boardPosX(j),boardPosY(i),squareSize,squareSize);
-				/*0 = nothing
-				1 = poison
-				2 = food 
-				3 = robot
-				*/
-				if(br.getBoard()[i][j]==1){
-					poisonImage.draw(boardPosX(j),boardPosY(i),squareSize,squareSize);
-				}
-				else if(br.getBoard()[i][j]==2){
-					foodImage.draw(boardPosX(j),boardPosY(i),squareSize,squareSize);					
-				}
-				
-			}
-			
-		}
-		robotImage.draw(boardPosX(robot.getPosX()),boardPosY(robot.getPosY()),squareSize,squareSize);
 		
-		g.drawString("Number of steps:" + counter + "/" + 56, boardPosX(0)-50,boardPosY(0)-50);
+		//g.drawString("Howdy!" + counter, 100, 100);
 	}
 	
 	
-	private int boardPosY(int y){
-		return y*squareSize+(height/2-squareSize*br.getSizeY()/2);
-	}
-	private int boardPosX(int x){
-		return x*squareSize+(width/2-squareSize*br.getSizeX()/2);
-	}
+//	private int boardPosY(int y){
+//		return y*squareSize+(height/2-squareSize*br.getSizeY()/2);
+//	}
+//	private int boardPosX(int x){
+//		return x*squareSize+(width/2-squareSize*br.getSizeX()/2);
+//	}
 	
 	
 	public static void main(String[] args)
@@ -105,6 +65,7 @@ public class SimpleSlickGame extends BasicGame
 			appgc.setDisplayMode(w, h, false);
 			appgc.start();
 			
+			System.out.println("hello");
 		}
 		catch (SlickException ex)
 		{
