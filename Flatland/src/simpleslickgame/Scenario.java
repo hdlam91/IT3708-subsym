@@ -47,6 +47,24 @@ public class Scenario {
 		this.remainingPoison = numberOfPoison;
 	}
 	
+	public Scenario(Scenario scenario){
+		this.board = new int[scenario.sizeY][scenario.sizeX];
+		this.numberOfFood = scenario.numberOfFood;
+		this.numberOfPoison = scenario.numberOfPoison;
+		this.remainingFood = scenario.remainingFood;
+		this.remainingPoison = scenario.remainingPoison;
+		this.sizeY = scenario.sizeY;
+		this.sizeX = scenario.sizeX;
+		this.startY = scenario.startY;
+		this.startX = scenario.startX;
+		
+		for (int i = 0; i < sizeY; i++) {
+			for (int j = 0; j < sizeX; j++) {
+				board[i][j] = scenario.board[i][j];
+			}
+		}
+	}
+	
 	public int[][] getBoard(){
 		return board;
 	}
@@ -113,7 +131,9 @@ public class Scenario {
 	public static void main(String[] args) {
 		Scenario sc = new Scenario(0.5,0.5,8,8,false);
 		System.out.println(sc);
-		sc.removeObjectAt(1, 1);
+		Scenario sc2 = new Scenario(sc);
+		sc2.removeObjectAt(1, 1);
 		System.out.println(sc);
+		System.out.println(sc2);
 	}
 }
