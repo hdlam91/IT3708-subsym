@@ -2,23 +2,48 @@ package simpleslickgame;
 
 public class ANN {
 	
-	private Node foodInput1, foodInput2, foodInput3;
-	private Node poisonInput1, poisonInput2, poisonInput3;
+	private Node foodInputLeft, foodInputFront, foodInputRight;
+	private Node poisonInputLeft, poisonInputFront, poisonInputRight;
+	private Node leftOutput, frontOutput, rightOutput;
 	
 	public ANN() {
-	}
-	
-	
-	
-	
-	public void input(int f1, int f2, int f3,int p1, int p2, int p3){
-		//DO something
+		foodInputLeft = new Node();
+		foodInputFront = new Node();
+		foodInputRight = new Node();
+		poisonInputLeft = new Node();
+		poisonInputFront = new Node();
+		poisonInputRight = new Node();
+		
+		leftOutput = new Node();
+		frontOutput = new Node();
+		rightOutput = new Node();
+		
 		
 	}
+	
+	
+	
+	
+	public void input(boolean fleft, boolean ffront, boolean fright,boolean pleft, boolean pfront, boolean pright){
+		//DO something
+		
+		
+	}
+	
+	
+	public int getLeftMotor(){
+		return leftOutput.output();
+	}
+	public int getFrontMotor(){
+		return frontOutput.output();
+	}
+	public int getRightMotor(){
+		return rightOutput.output();
+	}
+	
 	
 	public int output(){
 		return 0;
-		
 	}
 	
 	

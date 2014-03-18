@@ -18,6 +18,7 @@ public class Robot {
 		direction = 0;
 		timeStep = 0;
 		this.scene = scene;	
+		ann = new ANN();
 	}
 	
 	private int safePosx(int pos){
@@ -92,14 +93,15 @@ public class Robot {
 		// or update direction
 		
 		getSensorInput();
-		System.out.println("posions:" + poiLeft + poiForward + poiRight);
-		System.out.println("food:" + foodLeft + foodForward + foodRight);
+		ann.input(foodLeft, foodForward, foodRight, poiLeft, poiForward, poiRight);
+		
 		
 		if(timeStep <50){
 			boolean left = false, right = false;
 			//turning
 			if(Math.random() <.5)
 				right = true;
+			
 			if (left){
 				timeStep++;
 				direction--;
@@ -140,6 +142,9 @@ public class Robot {
 			default:
 				System.out.println("direction is not correct!");
 				break;
+			}
+			if(scene.getObjectAt(posX, posY) == 1 || scene.getObjectAt(posX, posY) == 2){
+				scene.removeObjectAt(posX, posY);
 			}
 			timeStep++;
 		}
