@@ -97,9 +97,6 @@ public class GeneralEA <T>{
 				this.thirdPopulation = currentAdultSelection.findAdultsFromPopulations(previousPopulation, currentPopulation, previousPhenoTypeFitnessValues, currentPhenoTypeFitnessValues, sizeOfPopulation);
 			}
 			updateThirdPhenoTypeFitnessValues();
-//			currentPopulation = thirdPopulation;
-//			currentPhenoTypes = thirdPhenoTypes;
-//			currentPhenoTypeFitnessValues = thirdPhenoTypeFitnessValues;
 			
 //			System.out.println(thirdPhenoTypes);
 //			System.out.println("adults:");
@@ -186,9 +183,6 @@ public class GeneralEA <T>{
 		
 	}
 	
-	
-	
-	
 	public void updateThirdPhenoTypeFitnessValues(){
 		List<Individual<T>> individuals = thirdPopulation.getIndividuals();
 		
@@ -224,8 +218,6 @@ public class GeneralEA <T>{
 			case 0:
 			case 1:
 				return (PhenoType<T>) new BinaryPhenoType(sizeOfGenoType);
-//			case 1:
-//				return new SurprisingSeqPhenoType(sizeOfGenoType, requiredBits);
 			default:
 				return null;
 		}

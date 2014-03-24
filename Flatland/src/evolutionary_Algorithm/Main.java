@@ -5,16 +5,16 @@ public class Main {
 		int K = 20;
 		double P = 0.8;
 		
-		int numberOfIndividuals = 200;
+		int numberOfIndividuals = 20;
 		int numberOfFieldsPerGenoType = 40;
 		int requiredNumberOfBitsForGenoType = 1;
 		
 		int typeOfProblem = 1;
 		int adultType = 0;
-		int parentType = 0;
+		int parentType = 1;
 		
 		double crossOverRate = 0.7;
-		double mutationRate = 0.00;
+		double mutationRate = 0.01;
 		
 		boolean mutationPerComponent = true;
 		boolean initializeRandomly = true;
