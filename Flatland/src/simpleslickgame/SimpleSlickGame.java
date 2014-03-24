@@ -1,12 +1,16 @@
 package simpleslickgame;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
 
 //graphing
 import javax.swing.JFrame;
 
 import org.math.plot.Plot2DPanel;
+import org.math.plot.PlotPanel;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -24,7 +28,7 @@ public class SimpleSlickGame extends BasicGame
 	Scenario sceneToUse;
 	Scenario scenes[];
 	boolean pause, init;
-	int speed;
+	int sleepTimer;
 	
 	
 	
@@ -41,7 +45,7 @@ public class SimpleSlickGame extends BasicGame
 		
 		pause = false;
 		init =  true;
-		speed = 1000;
+		sleepTimer = 1000;
 		//initiliaze images:
 		foodImage = new Image("res/food.png");
 		robotImage = new Image("res/robot.png");
@@ -64,7 +68,7 @@ public class SimpleSlickGame extends BasicGame
 	
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		gc.sleep(speed);
+		gc.sleep(sleepTimer);
 		if(!init){
 		if(!pause)
 			robot.update();
@@ -101,7 +105,7 @@ public class SimpleSlickGame extends BasicGame
 		g.drawString("Number of steps:" + robot.getTimeStep() + "/" + 50, boardPosX(0)-50,boardPosY(0)-50);
 		g.drawString("Number of cayke eaten:" + (sceneToUse.getNumberOfFood()-sceneToUse.getRemainingFood()) + "/" + sceneToUse.getNumberOfFood(), boardPosX(7)+squareSize+50,boardPosY(0)-50);
 		g.drawString("Number of poision eaten:" + (sceneToUse.getNumberOfPoison()-sceneToUse.getRemainingPoison()) + "/" + sceneToUse.getNumberOfPoison(), boardPosX(7)+squareSize+50,boardPosY(1)-50);
-		g.drawString("press r to reset, space to pause, 123 for speed", boardPosX(0)+50,boardPosY(7)+squareSize);
+		g.drawString("press r to reset, space to pause, 123 for speed, g for graph", boardPosX(0)+50,boardPosY(7)+squareSize);
 	}
 	
 	
@@ -134,11 +138,11 @@ public class SimpleSlickGame extends BasicGame
 			
 		}
 		if(key == Input.KEY_1)
-			speed = 0;
+			sleepTimer = 0;
 		else if(key == Input.KEY_2)
-			speed = 200;
+			sleepTimer = 200;
 		else if(key == Input.KEY_3)
-			speed = 1000;
+			sleepTimer = 1000;
 		
 		if(key == Input.KEY_R){
 			restart();
@@ -153,17 +157,22 @@ public class SimpleSlickGame extends BasicGame
 	int numberOfIterations = 50;
 	double[] x = new double[numberOfIterations];
 	double[] bestFitness = new double[numberOfIterations];
-	
+	double[] avgFitness = new double[numberOfIterations];
+	double[] sdFitness = new double[numberOfIterations];
 	for (int i = 0; i < numberOfIterations; i++) {
 		x[i] = i;
-		bestFitness[i] = Math.random()*50;
+		bestFitness[i] = 2*i;
+		sdFitness[i] = i*i;
+		avgFitness[i] = i*i/(Math.E);
 	}
 	
 	Plot2DPanel plot = new Plot2DPanel();
 	
 	// add a line plot to the PlotPanel
-	plot.addLinePlot("Best fitness", x, bestFitness);
-	
+	plot.addLinePlot("Best fitness",Color.GREEN, bestFitness);
+	plot.addLinePlot("Avg fitness",Color.BLUE, avgFitness);
+	plot.addLinePlot("SD fitness",Color.MAGENTA, sdFitness);
+	plot.addLegend("EAST");
 	// put the PlotPanel in a JFrame, as a JPanel
 	JFrame frame = new JFrame("Fitness plot");
 	frame.setContentPane(plot);
