@@ -8,6 +8,8 @@ public class Node {
 		
 	}
 	
+	
+	
 	public void setThreshold(double t){
 		threshold = t;
 	}
@@ -24,6 +26,19 @@ public class Node {
 		x[0] = (in?1:0);
 	}
 	
+	public void input(double in[]){
+		x = new double[in.length];
+		for (int i = 0; i < in.length; i++) {
+			x[i]= in[i];
+		}
+	}
+	
+	public void input(double in){
+		x = new double[1];
+		x[0] = in;
+	}
+	
+	
 	public void setWeight(double v[]){
 		w = new double[v.length];
 		for (int i = 0; i < v.length; i++) {
@@ -32,7 +47,7 @@ public class Node {
 	}
 	
 	
-	public int output(){
+	public double output(){
 		return function(sum());
 	}
 	
