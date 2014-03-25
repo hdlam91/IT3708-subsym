@@ -12,6 +12,8 @@ public abstract class ParentSelection <T>{
 		case 0: 
 		case 1:
 			return (Individual<T>) new BinaryIndividual((Boolean[]) ind.getGenoType());
+		case 2:
+			return (Individual<T>) new DoubleIndividual((Integer[]) ind.getGenoType());
 		default:
 			return null;
 		}

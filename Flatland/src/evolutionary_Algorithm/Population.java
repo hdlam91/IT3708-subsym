@@ -29,7 +29,8 @@ public class Population <T>{
 		case 0:
 		case 1:
 			return (Individual<T>) new BinaryIndividual(requiredGenoTypeSize, requiredNumberOfBits, initializeRandomly);
-//			return (Individual<T>) new SpecificBitStringOneMaxIndividual(requiredGenoTypeSize, requiredNumberOfBits, initializeRandomly);
+		case 2:
+			return (Individual<T>) new DoubleIndividual(requiredGenoTypeSize, requiredNumberOfBits, initializeRandomly);
 		default:
 			return null;
 		}

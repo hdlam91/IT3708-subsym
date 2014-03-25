@@ -218,6 +218,8 @@ public class GeneralEA <T>{
 			case 0:
 			case 1:
 				return (PhenoType<T>) new BinaryPhenoType(sizeOfGenoType);
+			case 2:
+				return (PhenoType<T>) new DoublePhenoType(sizeOfGenoType);
 			default:
 				return null;
 		}
@@ -230,6 +232,8 @@ public class GeneralEA <T>{
 			return (FitnessEvaluator<T>) new BinaryFitnessEvaluator();
 		case 1:
 			return (FitnessEvaluator<T>) new SpecificBitStringFitnessEvaluator();
+		case 2:
+			return (FitnessEvaluator<T>) new DoubleFitnessEvaluator();
 		default:
 			return null;
 		}
@@ -269,6 +273,8 @@ public class GeneralEA <T>{
 		case 0:
 		case 1:
 			return (CrossOver<T>) new BinaryCrossOver();
+		case 2:
+			return (CrossOver<T>) new DoubleCrossOver();
 		default:
 			return null;
 		}
@@ -280,6 +286,8 @@ public class GeneralEA <T>{
 		case 0:
 		case 1:
 			return (Mutation<T>) new BinaryMutation();
+		case 2:
+			return (Mutation<T>) new DoubleMutation();
 		default:
 			return null;
 		}
