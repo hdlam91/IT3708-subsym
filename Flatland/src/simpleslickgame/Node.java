@@ -4,10 +4,11 @@ public class Node {
 	private int functionType;
 	private double threshold;
 	private double w[], x[];
+	private double biasW, biasIn;
 	public Node(){
-		
+		biasW = 0;
+		biasIn = 0;
 	}
-	
 	
 	
 	public void setThreshold(double t){
@@ -37,7 +38,13 @@ public class Node {
 		x = new double[1];
 		x[0] = in;
 	}
+	public void biasInput(double biasIn){
+		this.biasIn = biasIn;
+	}
 	
+	public void setBiasWeight(double biasW){
+		this.biasW = biasW;
+	}
 	
 	public void setWeight(double v[]){
 		w = new double[v.length];
@@ -78,6 +85,7 @@ public class Node {
 		for (int i = 0; i < x.length; i++) {
 			sum += x[i]*w[i];
 		}
+		sum+= biasIn*biasW;
 		return sum;
 	}
 	
