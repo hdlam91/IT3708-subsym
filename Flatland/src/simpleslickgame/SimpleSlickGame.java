@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 
 
+
 //graphing
 import javax.swing.JFrame;
 
@@ -45,7 +46,7 @@ public class SimpleSlickGame extends BasicGame
 		
 		pause = false;
 		init =  true;
-		sleepTimer = 1000;
+		sleepTimer = 2000;
 		//initiliaze images:
 		foodImage = new Image("res/food.png");
 		robotImage = new Image("res/robot.png");
@@ -127,6 +128,10 @@ public class SimpleSlickGame extends BasicGame
 	}
 	
 	public void keyPressed(int key, char c) {
+		if(key == Input.KEY_Q){
+			System.exit(0);
+			return;
+		}
 		
 		if (key == Input.KEY_SPACE) {
 			if(!pause){

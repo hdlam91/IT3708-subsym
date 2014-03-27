@@ -17,8 +17,34 @@ public class Robot {
 		this.sizeY = sizeY;
 		direction = 0;
 		timeStep = 0;
-		this.scene = scene;	
-		ann = new ANN();
+		this.scene = scene;
+		
+		int [] li = {0};
+		ann = new ANN(li);
+		double[] w = new double[ann.getNumberOfWeightsNeeded()];
+		System.out.println(w.length);
+		w[0] = 1;
+		w[1] = 0;
+		w[2] = 0;
+		w[3] = -1;
+		w[4] = 0;
+		w[5] = 0;
+		w[6] = 0;
+		w[7] = 1;
+		w[8] = 0;
+		w[9] = 0;
+		w[10] = -1;
+		w[11] = 0;
+		w[12] = 0;
+		w[13] = 0;
+		w[14] = 0.8;
+		w[15] = 0;
+		w[16] = 0;
+		w[17] = -1;
+		
+		
+		ann.setWeight(w.clone());
+		//ann.test();
 	}
 	
 	private int safePosx(int pos){
@@ -94,19 +120,36 @@ public class Robot {
 		
 		getSensorInput();
 		ann.input(foodLeft, foodForward, foodRight, poiLeft, poiForward, poiRight);
+		ann.run();
+		double front = ann.getFrontMotor();
+		double left = ann.getLeftMotor();
+		double right = ann.getRightMotor();
 		
+		boolean l = false, r = false;
+		if(left>right && left> front){
+			l = true;
+		}
+		else if(left<right && right> front){
+			r = true;
+		}
+		else if(left > front && right > front){
+			if(Math.random() >0.5){
+				l = true;
+			}
+			else
+				r = true;
+				
+			
+		}
 		
 		if(timeStep <50){
-			boolean left = false, right = false;
 			//turning
-			if(Math.random() <.5)
-				right = true;
 			
-			if (left){
+			if (l){
 				timeStep++;
 				direction--;
 			}
-			else if (right){
+			else if (r){
 				direction++;
 				timeStep++;
 			}
