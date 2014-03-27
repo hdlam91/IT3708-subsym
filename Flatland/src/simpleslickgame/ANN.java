@@ -16,7 +16,7 @@ public class ANN {
 	
 	int[] hiddenLayerStructure;
 	
-	public ANN() {//no hidden layers
+	public ANN(double treshold) {//no hidden layers
 		foodInputLeft = new Node(true);
 		foodInputFront = new Node(true);
 		foodInputRight = new Node(true);
@@ -33,9 +33,9 @@ public class ANN {
 		inputs.add(poisonInputRight);
 		
 		hiddenLayerUsed = false;
-		leftOutput = new Node();
-		frontOutput = new Node();
-		rightOutput = new Node();
+		leftOutput = new Node(treshold);
+		frontOutput = new Node(treshold);
+		rightOutput = new Node(treshold);
 		
 		outputs = new ArrayList<Node>();
 		outputs.add(leftOutput);
@@ -52,7 +52,7 @@ public class ANN {
 	....
 	last needs nodeStructure[size-1] w
 	*/
-	public ANN(int[] nodeStructure) {
+	public ANN(int[] nodeStructure, double treshold) {
 //		foodInputLeft = new Node();
 //		foodInputFront = new Node();
 //		foodInputRight = new Node();
@@ -62,7 +62,7 @@ public class ANN {
 //		leftOutput = new Node();
 //		frontOutput = new Node();
 //		rightOutput = new Node();
-		this();
+		this(treshold);
 		
 		hiddenNodes = new ArrayList<Node>();
 		for (int i = 0; i < nodeStructure.length; i++) {
@@ -70,7 +70,7 @@ public class ANN {
 				System.out.println("ERROR, 0 nodes for the hidden layer at layer:" + i);
 			}
 			for (int j = 0; j < nodeStructure[i]; j++) {
-				this.hiddenNodes.add(new Node());
+				this.hiddenNodes.add(new Node(treshold));
 			}
 		}
 		hiddenLayerStructure = nodeStructure.clone();
@@ -103,6 +103,8 @@ public class ANN {
 		}
 		return numOfW;
 	}
+	
+
 	
 	
 	public void test(){

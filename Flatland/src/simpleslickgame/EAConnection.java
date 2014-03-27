@@ -6,14 +6,17 @@ public class EAConnection {
 	Scenario[] scenes;
 	Scenario sceneToUse;
 	int sceneIndex;
+	double treshold;
 	public EAConnection() {
+		treshold = 0.5;
+		
 		sceneIndex = 0;
 		scenes = new Scenario[5];
 		for (int i = 0; i < scenes.length; i++) {
 			scenes[i] =  new Scenario(0.5,0.5,8,8,false);
 		}
 		sceneToUse = new Scenario(scenes[sceneIndex]);
-		network = new ANN();
+		network = new ANN(treshold);
 		testRun();
 	}
 	

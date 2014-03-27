@@ -7,16 +7,16 @@ public class Node {
 	private double biasW, biasIn;
 	private boolean inputNode;
 	public Node(boolean in){
-		this();
+		this(0.5);
 		inputNode = in;
 	}
 	
-	public Node(){
+	public Node(double t){
 		biasW = 0;
 		biasIn = 0;
 		functionType = 0;
-		threshold = 0.5;
 		inputNode = false;
+		setThreshold(t);
 	}
 	
 	public void setThreshold(double t){
