@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 
 
+
 //graphing
 import javax.swing.JFrame;
 
@@ -23,10 +24,7 @@ public class SimpleSlickGame extends BasicGame
 {
 	Image foodImage, robotImage, poisonImage;
 	int height, width, squareSize;
-	Robot robot;
-	Scenario scene;
-	Scenario sceneToUse;
-	Scenario scenes[];
+	EAConnection ea;
 	boolean pause, init;
 	int sleepTimer;
 	
@@ -45,7 +43,7 @@ public class SimpleSlickGame extends BasicGame
 		
 		pause = false;
 		init =  true;
-		sleepTimer = 1000;
+		sleepTimer = 2000;
 		//initiliaze images:
 		foodImage = new Image("res/food.png");
 		robotImage = new Image("res/robot.png");
@@ -54,9 +52,7 @@ public class SimpleSlickGame extends BasicGame
 		robotImage.setCenterOfRotation(robotImage.getWidth()/2, robotImage.getHeight()/2);
 		
 		//sets up board and robot
-		scene = new Scenario(0.5,0.5,8,8,false);
-		sceneToUse = new Scenario(scene);
-		robot = new Robot(sceneToUse.getStartX(), sceneToUse.getStartY(), sceneToUse.getSizeX(), sceneToUse.getSizeY(), sceneToUse);
+		ea = new EAConnection();
 		
 		//parameters used
 		height = gc.getHeight();
@@ -68,21 +64,24 @@ public class SimpleSlickGame extends BasicGame
 	
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		gc.sleep(sleepTimer);
-		if(!init){
-		if(!pause)
-			robot.update();
+		if(System.currentTimeMillis()%(sleepTimer) >= sleepTimer-20){
+			if(!init){
+				if(!pause)
+				
+					ea.getRobot().update();
+				}
+			else
+				init = false;
+			robotImage.setRotation(ea.getRobot().getDirection());
 		}
-		robotImage.setRotation(robot.getDirection());
-		init = false;
 	}
 	
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		
-		for (int i = 0; i < sceneToUse.getSizeY(); i++) {
-			for (int j = 0; j < sceneToUse.getSizeX(); j++) {
+		for (int i = 0; i < ea.getScene().getSizeY(); i++) {
+			for (int j = 0; j < ea.getScene().getSizeX(); j++) {
 				//places the field in the middle somehwere
 				g.drawRect(boardPosX(j),boardPosY(i),squareSize,squareSize);
 				/*0 = nothing
@@ -90,43 +89,49 @@ public class SimpleSlickGame extends BasicGame
 				2 = food 
 				3 = robot
 				*/
-				if(sceneToUse.getBoard()[i][j]==1){
+				if(ea.getScene().getBoard()[i][j]==1){
 					poisonImage.draw(boardPosX(j),boardPosY(i),squareSize,squareSize);
 				}
-				else if(sceneToUse.getBoard()[i][j]==2){
+				else if(ea.getScene().getBoard()[i][j]==2){
 					foodImage.draw(boardPosX(j),boardPosY(i),squareSize,squareSize);					
 				}
 				
 			}
 			
 		}
-		robotImage.draw(boardPosX(robot.getPosX()),boardPosY(robot.getPosY()),squareSize,squareSize);
+		robotImage.draw(boardPosX(ea.getRobot().getPosX()),boardPosY(ea.getRobot().getPosY()),squareSize,squareSize);
 		
-		g.drawString("Number of steps:" + robot.getTimeStep() + "/" + 50, boardPosX(0)-50,boardPosY(0)-50);
-		g.drawString("Number of cayke eaten:" + (sceneToUse.getNumberOfFood()-sceneToUse.getRemainingFood()) + "/" + sceneToUse.getNumberOfFood(), boardPosX(7)+squareSize+50,boardPosY(0)-50);
-		g.drawString("Number of poision eaten:" + (sceneToUse.getNumberOfPoison()-sceneToUse.getRemainingPoison()) + "/" + sceneToUse.getNumberOfPoison(), boardPosX(7)+squareSize+50,boardPosY(1)-50);
-		g.drawString("press r to reset, space to pause, 123 for speed, g for graph", boardPosX(0)+50,boardPosY(7)+squareSize);
+		g.drawString("Number of steps:" + ea.getRobot().getTimeStep() + "/" + 50, boardPosX(0)-50,boardPosY(0)-50);
+		
+		g.drawString("Number of cayke eaten:" + (ea.getScene().getNumberOfFood()-ea.getScene().getRemainingFood()) + "/" + ea.getScene().getNumberOfFood(), boardPosX(7)+squareSize+50,boardPosY(0)-50);
+		g.drawString("Number of poision eaten:" + (ea.getScene().getNumberOfPoison()-ea.getScene().getRemainingPoison()) + "/" + ea.getScene().getNumberOfPoison(), boardPosX(7)+squareSize+50,boardPosY(0)-38);
+		g.drawString("press r to reset, space to pause, 123 for speed, g for graph", boardPosX(0),boardPosY(7)+squareSize);
+		g.drawString("Current scene: "+ ea.getSceneIndex() + " press up/down to change scene, q for quit", boardPosX(0),boardPosY(7)+squareSize+12);
 	}
 	
 	
 	private int boardPosY(int y){
-		return y*squareSize+(height/2-squareSize*sceneToUse.getSizeY()/2);
+		return y*squareSize+(height/2-squareSize*ea.getScene().getSizeY()/2);
 	}
 	private int boardPosX(int x){
-		return x*squareSize+(width/2-squareSize*sceneToUse.getSizeX()/2);
+		return x*squareSize+(width/2-squareSize*ea.getScene().getSizeX()/2);
 	}
 	
 	
-	public void restart(){
-		
-		//sets up board and robot
-		init = true;
-		sceneToUse = new Scenario(scene);
-		robot = new Robot(sceneToUse.getStartX(), sceneToUse.getStartY(), sceneToUse.getSizeX(), sceneToUse.getSizeY(), sceneToUse);
-		//parameters used
-	}
+	
+	
 	
 	public void keyPressed(int key, char c) {
+		if(key == Input.KEY_Q){
+			System.exit(0);
+			return;
+		}
+		if(key== Input.KEY_UP){
+			ea.addSceneIndex();
+		}
+		else if(key==Input.KEY_DOWN){
+			ea.subSceneIndex();
+		}
 		
 		if (key == Input.KEY_SPACE) {
 			if(!pause){
@@ -138,14 +143,14 @@ public class SimpleSlickGame extends BasicGame
 			
 		}
 		if(key == Input.KEY_1)
-			sleepTimer = 0;
+			sleepTimer = 1;
 		else if(key == Input.KEY_2)
 			sleepTimer = 200;
 		else if(key == Input.KEY_3)
 			sleepTimer = 1000;
 		
 		if(key == Input.KEY_R){
-			restart();
+			ea.restart();
 		}
 		if(key == Input.KEY_G)
 			graph();

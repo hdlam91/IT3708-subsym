@@ -8,49 +8,61 @@ public class ANN {
 	private Node foodInputLeft, foodInputFront, foodInputRight;
 	private Node poisonInputLeft, poisonInputFront, poisonInputRight;
 	private Node leftOutput, frontOutput, rightOutput;
-	private Node[] weights;
+	private ArrayList<Node> outputs;
+	private ArrayList<Node> hiddenNodes; 
+	private ArrayList<Node> inputs;
 	int numOfInput, numOfOutput;
 	boolean hiddenLayerUsed;
 	
 	int[] hiddenLayerStructure;
-	private ArrayList<Node> hiddenNodes; 
 	
-	public ANN() {//no hidden layers
-		foodInputLeft = new Node();
-		foodInputFront = new Node();
-		foodInputRight = new Node();
-		poisonInputLeft = new Node();
-		poisonInputFront = new Node();
-		poisonInputRight = new Node();
+	public ANN(double treshold) {//no hidden layers
+		foodInputLeft = new Node(true);
+		foodInputFront = new Node(true);
+		foodInputRight = new Node(true);
+		poisonInputLeft = new Node(true);
+		poisonInputFront = new Node(true);
+		poisonInputRight = new Node(true);
+		
+		inputs= new  ArrayList<Node>();
+		inputs.add(foodInputLeft);
+		inputs.add(foodInputFront);
+		inputs.add(foodInputRight);
+		inputs.add(poisonInputLeft);
+		inputs.add(poisonInputFront);
+		inputs.add(poisonInputRight);
 		
 		hiddenLayerUsed = false;
-		leftOutput = new Node();
-		frontOutput = new Node();
-		rightOutput = new Node();
+		leftOutput = new Node(treshold);
+		frontOutput = new Node(treshold);
+		rightOutput = new Node(treshold);
 		
-		weights = new Node[3];
-		weights[0] = leftOutput;
-		weights[1] = frontOutput;
-		weights[2] = rightOutput;
-		hiddenNodes = new ArrayList<Node>();
-		hiddenNodes.add(leftOutput);
-		hiddenNodes.add(frontOutput);
-		hiddenNodes.add(rightOutput);
+		outputs = new ArrayList<Node>();
+		outputs.add(leftOutput);
+		outputs.add(frontOutput);
+		outputs.add(rightOutput);
 		numOfInput = 6;
-		numOfOutput = 3;
+		numOfOutput = outputs.size();
 		
 	}
-
-	public ANN(int[] nodeStructure) {
-		foodInputLeft = new Node();
-		foodInputFront = new Node();
-		foodInputRight = new Node();
-		poisonInputLeft = new Node();
-		poisonInputFront = new Node();
-		poisonInputRight = new Node();
-		leftOutput = new Node();
-		frontOutput = new Node();
-		rightOutput = new Node();
+	
+	
+	/*first hidden layer needs 6 w
+	//next needs nodeStructure[0] w
+	....
+	last needs nodeStructure[size-1] w
+	*/
+	public ANN(int[] nodeStructure, double treshold) {
+//		foodInputLeft = new Node();
+//		foodInputFront = new Node();
+//		foodInputRight = new Node();
+//		poisonInputLeft = new Node();
+//		poisonInputFront = new Node();
+//		poisonInputRight = new Node();
+//		leftOutput = new Node();
+//		frontOutput = new Node();
+//		rightOutput = new Node();
+		this(treshold);
 		
 		hiddenNodes = new ArrayList<Node>();
 		for (int i = 0; i < nodeStructure.length; i++) {
@@ -58,32 +70,24 @@ public class ANN {
 				System.out.println("ERROR, 0 nodes for the hidden layer at layer:" + i);
 			}
 			for (int j = 0; j < nodeStructure[i]; j++) {
-				this.hiddenNodes.add(new Node());
+				this.hiddenNodes.add(new Node(treshold));
 			}
 		}
 		hiddenLayerStructure = nodeStructure.clone();
-		if(nodeStructure.length == 1 && nodeStructure[0] == 0){
+		if(nodeStructure[0] == 0){
 			hiddenLayerUsed = false;
 		}
 		else{
 			hiddenLayerUsed = true;
 		}
-		/*first hidden layer needs 6 w
-		//next needs nodeStructure[0] w
-		....
-		last needs nodeStructure[size-1] w
-		*/
-		hiddenNodes.add(leftOutput);
-		hiddenNodes.add(frontOutput);
-		hiddenNodes.add(rightOutput);
-		weights = new Node[3];
-		weights[0] = leftOutput;
-		weights[1] = frontOutput;
-		weights[2] = rightOutput;
 		
-		numOfInput = 6;
-		numOfOutput = 3;
-		
+//		outputs = new ArrayList<Node>();
+//		outputs.add(leftOutput);
+//		outputs.add(frontOutput);
+//		outputs.add(rightOutput);
+//		
+//		numOfInput = 6;
+//		numOfOutput = outputs.size();		
 	}
 	
 	public int getNumberOfWeightsNeeded(){
@@ -100,28 +104,29 @@ public class ANN {
 		return numOfW;
 	}
 	
+
+	
 	
 	public void test(){
 		if(hiddenLayerUsed)
 			for (int i = 0; i < hiddenNodes.size(); i++) {
 				System.out.println(hiddenNodes.get(i));
 			}
-		for (int i = 0; i < weights.length; i++) {
-			System.out.println(weights[i]);
+		for (int i = 0; i < outputs.size(); i++) {
+			System.out.println(outputs.get(i));
 		}
-		System.out.println("\n\n\n" + getNumberOfWeightsNeeded());
 	}
 	
-	public static void main(String[] args) {
-		int [] li = {1,2,3};
-		ANN a = new ANN(li);
-		double v[] = new double[30];
-		for (int i = 0; i < v.length; i++) {
-			v[i] = i;
-		}
-		a.setWeight(v);
-		a.test();
-	}
+//	public static void main(String[] args) {
+//		int [] li = {1,2,3};
+//		ANN a = new ANN(li);
+//		double v[] = new double[30];
+//		for (int i = 0; i < v.length; i++) {
+//			v[i] = i;
+//		}
+//		a.setWeight(v);
+//		a.test();
+//	}
 	
 	public void setWeight(double v[]){
 		int counter = 0;
@@ -129,7 +134,7 @@ public class ANN {
 		int end = 0;
 		if(hiddenLayerUsed){
 			for (int i = 0; i < hiddenLayerStructure.length; i++) {
-				
+
 				for (int j = 0; j < hiddenLayerStructure[i]; j++) {
 					start = end;
 					if(i == 0){
@@ -140,25 +145,56 @@ public class ANN {
 					hiddenNodes.get(counter).setWeight(Arrays.copyOfRange(v, start, end));
 					counter++;
 //					System.out.println(counter + "/ "+ i + "..." + Arrays.toString(Arrays.copyOfRange(v, start, end)));
-					
+
 				}
+			
+			
 			}
-			for (int i = hiddenNodes.size()-numOfOutput; i < hiddenNodes.size(); i++) {
-				hiddenNodes.get(i).setWeight(Arrays.copyOfRange(v, end, end+hiddenLayerStructure[hiddenLayerStructure.length-1]));
+			for (int i = hiddenNodes.size(); i < hiddenNodes.size()+numOfOutput; i++) {
+				outputs.get(i-hiddenNodes.size()).setWeight(Arrays.copyOfRange(v, end, end+hiddenLayerStructure[hiddenLayerStructure.length-1]));
 				end+=hiddenLayerStructure[hiddenLayerStructure.length-1];
 			}
 		}
 			
 		else{
-			for (int i = hiddenNodes.size()-numOfOutput; i < hiddenNodes.size(); i++) {
-				hiddenNodes.get(i).setWeight(Arrays.copyOfRange(v, end, end+numOfInput));
+			for (int i = 0; i < outputs.size(); i++) {
+				outputs.get(i).setWeight(Arrays.copyOfRange(v, end, end+numOfInput));
 				end+=numOfInput;
 			}
 		}
 	}
 	
 	public void run(){
-		
+		double firstOut[] = new double[6];
+		for (int i = 0; i < inputs.size(); i++) {
+			firstOut[i] = inputs.get(i).output();
+		}
+		if(hiddenLayerUsed){
+			double[] currentOut = firstOut;
+			int counter = 0;
+			for (int i = 0; i < hiddenLayerStructure.length; i++) {
+				double[] newLayer = new double[hiddenLayerStructure[i]];
+				for (int j = 0; j < hiddenLayerStructure[i]; j++) {				
+					
+					hiddenNodes.get(counter).input(currentOut);
+					newLayer[j] = hiddenNodes.get(counter).output(); 
+					counter++;
+//					System.out.println(counter + "/ "+ i + "..." + Arrays.toString(Arrays.copyOfRange(v, start, end)));
+					System.out.println("Hidden layers output:" + Arrays.toString(currentOut));
+				}
+				currentOut = newLayer;
+			}
+			for (int i = 0; i < outputs.size(); i++) {
+				outputs.get(i).input(currentOut);
+			}
+		}
+		else{ //no hidden layer, direct mapping.
+			System.out.println("inputNode's output:" + Arrays.toString(firstOut));
+			for (int i = 0; i < outputs.size(); i++) {
+				outputs.get(i).input(firstOut);
+			}
+			System.out.println("output:l" + outputs.get(0).output() + "f"+ outputs.get(1).output() + "r" + outputs.get(2).output());
+		}
 	}
 	
 	
@@ -169,7 +205,16 @@ public class ANN {
 		foodInputLeft.input(fleft);
 		foodInputFront.input(ffront);
 		foodInputRight.input(fright);
-		
+		poisonInputLeft.input(pleft);
+		poisonInputFront.input(pfront);
+		poisonInputRight.input(pright);
+		System.out.println("INPUTS:");
+		System.out.println(fleft);
+		System.out.println(ffront);
+		System.out.println(fright);
+		System.out.println(pleft);
+		System.out.println(pfront);
+		System.out.println(pright);
 	}
 	
 	
