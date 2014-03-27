@@ -7,17 +7,14 @@ public class Node {
 	private double biasW, biasIn;
 	private boolean inputNode;
 	public Node(boolean in){
-		biasW = 0;
-		biasIn = 0;
-		functionType = 0;
-		threshold = 0.5;
+		this();
 		inputNode = in;
 	}
 	
 	public Node(){
 		biasW = 0;
 		biasIn = 0;
-		functionType = 1;
+		functionType = 0;
 		threshold = 0.5;
 		inputNode = false;
 	}
@@ -77,6 +74,8 @@ public class Node {
 		if(functionType == 0){//step
 			if(sum >= threshold)
 				return 1;
+			else if(sum <= -threshold)
+				return -1;
 		}
 		else if(functionType == 1){//sigmoid
 			double sigmoid = 1.0/(1+Math.exp(-sum));
