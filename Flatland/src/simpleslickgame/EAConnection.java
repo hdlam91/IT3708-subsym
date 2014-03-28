@@ -23,8 +23,8 @@ public class EAConnection {
 			scenes[i] =  new Scenario(0.5,0.5,8,8,false);
 		}
 		sceneToUse = new Scenario(scenes[sceneIndex]);
-		int hidden[] = {2};
-		network = new ANN(hidden,treshold);
+//		int hidden[] = {3};
+		network = new ANN(treshold);
 	}
 	
 	public int getNumberOfWeightsNeeded(){
