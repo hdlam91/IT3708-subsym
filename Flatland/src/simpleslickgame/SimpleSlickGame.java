@@ -69,7 +69,7 @@ public class SimpleSlickGame extends BasicGame
 		int K = 20;
 		double P = 0.8;
 		
-		int numberOfIndividuals = 30;
+		int numberOfIndividuals = 20;
 		int requiredNumberOfBitsForGenoType = 1;
 		
 		int typeOfProblem = 2;
@@ -85,7 +85,7 @@ public class SimpleSlickGame extends BasicGame
 		EAConnection con = new EAConnection();
 		int numberofWeights = con.getNumberOfWeightsNeeded();
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
-				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,true);
 		ea.setANNWeight(s.getWeightsOfBestIndividual());
 		ea.setGraph(s.getBestList(), s.getMeanList(), s.getStdList());
 		ea.restart();

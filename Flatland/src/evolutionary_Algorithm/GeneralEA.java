@@ -44,8 +44,10 @@ public class GeneralEA <T>{
 	private List<Double> stdL;
 	private List<Double> bestL;
 	
+	private boolean dynamic;
+	
 	public GeneralEA(int sizeOfPopulation, int requiredSizeOfGenotype, int requiredBitsOfGenoType, int typeOfProblem, int typeOfAdultSelection, 
-						int typeOfParentSelection, double crossOverRate, double mutationRate, boolean componentMutation, int K, double P, boolean initializeRandomly, EAConnection connection){
+						int typeOfParentSelection, double crossOverRate, double mutationRate, boolean componentMutation, int K, double P, boolean initializeRandomly, EAConnection connection,boolean dynamic){
 		
 		this.currentPopulation = new Population<T>(sizeOfPopulation, requiredSizeOfGenotype, requiredBitsOfGenoType, initializeRandomly, typeOfProblem);
 		this.currentPhenoTypes = new ArrayList<PhenoType<T>>();
@@ -85,6 +87,7 @@ public class GeneralEA <T>{
 		this.thirdPhenoTypeFitnessValues = new ArrayList<Double>();
 		
 		this.goalReached = false;
+		this.dynamic = dynamic;
 		
 		meanL = new ArrayList<Double>();
 		stdL = new ArrayList<Double>();
@@ -200,8 +203,10 @@ public class GeneralEA <T>{
 			meanL.add(mean);
 			stdL.add(std);
 			bestL.add(bestFitnessForThisIter);
-			
 			iter++;
+
+			if(dynamic)
+				connection.createNewScenes();
 		}
 		System.out.println();
 		System.out.println("Final:");

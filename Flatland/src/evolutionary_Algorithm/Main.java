@@ -29,7 +29,7 @@ public class Main {
 		EAConnection con = new EAConnection();
 		int numberofWeights = con.getNumberOfWeightsNeeded();
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
-				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,true);
 		System.out.println(Arrays.toString(s.getWeightsOfBestIndividual()));
 	}
 }
