@@ -1,25 +1,35 @@
 package evolutionary_Algorithm;
 
+import java.util.Arrays;
+
+import simpleslickgame.EAConnection;
+
 public class Main {
 	public static void main(String[] args) {
 		int K = 20;
 		double P = 0.8;
 		
-		int numberOfIndividuals = 200;
-		int numberOfFieldsPerGenoType = 40;
+		int numberOfIndividuals = 30;
+//		int numberOfFieldsPerGenoType = 40;
 		int requiredNumberOfBitsForGenoType = 1;
 		
-		int typeOfProblem = 0;
-		int adultType = 1;
-		int parentType = 0;
+		int typeOfProblem = 2;
+		int adultType = 2;
+		int parentType = 1;
 		
-		double crossOverRate = 0.7;
-		double mutationRate = 0.01;
+		double crossOverRate = 0.1;
+		double mutationRate = 0.2;
 		
 		boolean mutationPerComponent = true;
 		boolean initializeRandomly = true;
 		
-		GeneralEA s = new GeneralEA(numberOfIndividuals, numberOfFieldsPerGenoType, requiredNumberOfBitsForGenoType, 
-									typeOfProblem, adultType, parentType, crossOverRate, mutationRate, mutationPerComponent, K, P, initializeRandomly,null);
+//		GeneralEA s = new GeneralEA(numberOfIndividuals, numberOfFieldsPerGenoType, requiredNumberOfBitsForGenoType, 
+//									typeOfProblem, adultType, parentType, crossOverRate, mutationRate, mutationPerComponent, K, P, initializeRandomly,null);
+		
+		EAConnection con = new EAConnection();
+		int numberofWeights = con.getNumberOfWeightsNeeded();
+		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
+		System.out.println(Arrays.toString(s.getWeightsOfBestIndividual()));
 	}
 }

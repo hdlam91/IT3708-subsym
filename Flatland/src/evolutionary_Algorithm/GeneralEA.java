@@ -38,6 +38,8 @@ public class GeneralEA <T>{
 	
 	private EAConnection connection;
 	
+	private PhenoType bestIndividual;
+	
 	public GeneralEA(int sizeOfPopulation, int requiredSizeOfGenotype, int requiredBitsOfGenoType, int typeOfProblem, int typeOfAdultSelection, 
 						int typeOfParentSelection, double crossOverRate, double mutationRate, boolean componentMutation, int K, double P, boolean initializeRandomly, EAConnection connection){
 		
@@ -86,6 +88,7 @@ public class GeneralEA <T>{
 	public void geneticLoop(){
 		int iter = 0;
 		double bestFitness = 0;
+		bestIndividual = null;
 		System.out.println("Init:");
 		System.out.println(currentPhenoTypeFitnessValues);
 		while(!goalReached && iter<100){
@@ -103,7 +106,6 @@ public class GeneralEA <T>{
 				this.thirdPopulation = currentAdultSelection.findAdultsFromPopulations(previousPopulation, currentPopulation, previousPhenoTypeFitnessValues, currentPhenoTypeFitnessValues, sizeOfPopulation);
 			}
 			updateThirdPhenoTypeFitnessValues();
-			
 //			System.out.println(thirdPhenoTypes);
 //			System.out.println("adults:");
 //			System.out.println(thirdPhenoTypeFitnessValues);
@@ -147,13 +149,24 @@ public class GeneralEA <T>{
 					goalReached = true;
 			}
 			double sumOfFitnessValues = 0;
-			for (Double val : currentPhenoTypeFitnessValues) {
+			for (int i = 0; i < currentPhenoTypeFitnessValues.size(); i++) {
+				double val = currentPhenoTypeFitnessValues.get(i);
 				sumOfFitnessValues+=val;
 				if(val>bestFintessForThisIter)
 					bestFintessForThisIter = val;
-				if(val>bestFitness)
+				if(val>bestFitness){
 					bestFitness = val;
+					bestIndividual = currentPhenoTypes.get(i);
+				}
 			}
+//			for (Double val : currentPhenoTypeFitnessValues) {
+//				sumOfFitnessValues+=val;
+//				if(val>bestFintessForThisIter)
+//					bestFintessForThisIter = val;
+//				if(val>bestFitness){
+//					bestFitness = val;
+//				}
+//			}
 			double mean = sumOfFitnessValues/currentPhenoTypeFitnessValues.size();
 			mean = round(mean,5);
 			
@@ -185,8 +198,14 @@ public class GeneralEA <T>{
 		System.out.println(currentPhenoTypes);
 		System.out.println(currentPhenoTypeFitnessValues);
 		System.out.println("Best overall fitness: "+ bestFitness);
+		System.out.println("Best Individual" + bestIndividual);
 		System.out.println("Total number of Iterations: " + iter);
 		
+	}
+	
+	public double[] getWeightsOfBestIndividual(){
+		DoublePhenoType p = (DoublePhenoType) bestIndividual;
+		return p.getDoublePhenoTypeValues();
 	}
 	
 	public void updateThirdPhenoTypeFitnessValues(){

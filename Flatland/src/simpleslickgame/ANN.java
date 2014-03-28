@@ -189,11 +189,11 @@ public class ANN {
 			}
 		}
 		else{ //no hidden layer, direct mapping.
-			System.out.println("inputNode's output:" + Arrays.toString(firstOut));
+//			System.out.println("inputNode's output:" + Arrays.toString(firstOut));
 			for (int i = 0; i < outputs.size(); i++) {
 				outputs.get(i).input(firstOut);
 			}
-			System.out.println("output:l" + outputs.get(0).output() + "f"+ outputs.get(1).output() + "r" + outputs.get(2).output());
+//			System.out.println("output:l" + outputs.get(0).output() + "f"+ outputs.get(1).output() + "r" + outputs.get(2).output());
 		}
 	}
 	
@@ -208,13 +208,13 @@ public class ANN {
 		poisonInputLeft.input(pleft);
 		poisonInputFront.input(pfront);
 		poisonInputRight.input(pright);
-		System.out.println("INPUTS:");
-		System.out.println(fleft);
-		System.out.println(ffront);
-		System.out.println(fright);
-		System.out.println(pleft);
-		System.out.println(pfront);
-		System.out.println(pright);
+//		System.out.println("INPUTS:");
+//		System.out.println(fleft);
+//		System.out.println(ffront);
+//		System.out.println(fright);
+//		System.out.println(pleft);
+//		System.out.println(pfront);
+//		System.out.println(pright);
 	}
 	
 	
