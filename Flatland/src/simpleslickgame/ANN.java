@@ -107,26 +107,8 @@ public class ANN {
 
 	
 	
-	public void test(){
-		if(hiddenLayerUsed)
-			for (int i = 0; i < hiddenNodes.size(); i++) {
-				System.out.println(hiddenNodes.get(i));
-			}
-		for (int i = 0; i < outputs.size(); i++) {
-			System.out.println(outputs.get(i));
-		}
-	}
+
 	
-//	public static void main(String[] args) {
-//		int [] li = {1,2,3};
-//		ANN a = new ANN(li);
-//		double v[] = new double[30];
-//		for (int i = 0; i < v.length; i++) {
-//			v[i] = i;
-//		}
-//		a.setWeight(v);
-//		a.test();
-//	}
 	
 	public void setWeight(double v[]){
 		int counter = 0;

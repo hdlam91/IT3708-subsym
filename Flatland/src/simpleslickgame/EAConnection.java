@@ -125,30 +125,30 @@ public class EAConnection {
 		restart();
 	}
 	
-	public void testRun(){
-		double[] w = new double[network.getNumberOfWeightsNeeded()];
-		System.out.println(w.length);
-		w[0] = 1;
-		w[1] = 0;
-		w[2] = 0;
-		w[3] = -1;
-		w[4] = 0;
-		w[5] = 0;
-		w[6] = 0;
-		w[7] = 1;
-		w[8] = 0;
-		w[9] = 0;
-		w[10] = -1;
-		w[11] = 0;
-		w[12] = 0;
-		w[13] = 0;
-		w[14] = 0.8;
-		w[15] = 0;
-		w[16] = 0;
-		w[17] = -1;
-		
-		setANNWeight(w.clone());
-		initRobot();
-	}
+//	public void testRun(){
+//		double[] w = new double[network.getNumberOfWeightsNeeded()];
+//		System.out.println(w.length);
+//		w[0] = 1;
+//		w[1] = 0;
+//		w[2] = 0;
+//		w[3] = -1;
+//		w[4] = 0;
+//		w[5] = 0;
+//		w[6] = 0;
+//		w[7] = 1;
+//		w[8] = 0;
+//		w[9] = 0;
+//		w[10] = -1;
+//		w[11] = 0;
+//		w[12] = 0;
+//		w[13] = 0;
+//		w[14] = 0.8;
+//		w[15] = 0;
+//		w[16] = 0;
+//		w[17] = -1;
+//		
+//		setANNWeight(w.clone());
+//		initRobot();
+//	}
 	
 }

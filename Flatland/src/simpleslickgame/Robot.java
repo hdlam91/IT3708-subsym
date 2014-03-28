@@ -46,7 +46,7 @@ public class Robot {
 //		
 //		
 //		ann.setWeight(w.clone());
-		//ann.test();
+
 	}
 	
 	public ANN getANN(){
