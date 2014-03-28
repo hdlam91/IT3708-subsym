@@ -9,7 +9,7 @@ public class Main {
 		int K = 20;
 		double P = 0.8;
 		
-		int numberOfIndividuals = 30;
+		int numberOfIndividuals = 200;
 //		int numberOfFieldsPerGenoType = 40;
 		int requiredNumberOfBitsForGenoType = 1;
 		

@@ -180,7 +180,7 @@ public class ANN {
 					newLayer[j] = hiddenNodes.get(counter).output(); 
 					counter++;
 //					System.out.println(counter + "/ "+ i + "..." + Arrays.toString(Arrays.copyOfRange(v, start, end)));
-					System.out.println("Hidden layers output:" + Arrays.toString(currentOut));
+//					System.out.println("Hidden layers output:" + Arrays.toString(currentOut));
 				}
 				currentOut = newLayer;
 			}
