@@ -159,25 +159,14 @@ public class SimpleSlickGame extends BasicGame
 	
 	
 	public void graph(){
-	int numberOfIterations = 50;
-	double[] x = new double[numberOfIterations];
-	double[] bestFitness = new double[numberOfIterations];
-	double[] avgFitness = new double[numberOfIterations];
-	double[] sdFitness = new double[numberOfIterations];
-	for (int i = 0; i < numberOfIterations; i++) {
-		x[i] = i;
-		bestFitness[i] = 2*i;
-		sdFitness[i] = i*i;
-		avgFitness[i] = i*i/(Math.E);
-	}
 	
 	Plot2DPanel plot = new Plot2DPanel();
 	
 	// add a line plot to the PlotPanel
-	plot.addLinePlot("Best fitness",Color.GREEN, bestFitness);
-	plot.addLinePlot("Avg fitness",Color.BLUE, avgFitness);
-	plot.addLinePlot("SD fitness",Color.MAGENTA, sdFitness);
-	plot.addLegend("EAST");
+	plot.addLinePlot("Best fitness",Color.GREEN, ea.getBestFitness());
+	plot.addLinePlot("Avg fitness",Color.BLUE, ea.getAvgFitness());
+	plot.addLinePlot("SD fitness",Color.MAGENTA, ea.getSDFitness());
+	plot.addLegend("EAST"); //wow such legendary
 	// put the PlotPanel in a JFrame, as a JPanel
 	JFrame frame = new JFrame("Fitness plot");
 	frame.setContentPane(plot);

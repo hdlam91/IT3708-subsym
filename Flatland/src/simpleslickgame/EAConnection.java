@@ -11,6 +11,9 @@ public class EAConnection {
 	double treshold;
 	Robot bestRobot;
 	ArrayList <int[]> results; 
+	
+	double [] bestFitnessG, avgFitnessG, sdFitnessG;
+	
 	public EAConnection() {
 		treshold = 0.5;
 		results = new ArrayList<int[]>();
@@ -39,6 +42,7 @@ public class EAConnection {
 	}
 	
 	public void run(double[] v){
+		results.clear();
 		setANNWeight(v);
 		for (int i = 0; i < scenes.length; i++) {
 			sceneIndex = i;
@@ -49,6 +53,24 @@ public class EAConnection {
 			e[2] = getNumberOfPoisonEaten(); e[3] = getNumberOfPoisonTotal();
 			results.add(e);
 		}
+	}
+	
+	
+	public void setGraph(double[] b,double[] avg,double[] sd){
+		bestFitnessG = b;
+		avgFitnessG = avg;
+		sdFitnessG = sd;
+	}
+	
+	public double[] getBestFitness(){
+		return bestFitnessG;
+	}
+	public double[] getAvgFitness(){
+		return avgFitnessG;
+	}
+	
+	public double[] getSDFitness(){
+		return sdFitnessG;
 	}
 	
 	

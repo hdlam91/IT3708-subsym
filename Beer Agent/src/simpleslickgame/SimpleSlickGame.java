@@ -43,7 +43,7 @@ public class SimpleSlickGame extends BasicGame
 	{
 		
 		
-		//g.drawString("Howdy!" + counter, 100, 100);
+		g.drawString("Howdy!" + counter, 100, 100);
 	}
 	
 	
@@ -61,41 +61,14 @@ public class SimpleSlickGame extends BasicGame
 		try
 		{
 			AppGameContainer appgc;
-			appgc = new AppGameContainer(new SimpleSlickGame("Flatland"));
+			appgc = new AppGameContainer(new SimpleSlickGame("Beer-agent"));
 			appgc.setDisplayMode(w, h, false);
 			appgc.start();
-			
-			System.out.println("hello");
 		}
 		catch (SlickException ex)
 		{
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
-//		int numberOfIterations = 50;
-//		double[] x = new double[numberOfIterations];
-//		double[] bestFitness = new double[numberOfIterations];
-//		
-//		for (int i = 0; i < numberOfIterations; i++) {
-//			x[i] = i;
-//			bestFitness[i] = Math.random()*50;
-//		}
-//		
-//		Plot2DPanel plot = new Plot2DPanel();
-//		
-//		// add a line plot to the PlotPanel
-//		plot.addLinePlot("Best fitness", x, bestFitness);
-//		
-//		// put the PlotPanel in a JFrame, as a JPanel
-//		JFrame frame = new JFrame("EA plot");
-//		frame.setContentPane(plot);
-//		frame.setVisible(true);
-//		
-//		frame.setLocation(100,100);
-//		Dimension minSize = new Dimension(1200,800);
-//		frame.setMinimumSize(minSize);
-		
-		
 		
 		
 	}
