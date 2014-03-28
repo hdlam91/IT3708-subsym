@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 public class ANN {
 	
-	private Node foodInputLeft, foodInputFront, foodInputRight;
-	private Node poisonInputLeft, poisonInputFront, poisonInputRight;
-	private Node leftOutput, frontOutput, rightOutput;
+//	private Node foodInputLeft, foodInputFront, foodInputRight;
+//	private Node poisonInputLeft, poisonInputFront, poisonInputRight;
+//	private Node leftOutput, frontOutput, rightOutput;
 	private ArrayList<Node> outputs;
 	private ArrayList<Node> hiddenNodes; 
 	private ArrayList<Node> inputs;
@@ -17,32 +17,36 @@ public class ANN {
 	int[] hiddenLayerStructure;
 	
 	public ANN(double treshold) {//no hidden layers
-		foodInputLeft = new Node(true);
-		foodInputFront = new Node(true);
-		foodInputRight = new Node(true);
-		poisonInputLeft = new Node(true);
-		poisonInputFront = new Node(true);
-		poisonInputRight = new Node(true);
+//		foodInputLeft = new Node(true);
+//		foodInputFront = new Node(true);
+//		foodInputRight = new Node(true);
+//		poisonInputLeft = new Node(true);
+//		poisonInputFront = new Node(true);
+//		poisonInputRight = new Node(true);
 		
 		inputs= new  ArrayList<Node>();
-		inputs.add(foodInputLeft);
-		inputs.add(foodInputFront);
-		inputs.add(foodInputRight);
-		inputs.add(poisonInputLeft);
-		inputs.add(poisonInputFront);
-		inputs.add(poisonInputRight);
+//		inputs.add(foodInputLeft);
+//		inputs.add(foodInputFront);
+//		inputs.add(foodInputRight);
+//		inputs.add(poisonInputLeft);
+//		inputs.add(poisonInputFront);
+//		inputs.add(poisonInputRight);
+		
+		numOfInput = 6;
+		for (int i = 0; i < numOfInput; i++) {
+			inputs.add(new Node(true));
+		}
+			
+		
 		
 		hiddenLayerUsed = false;
-		leftOutput = new Node(treshold);
-		frontOutput = new Node(treshold);
-		rightOutput = new Node(treshold);
 		
 		outputs = new ArrayList<Node>();
-		outputs.add(leftOutput);
-		outputs.add(frontOutput);
-		outputs.add(rightOutput);
-		numOfInput = 6;
-		numOfOutput = outputs.size();
+		numOfOutput = 3;
+		for (int i = 0; i < numOfOutput; i++) {
+			outputs.add(new Node(treshold));
+			
+		}
 		
 	}
 	
@@ -53,15 +57,6 @@ public class ANN {
 	last needs nodeStructure[size-1] w
 	*/
 	public ANN(int[] nodeStructure, double treshold) {
-//		foodInputLeft = new Node();
-//		foodInputFront = new Node();
-//		foodInputRight = new Node();
-//		poisonInputLeft = new Node();
-//		poisonInputFront = new Node();
-//		poisonInputRight = new Node();
-//		leftOutput = new Node();
-//		frontOutput = new Node();
-//		rightOutput = new Node();
 		this(treshold);
 		
 		hiddenNodes = new ArrayList<Node>();
@@ -81,13 +76,6 @@ public class ANN {
 			hiddenLayerUsed = true;
 		}
 		
-//		outputs = new ArrayList<Node>();
-//		outputs.add(leftOutput);
-//		outputs.add(frontOutput);
-//		outputs.add(rightOutput);
-//		
-//		numOfInput = 6;
-//		numOfOutput = outputs.size();		
 	}
 	
 	public int getNumberOfWeightsNeeded(){
@@ -126,7 +114,6 @@ public class ANN {
 						end = start+hiddenLayerStructure[i-1];
 					hiddenNodes.get(counter).setWeight(Arrays.copyOfRange(v, start, end));
 					counter++;
-//					System.out.println(counter + "/ "+ i + "..." + Arrays.toString(Arrays.copyOfRange(v, start, end)));
 
 				}
 			
@@ -161,8 +148,6 @@ public class ANN {
 					hiddenNodes.get(counter).input(currentOut);
 					newLayer[j] = hiddenNodes.get(counter).output(); 
 					counter++;
-//					System.out.println(counter + "/ "+ i + "..." + Arrays.toString(Arrays.copyOfRange(v, start, end)));
-//					System.out.println("Hidden layers output:" + Arrays.toString(currentOut));
 				}
 				currentOut = newLayer;
 			}
@@ -175,39 +160,37 @@ public class ANN {
 			for (int i = 0; i < outputs.size(); i++) {
 				outputs.get(i).input(firstOut);
 			}
-//			System.out.println("output:l" + outputs.get(0).output() + "f"+ outputs.get(1).output() + "r" + outputs.get(2).output());
 		}
 	}
 	
 	
 	
 	
-	public void input(boolean fleft, boolean ffront, boolean fright,boolean pleft, boolean pfront, boolean pright){
-		//DO something		
-		foodInputLeft.input(fleft);
-		foodInputFront.input(ffront);
-		foodInputRight.input(fright);
-		poisonInputLeft.input(pleft);
-		poisonInputFront.input(pfront);
-		poisonInputRight.input(pright);
-//		System.out.println("INPUTS:");
-//		System.out.println(fleft);
-//		System.out.println(ffront);
-//		System.out.println(fright);
-//		System.out.println(pleft);
-//		System.out.println(pfront);
-//		System.out.println(pright);
+//	public void input(boolean fleft, boolean ffront, boolean fright,boolean pleft, boolean pfront, boolean pright){
+//		//DO something		
+//		foodInputLeft.input(fleft);
+//		foodInputFront.input(ffront);
+//		foodInputRight.input(fright);
+//		poisonInputLeft.input(pleft);
+//		poisonInputFront.input(pfront);
+//		poisonInputRight.input(pright);
+//	}
+	
+	public void input(boolean[] input){
+		for (int i = 0; i < input.length; i++) {
+			inputs.get(i).input(input[i]);
+		}
 	}
 	
 	
 	public double getLeftMotor(){
-		return leftOutput.output();
+		return outputs.get(0).output();
 	}
 	public double getFrontMotor(){
-		return frontOutput.output();
+		return outputs.get(1).output();
 	}
 	public double getRightMotor(){
-		return rightOutput.output();
+		return outputs.get(2).output();
 	}
 	
 	

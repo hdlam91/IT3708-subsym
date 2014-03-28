@@ -133,7 +133,8 @@ public class Robot {
 		
 		if(timeStep <totalTimeStepAllowed){
 			getSensorInput();
-			ann.input(foodLeft, foodForward, foodRight, poiLeft, poiForward, poiRight);
+			boolean[] sensors = {foodLeft, foodForward, foodRight, poiLeft, poiForward, poiRight};
+			ann.input(sensors);
 			ann.run();
 			double front = ann.getFrontMotor();
 			double left = ann.getLeftMotor();
