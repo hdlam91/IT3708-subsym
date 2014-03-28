@@ -1,5 +1,7 @@
 package simpleslickgame;
 
+import java.util.ArrayList;
+
 public class EAConnection {
 	Robot robot;
 	ANN network;
@@ -7,9 +9,11 @@ public class EAConnection {
 	Scenario sceneToUse;
 	int sceneIndex;
 	double treshold;
+	Robot bestRobot;
+	ArrayList <int[]> results; 
 	public EAConnection() {
 		treshold = 0.5;
-		
+		results = new ArrayList<int[]>();
 		sceneIndex = 0;
 		scenes = new Scenario[5];
 		for (int i = 0; i < scenes.length; i++) {
@@ -29,8 +33,22 @@ public class EAConnection {
 		
 	}
 	
-	public void run(){
-		robot.run();
+	
+	public Robot bestRobot(){
+		return bestRobot;
+	}
+	
+	public void run(double[] v){
+		setANNWeight(v);
+		for (int i = 0; i < scenes.length; i++) {
+			sceneIndex = i;
+			restart();
+			robot.run();
+			int[] e = new int[4];
+			e[0] = getNumberOfFoodEaten(); e[1] = getNumberOfFoodTotal();
+			e[2] = getNumberOfPoisonEaten(); e[3] = getNumberOfPoisonTotal();
+			results.add(e);
+		}
 	}
 	
 	
@@ -40,6 +58,9 @@ public class EAConnection {
 		initRobot();
 	}
 	
+	public ArrayList<int[]> getRes(){
+		return results;
+	}
 	
 	public Robot getRobot(){
 		return robot;
