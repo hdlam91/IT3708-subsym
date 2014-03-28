@@ -23,8 +23,8 @@ public class EAConnection {
 			scenes[i] =  new Scenario(0.5,0.5,8,8,false);
 		}
 		sceneToUse = new Scenario(scenes[sceneIndex]);
+//		int hidden[] = {3};
 		network = new ANN(treshold);
-//		testRun();
 	}
 	
 	public int getNumberOfWeightsNeeded(){
@@ -38,6 +38,13 @@ public class EAConnection {
 	public void initRobot(){
 		robot = new Robot(sceneToUse.getStartX(), sceneToUse.getStartY(), sceneToUse.getSizeX(), sceneToUse.getSizeY(), sceneToUse, network);
 		
+	}
+	
+	public void createNewScenes(){
+		scenes = new Scenario[5];
+		for (int i = 0; i < scenes.length; i++) {
+			scenes[i] =  new Scenario(0.5,0.5,8,8,false);
+		}
 	}
 	
 	
@@ -109,8 +116,6 @@ public class EAConnection {
 		return sceneToUse.getNumberOfPoison();
 	}
 	
-	
-	
 	public void addSceneIndex(){
 		sceneIndex++;
 		if(sceneIndex > scenes.length-1)
@@ -124,31 +129,5 @@ public class EAConnection {
 			sceneIndex = scenes.length-1;
 		restart();
 	}
-	
-//	public void testRun(){
-//		double[] w = new double[network.getNumberOfWeightsNeeded()];
-//		System.out.println(w.length);
-//		w[0] = 1;
-//		w[1] = 0;
-//		w[2] = 0;
-//		w[3] = -1;
-//		w[4] = 0;
-//		w[5] = 0;
-//		w[6] = 0;
-//		w[7] = 1;
-//		w[8] = 0;
-//		w[9] = 0;
-//		w[10] = -1;
-//		w[11] = 0;
-//		w[12] = 0;
-//		w[13] = 0;
-//		w[14] = 0.8;
-//		w[15] = 0;
-//		w[16] = 0;
-//		w[17] = -1;
-//		
-//		setANNWeight(w.clone());
-//		initRobot();
-//	}
-	
+
 }

@@ -9,7 +9,7 @@ public class Main {
 		int K = 20;
 		double P = 0.8;
 		
-		int numberOfIndividuals = 30;
+		int numberOfIndividuals = 200;
 //		int numberOfFieldsPerGenoType = 40;
 		int requiredNumberOfBitsForGenoType = 1;
 		
@@ -29,7 +29,7 @@ public class Main {
 		EAConnection con = new EAConnection();
 		int numberofWeights = con.getNumberOfWeightsNeeded();
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
-				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,true);
 		System.out.println(Arrays.toString(s.getWeightsOfBestIndividual()));
 	}
 }

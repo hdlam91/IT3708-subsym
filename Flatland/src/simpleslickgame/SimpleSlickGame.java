@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 import org.math.plot.Plot2DPanel;
-import org.math.plot.PlotPanel;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -74,7 +73,7 @@ public class SimpleSlickGame extends BasicGame
 		
 		int typeOfProblem = 2;
 		int adultType = 2;
-		int parentType = 3;
+		int parentType = 1;
 		
 		double crossOverRate = 0.3;
 		double mutationRate = 0.2;
@@ -84,9 +83,11 @@ public class SimpleSlickGame extends BasicGame
 		
 		EAConnection con = new EAConnection();
 		int numberofWeights = con.getNumberOfWeightsNeeded();
+		System.out.println(numberofWeights);
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
-				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,true);
 		ea.setANNWeight(s.getWeightsOfBestIndividual());
+		ea.setGraph(s.getBestList(), s.getMeanList(), s.getStdList());
 		ea.restart();
 	}
 	
