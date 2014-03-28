@@ -40,6 +40,10 @@ public class GeneralEA <T>{
 	
 	private PhenoType bestIndividual;
 	
+	private List<Double> meanL;
+	private List<Double> stdL;
+	private List<Double> bestL;
+	
 	public GeneralEA(int sizeOfPopulation, int requiredSizeOfGenotype, int requiredBitsOfGenoType, int typeOfProblem, int typeOfAdultSelection, 
 						int typeOfParentSelection, double crossOverRate, double mutationRate, boolean componentMutation, int K, double P, boolean initializeRandomly, EAConnection connection){
 		
@@ -82,6 +86,10 @@ public class GeneralEA <T>{
 		
 		this.goalReached = false;
 		
+		meanL = new ArrayList<Double>();
+		stdL = new ArrayList<Double>();
+		bestL = new ArrayList<Double>();
+		
 		geneticLoop();
 	}
 	
@@ -92,7 +100,7 @@ public class GeneralEA <T>{
 		System.out.println("Init:");
 		System.out.println(currentPhenoTypeFitnessValues);
 		while(!goalReached && iter<100){
-			double bestFintessForThisIter = 0;
+			double bestFitnessForThisIter = 0;
 //			System.out.println("Iteration: " + iter);
 //			System.out.println(currentPopulation==previousPopulation);
 			
@@ -152,8 +160,8 @@ public class GeneralEA <T>{
 			for (int i = 0; i < currentPhenoTypeFitnessValues.size(); i++) {
 				double val = currentPhenoTypeFitnessValues.get(i);
 				sumOfFitnessValues+=val;
-				if(val>bestFintessForThisIter)
-					bestFintessForThisIter = val;
+				if(val>bestFitnessForThisIter)
+					bestFitnessForThisIter = val;
 				if(val>bestFitness){
 					bestFitness = val;
 					bestIndividual = currentPhenoTypes.get(i);
@@ -188,8 +196,10 @@ public class GeneralEA <T>{
 //			System.out.println();
 			
 			//Plot 
-			System.out.println(iter + "\t" + mean + "\t" + std + "\t" + bestFintessForThisIter);
-			
+			System.out.println(iter + "\t" + mean + "\t" + std + "\t" + bestFitnessForThisIter);
+			meanL.add(mean);
+			stdL.add(std);
+			bestL.add(bestFitnessForThisIter);
 			
 			iter++;
 		}
@@ -201,11 +211,36 @@ public class GeneralEA <T>{
 		System.out.println("Best Individual" + bestIndividual);
 		System.out.println("Total number of Iterations: " + iter);
 		
+		
 	}
 	
 	public double[] getWeightsOfBestIndividual(){
 		DoublePhenoType p = (DoublePhenoType) bestIndividual;
 		return p.getDoublePhenoTypeValues();
+	}
+	
+	public double[] getMeanList(){
+		double[] ret = new double[meanL.size()];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = meanL.get(i);
+		}
+		return ret;
+	}
+	
+	public double[] getStdList(){
+		double[] ret = new double[stdL.size()];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = stdL.get(i);
+		}
+		return ret;
+	}
+	
+	public double[] getBestList(){
+		double[] ret = new double[bestL.size()];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = bestL.get(i);
+		}
+		return ret;
 	}
 	
 	public void updateThirdPhenoTypeFitnessValues(){

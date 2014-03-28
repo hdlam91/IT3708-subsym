@@ -87,6 +87,7 @@ public class SimpleSlickGame extends BasicGame
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
 				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
 		ea.setANNWeight(s.getWeightsOfBestIndividual());
+		ea.setGraph(s.getBestList(), s.getMeanList(), s.getStdList());
 		ea.restart();
 	}
 	
