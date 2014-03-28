@@ -1,13 +1,13 @@
 package evolutionary_Algorithm;
 
-import simpleslickgame.ANN;
+import simpleslickgame.EAConnection;
 
 public class DoubleFitnessEvaluator extends FitnessEvaluator<Integer>{
 
-	private ANN ann;
+	private EAConnection connection;
 	
-	public DoubleFitnessEvaluator(ANN ann) {
-		this.ann = ann;
+	public DoubleFitnessEvaluator(EAConnection con) {
+		this.connection = con;
 	}
 	
 	@Override
