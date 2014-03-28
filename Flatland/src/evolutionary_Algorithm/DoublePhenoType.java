@@ -22,4 +22,8 @@ public class DoublePhenoType extends PhenoType<Integer>{
 			this.representation[i] = genotype[i]/1000.0;
 		}
 	}
+	
+	public double[] getDoublePhenoTypeValues(){
+		return representation;
+	}
 }

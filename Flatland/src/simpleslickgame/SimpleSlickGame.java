@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 
 
+
 //graphing
 import javax.swing.JFrame;
 
@@ -19,6 +20,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import evolutionary_Algorithm.GeneralEA;
 
 public class SimpleSlickGame extends BasicGame
 {
@@ -58,13 +61,40 @@ public class SimpleSlickGame extends BasicGame
 		height = gc.getHeight();
 		width = gc.getWidth();
 		squareSize = 64;
+		
+		
+		
+		
+		
+		int K = 20;
+		double P = 0.8;
+		
+		int numberOfIndividuals = 30;
+		int requiredNumberOfBitsForGenoType = 1;
+		
+		int typeOfProblem = 2;
+		int adultType = 2;
+		int parentType = 3;
+		
+		double crossOverRate = 0.3;
+		double mutationRate = 0.2;
+		
+		boolean mutationPerComponent = true;
+		boolean initializeRandomly = true;
+		
+		EAConnection con = new EAConnection();
+		int numberofWeights = con.getNumberOfWeightsNeeded();
+		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
+		ea.setANNWeight(s.getWeightsOfBestIndividual());
+		ea.restart();
 	}
 	
 
 	
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		if(System.currentTimeMillis()%(sleepTimer) >= sleepTimer-20){
+		if(System.currentTimeMillis()%(sleepTimer) >= sleepTimer-10){
 			if(!init){
 				if(!pause)
 				

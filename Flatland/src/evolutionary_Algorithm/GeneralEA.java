@@ -3,7 +3,7 @@ package evolutionary_Algorithm;
 import java.util.ArrayList;
 import java.util.List;
 
-import simpleslickgame.ANN;
+import simpleslickgame.EAConnection;
 
 public class GeneralEA <T>{
 	private Population<T> currentPopulation;
@@ -36,15 +36,17 @@ public class GeneralEA <T>{
 	private double mutationRate;
 	private boolean componentMutation;
 	
-	private ANN ann;
+	private EAConnection connection;
+	
+	private PhenoType bestIndividual;
 	
 	public GeneralEA(int sizeOfPopulation, int requiredSizeOfGenotype, int requiredBitsOfGenoType, int typeOfProblem, int typeOfAdultSelection, 
-						int typeOfParentSelection, double crossOverRate, double mutationRate, boolean componentMutation, int K, double P, boolean initializeRandomly, ANN ann){
+						int typeOfParentSelection, double crossOverRate, double mutationRate, boolean componentMutation, int K, double P, boolean initializeRandomly, EAConnection connection){
 		
 		this.currentPopulation = new Population<T>(sizeOfPopulation, requiredSizeOfGenotype, requiredBitsOfGenoType, initializeRandomly, typeOfProblem);
 		this.currentPhenoTypes = new ArrayList<PhenoType<T>>();
 		
-		this.currentFitnessEvaluator = getFitnessEvaluatorForProblemType(typeOfProblem,ann);
+		this.currentFitnessEvaluator = getFitnessEvaluatorForProblemType(typeOfProblem,connection);
 		this.currentAdultSelection = getAdultSelectionMethod(typeOfAdultSelection);
 		
 		this.currentParentSelection = getParentSelectionMethod(typeOfParentSelection,K,P);
@@ -61,7 +63,7 @@ public class GeneralEA <T>{
 		this.mutationRate = mutationRate;
 		this.componentMutation = componentMutation;
 		
-		this.ann = ann;
+		this.connection = connection;
 		
 		if(typeOfAdultSelection==0)
 			this.factor = 1;
@@ -86,6 +88,7 @@ public class GeneralEA <T>{
 	public void geneticLoop(){
 		int iter = 0;
 		double bestFitness = 0;
+		bestIndividual = null;
 		System.out.println("Init:");
 		System.out.println(currentPhenoTypeFitnessValues);
 		while(!goalReached && iter<100){
@@ -103,7 +106,6 @@ public class GeneralEA <T>{
 				this.thirdPopulation = currentAdultSelection.findAdultsFromPopulations(previousPopulation, currentPopulation, previousPhenoTypeFitnessValues, currentPhenoTypeFitnessValues, sizeOfPopulation);
 			}
 			updateThirdPhenoTypeFitnessValues();
-			
 //			System.out.println(thirdPhenoTypes);
 //			System.out.println("adults:");
 //			System.out.println(thirdPhenoTypeFitnessValues);
@@ -147,13 +149,24 @@ public class GeneralEA <T>{
 					goalReached = true;
 			}
 			double sumOfFitnessValues = 0;
-			for (Double val : currentPhenoTypeFitnessValues) {
+			for (int i = 0; i < currentPhenoTypeFitnessValues.size(); i++) {
+				double val = currentPhenoTypeFitnessValues.get(i);
 				sumOfFitnessValues+=val;
 				if(val>bestFintessForThisIter)
 					bestFintessForThisIter = val;
-				if(val>bestFitness)
+				if(val>bestFitness){
 					bestFitness = val;
+					bestIndividual = currentPhenoTypes.get(i);
+				}
 			}
+//			for (Double val : currentPhenoTypeFitnessValues) {
+//				sumOfFitnessValues+=val;
+//				if(val>bestFintessForThisIter)
+//					bestFintessForThisIter = val;
+//				if(val>bestFitness){
+//					bestFitness = val;
+//				}
+//			}
 			double mean = sumOfFitnessValues/currentPhenoTypeFitnessValues.size();
 			mean = round(mean,5);
 			
@@ -185,8 +198,14 @@ public class GeneralEA <T>{
 		System.out.println(currentPhenoTypes);
 		System.out.println(currentPhenoTypeFitnessValues);
 		System.out.println("Best overall fitness: "+ bestFitness);
+		System.out.println("Best Individual" + bestIndividual);
 		System.out.println("Total number of Iterations: " + iter);
 		
+	}
+	
+	public double[] getWeightsOfBestIndividual(){
+		DoublePhenoType p = (DoublePhenoType) bestIndividual;
+		return p.getDoublePhenoTypeValues();
 	}
 	
 	public void updateThirdPhenoTypeFitnessValues(){
@@ -232,14 +251,14 @@ public class GeneralEA <T>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public FitnessEvaluator<T> getFitnessEvaluatorForProblemType(int type, ANN ann){
+	public FitnessEvaluator<T> getFitnessEvaluatorForProblemType(int type, EAConnection con){
 		switch(type){
 		case 0:
 			return (FitnessEvaluator<T>) new BinaryFitnessEvaluator();
 		case 1:
 			return (FitnessEvaluator<T>) new SpecificBitStringFitnessEvaluator();
 		case 2:
-			return (FitnessEvaluator<T>) new DoubleFitnessEvaluator(ann);
+			return (FitnessEvaluator<T>) new DoubleFitnessEvaluator(con);
 		default:
 			return null;
 		}

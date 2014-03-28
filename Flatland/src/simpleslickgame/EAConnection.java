@@ -24,7 +24,11 @@ public class EAConnection {
 		}
 		sceneToUse = new Scenario(scenes[sceneIndex]);
 		network = new ANN(treshold);
-		testRun();
+//		testRun();
+	}
+	
+	public int getNumberOfWeightsNeeded(){
+		return network.getNumberOfWeightsNeeded();
 	}
 	
 	public void setANNWeight(double[] v){
@@ -75,12 +79,11 @@ public class EAConnection {
 	
 	
 	public void restart(){
-		
 		sceneToUse = new Scenario(scenes[sceneIndex]);
 		initRobot();
 	}
 	
-	public ArrayList<int[]> getRes(){
+	public ArrayList<int[]> getResults(){
 		return results;
 	}
 	
@@ -143,7 +146,6 @@ public class EAConnection {
 		w[15] = 0;
 		w[16] = 0;
 		w[17] = -1;
-		
 		
 		setANNWeight(w.clone());
 		initRobot();

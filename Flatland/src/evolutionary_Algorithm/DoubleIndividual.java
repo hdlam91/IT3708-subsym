@@ -12,7 +12,7 @@ public class DoubleIndividual extends Individual<Integer>{
 		this.genotype = new Integer[sizeOfGenoType*requiredNumberOfBits];
 		if(initializeRandomly){
 			for (int i = 0; i < genotype.length; i++) {
-				this.genotype[i] = (int)(Math.random()*factor);
+				this.genotype[i] = (int)(Math.random()*factor)*(Math.random()>0.5?1:-1);
 			}
 		}
 	}
@@ -49,13 +49,22 @@ public class DoubleIndividual extends Individual<Integer>{
 //		while(r.size()<10){
 //			r.add(new DoubleIndividual(10, 1, true));
 //		}
-//		System.out.println(r);
+////		System.out.println(r);
 //		List<PhenoType> q = new ArrayList<PhenoType>();
 //		for (int i = 0; i < r.size(); i++) {
 //			q.add(new DoublePhenoType(10));
 //			q.get(i).convertFromGenoTypeToPhenoType(r.get(i).getGenoType(), 10);
 //		}
 //		System.out.println(q);
-//		
+//		DoubleMutation m = new DoubleMutation();
+//		for (Individual ind : r) {
+//			m.getMutatedIndividual(ind, 0.5, true);
+//		}
+//		q = new ArrayList<PhenoType>();
+//		for (int i = 0; i < r.size(); i++) {
+//			q.add(new DoublePhenoType(10));
+//			q.get(i).convertFromGenoTypeToPhenoType(r.get(i).getGenoType(), 10);
+//		}
+//		System.out.println(q);
 //	}
 }

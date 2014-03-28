@@ -104,7 +104,7 @@ public class Node {
 				sum += x[i];
 			}
 		sum+= biasIn*biasW;
-		System.out.println("SUM IS"+ sum);
+//		System.out.println("SUM IS"+ sum);
 		return sum;
 	}
 	
