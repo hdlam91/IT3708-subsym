@@ -10,9 +10,18 @@ public class BeerAgent {
 		// TODO Auto-generated constructor stub
 		sensors = new boolean[5];
 		network = ann;
+		sizeX = 20;
 	}
 	
-	
+	public void test(){
+//		double turn = Math.random()*200;
+//		if(Math.random()>0.5)
+//			posX = safeX(posX-(int)turn);
+//		else
+//			posX = safeX(posX+(int)turn);
+		posX = safeX(posX+1);
+		updateSensor();
+	}
 	public void update(){
 		//using ann
 		updateSensor();
@@ -33,8 +42,11 @@ public class BeerAgent {
 	
 	private void updateSensor(){
 		for (int i = 0; i < sensors.length; i++) {
-			sensors[i] = false;
-			//sesnsors[i] = getLineAt(posX-(i+2));
+			if(Math.random()<0.5)
+				sensors[i] = false;
+			else
+				sensors[i] = true;
+			//sesnsors[i] = getLineAt(posX-2+i);
 		}
 	}
 	
@@ -45,6 +57,18 @@ public class BeerAgent {
 	
 	private int safeX(int x){
 		return (x+sizeX)%sizeX;
+	}
+	
+	public boolean[] getSensors(){
+		return sensors.clone();
+	}
+	
+	public int[] getRenderPosition(){
+		int [] pos =  new int[5];
+		for (int i = 0; i < 5; i++) {
+			pos[i] = safeX(posX-2+i);
+		}
+		return pos.clone();
 	}
 	
 	
