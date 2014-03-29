@@ -19,8 +19,11 @@ public class SimpleSlickGame extends BasicGame
 	ANN network;
 	Image left, mid, right;
 	Image leftS, midS, rightS;
+	Image block;
 	int squareSize;
 	int width, height;
+	int yPosition;
+	int[] temp;
 	public SimpleSlickGame(String gamename)
 	{
 		super(gamename);
@@ -36,17 +39,22 @@ public class SimpleSlickGame extends BasicGame
 		leftS = new Image("res/leftOn.png");
 		midS = new Image("res/midOn.png");
 		rightS = new Image("res/rightOn.png");
+		block = new Image("res/block.png");
 		counter = 0;
 		
-		squareSize = 64;
+		squareSize = 32;
 		width = gc.getWidth();
 		height = gc.getHeight();
+		yPosition = boardPosY(15);
+		temp = new int[2];
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
 		gc.sleep(200);
 		gc.setForceExit(true);
+		temp[0] = (int) (Math.random()*30);
+		temp[1] = (int) (Math.random()*15);
 		ba.test();
 		counter++;
 	}
@@ -57,28 +65,29 @@ public class SimpleSlickGame extends BasicGame
 		
 		int[] renderPos = ba.getRenderPosition();
 		if(ba.getSensors()[0])
-			leftS.draw(boardPosX(renderPos[0]),50,squareSize,squareSize);
+			leftS.draw(boardPosX(renderPos[0]),yPosition,squareSize,squareSize);
 		else
-			left.draw(boardPosX(renderPos[0]),50,squareSize,squareSize);
+			left.draw(boardPosX(renderPos[0]),yPosition,squareSize,squareSize);
 		for (int i = 1; i < renderPos.length-1; i++) {
 			if(ba.getSensors()[i])
-				mid.draw(boardPosX(renderPos[i]),50,squareSize,squareSize);
+				mid.draw(boardPosX(renderPos[i]),yPosition,squareSize,squareSize);
 			else
-				midS.draw(boardPosX(renderPos[i]),50,squareSize,squareSize);
+				midS.draw(boardPosX(renderPos[i]),yPosition,squareSize,squareSize);
 			
 		}
 		if(ba.getSensors()[4])
-			right.draw(boardPosX(renderPos[4]),50,squareSize,squareSize);
+			right.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
 		else
-			rightS.draw(boardPosX(renderPos[4]),50,squareSize,squareSize);
+			rightS.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
+		block.draw(boardPosX(temp[0]),boardPosY(temp[1]),squareSize,squareSize);
 	}		
 	
 	
-//	private int boardPosY(int y){
-//		return y*squareSize+(height/2-squareSize*br.getSizeY()/2);
-//	}
+	private int boardPosY(int y){
+		return y*squareSize+(height/2-squareSize*15/2);
+	}
 	private int boardPosX(int x){
-		return x*squareSize;
+		return x*squareSize+(width/2-squareSize*30/2);
 	}
 	
 	

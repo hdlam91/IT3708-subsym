@@ -10,7 +10,7 @@ public class BeerAgent {
 		// TODO Auto-generated constructor stub
 		sensors = new boolean[5];
 		network = ann;
-		sizeX = 20;
+		sizeX = 30;
 	}
 	
 	public void test(){
