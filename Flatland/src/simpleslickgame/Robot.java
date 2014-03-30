@@ -21,31 +21,6 @@ public class Robot {
 		this.scene = scene;
 		
 		this.ann = ann;
-//		int [] li = {0};
-//		ann = new ANN(li);
-//		double[] w = new double[ann.getNumberOfWeightsNeeded()];
-//		System.out.println(w.length);
-//		w[0] = 1;
-//		w[1] = 0;
-//		w[2] = 0;
-//		w[3] = -1;
-//		w[4] = 0;
-//		w[5] = 0;
-//		w[6] = 0;
-//		w[7] = 1;
-//		w[8] = 0;
-//		w[9] = 0;
-//		w[10] = -1;
-//		w[11] = 0;
-//		w[12] = 0;
-//		w[13] = 0;
-//		w[14] = 0.8;
-//		w[15] = 0;
-//		w[16] = 0;
-//		w[17] = -1;
-//		
-//		
-//		ann.setWeight(w.clone());
 
 	}
 	
@@ -135,7 +110,6 @@ public class Robot {
 			getSensorInput();
 			boolean[] sensors = {foodLeft, foodForward, foodRight, poiLeft, poiForward, poiRight};
 			ann.input(sensors);
-			ann.run();
 			double front = ann.getFrontMotor();
 			double left = ann.getLeftMotor();
 			double right = ann.getRightMotor();
@@ -160,48 +134,52 @@ public class Robot {
 			//turning
 			
 			if (l){
-				timeStep++;
 				direction--;
+				//ensures the rotation is inside the given interval.
+				if (direction == 4)
+					direction = 0;
+				else if (direction == -1)
+					direction = 3;
 			}
 			else if (r){
 				direction++;
-				timeStep++;
+				//ensures the rotation is inside the given interval.
+				if (direction == 4)
+					direction = 0;
+				else if (direction == -1)
+					direction = 3;
 			}
+			else{
 			
-			//ensures the rotation is inside the given interval.
-			if (direction == 4)
-				direction = 0;
-			else if (direction == -1)
-				direction = 3;
-			
-			//moving
-			switch (direction) {
-			case 0:
-				posY--;
-				if (posY == -1)
-					posY = sizeY - 1;
-				break;
-			case 1:
-				posX++;
-				if (posX == sizeX)
-					posX = 0;
-				break;
-			case 2:
-				posY++;
-				if (posY == sizeY)
-					posY = 0;
-				break;
-			case 3:
-				posX--;
-				if (posX == -1)
-					posX = sizeX -1;
-				break;
-			default:
-				System.out.println("direction is not correct!");
-				break;
-			}
-			if(scene.getObjectAt(posX, posY) == 1 || scene.getObjectAt(posX, posY) == 2){
-				scene.removeObjectAt(posX, posY);
+				//moving
+				switch (direction) {
+				case 0:
+					posY--;
+					if (posY == -1)
+						posY = sizeY - 1;
+					break;
+				case 1:
+					posX++;
+					if (posX == sizeX)
+						posX = 0;
+					break;
+				case 2:
+					posY++;
+					if (posY == sizeY)
+						posY = 0;
+					break;
+				case 3:
+					posX--;
+					if (posX == -1)
+						posX = sizeX -1;
+					break;
+				default:
+					System.out.println("direction is not correct!");
+					break;
+				}
+				if(scene.getObjectAt(posX, posY) == 1 || scene.getObjectAt(posX, posY) == 2){
+					scene.removeObjectAt(posX, posY);
+				}
 			}
 			timeStep++;
 		}

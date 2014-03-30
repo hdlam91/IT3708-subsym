@@ -40,7 +40,6 @@ public class SimpleSlickGame extends BasicGame
 		super(gamename);
 	}
 
-	@Override
 	public void init(GameContainer gc) throws SlickException {
 		
 		pause = false;
@@ -93,10 +92,11 @@ public class SimpleSlickGame extends BasicGame
 	
 
 	
-	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		if(System.currentTimeMillis()%(sleepTimer) >= sleepTimer-10){
-			if(!init){
+//		if(System.currentTimeMillis()%(sleepTimer) >= sleepTimer-10){
+		gc.sleep(sleepTimer);
+		
+		if(!init){
 				if(!pause)
 				
 					ea.getRobot().update();
@@ -104,10 +104,9 @@ public class SimpleSlickGame extends BasicGame
 			else
 				init = false;
 			robotImage.setRotation(ea.getRobot().getDirection());
-		}
+//		}
 	}
 	
-	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		

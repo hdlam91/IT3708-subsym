@@ -60,7 +60,7 @@ public class BeerAgent {
 	}
 	
 	public boolean[] getSensors(){
-		return sensors.clone();
+		return (boolean[]) sensors.clone();
 	}
 	
 	public int[] getRenderPosition(){
@@ -68,7 +68,7 @@ public class BeerAgent {
 		for (int i = 0; i < 5; i++) {
 			pos[i] = safeX(posX-2+i);
 		}
-		return pos.clone();
+		return (int[]) pos.clone();
 	}
 	
 	

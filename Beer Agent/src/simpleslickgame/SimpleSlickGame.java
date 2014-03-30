@@ -5,16 +5,17 @@ import java.util.logging.Logger;
 
 //graphing
 
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class SimpleSlickGame extends BasicGame
 {
-	int counter;
 	BeerAgent ba;
 	ANN network;
 	Image left, mid, right;
@@ -24,6 +25,8 @@ public class SimpleSlickGame extends BasicGame
 	int width, height;
 	int yPosition;
 	int[] temp;
+	boolean pause;
+	int sleepTimer;
 	public SimpleSlickGame(String gamename)
 	{
 		super(gamename);
@@ -40,23 +43,27 @@ public class SimpleSlickGame extends BasicGame
 		midS = new Image("res/midOn.png");
 		rightS = new Image("res/rightOn.png");
 		block = new Image("res/block.png");
-		counter = 0;
+		
+		pause = false;
+		
 		
 		squareSize = 32;
 		width = gc.getWidth();
 		height = gc.getHeight();
 		yPosition = boardPosY(15);
 		temp = new int[2];
+		sleepTimer = 1000;
+		
+		
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		gc.sleep(200);
-		gc.setForceExit(true);
+		gc.sleep(sleepTimer);
 		temp[0] = (int) (Math.random()*30);
 		temp[1] = (int) (Math.random()*15);
-		ba.test();
-		counter++;
+		if(!pause)
+			ba.test();
 	}
 	
 	@Override
@@ -88,6 +95,44 @@ public class SimpleSlickGame extends BasicGame
 	}
 	private int boardPosX(int x){
 		return x*squareSize+(width/2-squareSize*30/2);
+	}
+	
+	
+	
+	public void keyPressed(int key, char c) {
+		if(key == Input.KEY_Q){
+			System.exit(0);
+			return;
+		}
+		if(key== Input.KEY_UP){
+			//ea.addSceneIndex();
+		}
+		else if(key==Input.KEY_DOWN){
+//			ea.subSceneIndex();
+		}
+		
+		if (key == Input.KEY_SPACE) {
+			pause = !pause;
+			
+		}
+		if(key == Input.KEY_1)
+			sleepTimer = 1;
+		else if(key == Input.KEY_2)
+			sleepTimer = 200;
+		else if(key == Input.KEY_3)
+			sleepTimer = 1000;
+		
+		if(key == Input.KEY_R){
+//			ea.restart();
+		}
+		if(key == Input.KEY_G)
+			graph();
+		
+	}
+	
+	
+	private void graph(){
+		
 	}
 	
 	
