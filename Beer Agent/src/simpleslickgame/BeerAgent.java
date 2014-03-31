@@ -70,7 +70,4 @@ public class BeerAgent {
 		}
 		return (int[]) pos.clone();
 	}
-	
-	
-	
 }
