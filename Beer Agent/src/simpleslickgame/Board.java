@@ -10,6 +10,7 @@ public class Board {
 	private List<FallingObject> objectList;
 	
 	private int board[][];
+	private boolean objectInCol[];
 	
 	public Board(int width, int height, int startX, int agentLength, int startHeightFallingObjects){
 		this.width = width;
@@ -21,6 +22,7 @@ public class Board {
 		this.board = new int[height][width];
 		
 		this.objectList = new ArrayList<FallingObject>();
+		this.objectInCol = new boolean[width];
 	}
 	
 	public void test(){
@@ -37,7 +39,7 @@ public class Board {
 	}
 	
 	public static void main(String[] args) {
-		Board b = new Board(30,15,29,5,0);
+		Board b = new Board(30,5,29,5,0);
 		
 		//Testarrrrooney
 		b.test();
@@ -46,6 +48,14 @@ public class Board {
 			System.out.println(Arrays.toString(fallingObject.renderPosition()) + " y: " + fallingObject.getPosY());
 		}
 		System.out.println(b);
+		System.out.println(Arrays.toString(b.objectInCol));
+		b.iter();
+		fL = b.getFallingObjects();
+		for (FallingObject fallingObject : fL) {
+			System.out.println(Arrays.toString(fallingObject.renderPosition()) + " y: " + fallingObject.getPosY());
+		}
+		System.out.println(b);
+		System.out.println(Arrays.toString(b.objectInCol));
 	}
 	
 	public void addNewObject(){
@@ -74,6 +84,8 @@ public class Board {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				board[i][j] = 0;
+				if(i==0)
+					objectInCol[j] = false;
 			}
 		}
 	}
@@ -84,8 +96,13 @@ public class Board {
 			int[] pos = f.renderPosition();
 			for (int i = 0; i < pos.length; i++) {
 				board[f.getPosY()][pos[i]] = 1;
+				objectInCol[pos[i]] = true;
 			}
 		}
+	}
+	
+	public boolean objectAtColumn(int x){
+		return objectInCol[x];
 	}
 	
 	public int[][] getBoard(){
