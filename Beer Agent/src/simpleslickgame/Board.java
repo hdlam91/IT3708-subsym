@@ -88,6 +88,11 @@ public class Board {
 		}
 	}
 	
+	public boolean objectAtLine(int i){
+		//THIS ONE.
+		return false;
+	}
+	
 	public int[][] getBoard(){
 		return board;
 	}
