@@ -6,25 +6,35 @@ public class BeerAgent {
 	int sizeX;
 	ANN network;
 	boolean[] sensors;
+	Board board;
 	public BeerAgent(ANN ann) {
 		// TODO Auto-generated constructor stub
 		sensors = new boolean[5];
 		network = ann;
 		sizeX = 30;
+		board = new Board(30, 15, 0, 5, 0);
+		board.addNewObject();
+		board.addNewObject();
+		board.addNewObject();
+		board.addNewObject();
+		board.addNewObject();
+		board.addNewObject();
+	}
+	
+	public Board getBoard(){
+		return board;
 	}
 	
 	public void test(){
-//		double turn = Math.random()*200;
-//		if(Math.random()>0.5)
-//			posX = safeX(posX-(int)turn);
-//		else
-//			posX = safeX(posX+(int)turn);
+		
+		updateSensor();
+		board.iter();
 		posX = safeX(posX+1);
 		updateSensor();
 	}
 	public void update(){
 		//using ann
-		updateSensor();
+		board.updateBoard();
 		network.input(sensors);
 		double left = network.getLeftMotor();
 		double right = network.getRightMotor();
