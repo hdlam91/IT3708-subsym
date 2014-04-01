@@ -1,5 +1,9 @@
 package simpleslickgame;
 
+import java.util.Arrays;
+
+import org.math.plot.utils.Array;
+
 public class BeerAgent {
 	
 	int posX;
@@ -26,9 +30,12 @@ public class BeerAgent {
 	
 	public void test(){
 		
-		updateSensor();
 		board.iter();
 		posX = safeX(posX+1);
+		updateSensor();
+		System.out.println(posX);
+		System.out.println(board);
+		System.out.println(Arrays.toString(sensors));
 	}
 	public void update(){
 		//using ann

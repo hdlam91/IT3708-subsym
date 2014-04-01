@@ -50,7 +50,7 @@ public class SimpleSlickGame extends BasicGame
 		squareSize = 32;
 		width = gc.getWidth();
 		height = gc.getHeight();
-		yPosition = boardPosY(15);
+		yPosition = boardPosY(14);
 		temp = new int[2];
 		sleepTimer = 1000;
 		
@@ -69,6 +69,15 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
+		int [][] board = ba.getBoard().getBoard();
+		
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				if(board[i][j]==1)
+					block.draw(boardPosX(j), boardPosY(i), squareSize, squareSize);
+				g.drawRect(boardPosX(j),boardPosY(i),squareSize,squareSize);
+			}
+		}
 		
 		int[] renderPos = ba.getRenderPosition();
 		if(ba.getSensors()[0])
@@ -77,16 +86,16 @@ public class SimpleSlickGame extends BasicGame
 			left.draw(boardPosX(renderPos[0]),yPosition,squareSize,squareSize);
 		for (int i = 1; i < renderPos.length-1; i++) {
 			if(ba.getSensors()[i])
-				mid.draw(boardPosX(renderPos[i]),yPosition,squareSize,squareSize);
-			else
 				midS.draw(boardPosX(renderPos[i]),yPosition,squareSize,squareSize);
+			else
+				mid.draw(boardPosX(renderPos[i]),yPosition,squareSize,squareSize);
 			
 		}
 		if(ba.getSensors()[4])
-			right.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
-		else
 			rightS.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
-		block.draw(boardPosX(temp[0]),boardPosY(temp[1]),squareSize,squareSize);
+		else
+			right.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
+//		block.draw(boardPosX(temp[0]),boardPosY(temp[1]),squareSize,squareSize);
 	}		
 	
 	
@@ -124,12 +133,15 @@ public class SimpleSlickGame extends BasicGame
 		
 		if(key == Input.KEY_R){
 //			ea.restart();
+			restart();
 		}
 		if(key == Input.KEY_G)
 			graph();
 		
 	}
-	
+	void restart(){
+		ba = new BeerAgent(network);
+		}
 	
 	private void graph(){
 		
