@@ -23,7 +23,7 @@ public class DoubleIndividual extends Individual<Integer>{
 
 		this.numW = con.getNumberOfWeightsNeeded();
 		this.numN = con.getNumberOfNodesNeeded();
-
+		
 		if(initializeRandomly){
 			for (int i = 0; i < numW; i++) {
 				this.genotype[i] = (int)(Math.random()*wfactor)*(Math.random()>0.5?1:-1);
@@ -40,8 +40,10 @@ public class DoubleIndividual extends Individual<Integer>{
 		}
 	}
 	
-	public DoubleIndividual(Integer[] genotype){
+	public DoubleIndividual(Integer[] genotype, int numW, int numN){
 		this.genotype = genotype.clone();
+		this.numW = numW;
+		this.numN = numN;
 	}
 	
 	@Override

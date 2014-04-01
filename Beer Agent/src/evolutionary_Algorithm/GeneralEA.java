@@ -162,7 +162,7 @@ public class GeneralEA <T>{
 			double sumOfFitnessValues = 0;
 			for (int i = 0; i < currentPhenoTypeFitnessValues.size(); i++) {
 				double val = currentPhenoTypeFitnessValues.get(i);
-				System.out.println(val);
+//				System.out.println(val);
 				sumOfFitnessValues+=val;
 				if(val>bestFitnessForThisIter)
 					bestFitnessForThisIter = val;
@@ -179,10 +179,8 @@ public class GeneralEA <T>{
 //					bestFitness = val;
 //				}
 //			}
-			System.out.println(sumOfFitnessValues);
-			System.out.println(bestIndividual);
+//			System.out.println(bestIndividual);
 			double mean = sumOfFitnessValues/currentPhenoTypeFitnessValues.size();
-			System.out.println(mean);
 			mean = round(mean,5);
 			
 			double sum2 = 0;

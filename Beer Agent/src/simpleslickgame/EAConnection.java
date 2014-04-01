@@ -1,5 +1,6 @@
 package simpleslickgame;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -26,7 +27,8 @@ public class EAConnection {
 	
 	public void run(double[] weights){
 		an.setWeight(weights);
-		System.out.println(an);
+//		System.out.println(Arrays.toString(weights));
+//		System.out.println(an);
 		restart();
 		while(numObjects<40)
 			iter();
@@ -87,12 +89,10 @@ public class EAConnection {
 	}
 	
 	public int getNumberOfWeightsNeeded(){
-//		return 3;
 		return an.getNumberOfWeightsNeeded();
 	}
 	
 	public int getNumberOfNodesNeeded(){
-//		return 3;
 		return an.getNumberOfNodes();
 	}
 

@@ -17,7 +17,7 @@ public class Main {
 		int adultType = 2;
 		int parentType = 1;
 		
-		double crossOverRate = 0.1;
+		double crossOverRate = 0.3;
 		double mutationRate = 0.2;
 		
 		boolean mutationPerComponent = true;

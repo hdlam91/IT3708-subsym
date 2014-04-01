@@ -12,9 +12,9 @@ public class DoubleMutation extends Mutation<Integer>{
 				if(Math.random()<mutationRate){
 					if(i<ind.getNumW())
 						genoType[i] = (int)(Math.random()>0.5? (((Math.random()*(genoType[i]*1.1-genoType[i]*0.9))+genoType[i]*0.9+1)%ind.getWfactor()) : (Math.random()*ind.getWfactor())*(Math.random()>0.5?1:-1)); //10% diff or new random val
-					else if(i<(ind.getNumN()+ind.getNumW())){
+					else if(i<(ind.getNumW()+ind.getNumN())){
 						genoType[i] = (int)(Math.random()>0.5? (((Math.random()*(genoType[i]*1.1-genoType[i]*0.9))+genoType[i]*0.9+1)%ind.getBfactor()) : (Math.random()*ind.getBfactor())*-1); //10% diff or new random val
-						genoType[i] = (genoType[i]>0?genoType[i]*-1:genoType[i]);
+						genoType[i] = (genoType[i]>=0)?genoType[i]*-1:genoType[i];
 					}	
 					else if(i<(ind.getNumN()*2+ind.getNumW())){
 						genoType[i] = (int)(Math.random()>0.5? (((Math.random()*(genoType[i]*1.1-genoType[i]*0.9))+genoType[i]*0.9+1)) : (Math.random()*(ind.getGfactor()-ind.getLowGfactor()))+ind.getLowGfactor()); //10% diff or new random val	
@@ -35,7 +35,7 @@ public class DoubleMutation extends Mutation<Integer>{
 				genoType[index] = (int)(Math.random()>0.5? (((Math.random()*(genoType[index]*1.1-genoType[index]*0.9))+genoType[index]*0.9+1)%ind.getBfactor()) : (Math.random()*ind.getBfactor())*-1); //10% diff or new random val
 				genoType[index] = (genoType[index]>0?genoType[index]*-1:genoType[index]);
 			}
-				else if(index<(ind.getNumN()*2+ind.getNumW())){
+			else if(index<(ind.getNumN()*2+ind.getNumW())){
 				genoType[index] = (int)(Math.random()>0.5? (((Math.random()*(genoType[index]*1.1-genoType[index]*0.9))+genoType[index]*0.9+1)) : (Math.random()*(ind.getGfactor()-ind.getLowGfactor()))+ind.getLowGfactor()); //10% diff or new random val	
 				genoType[index] = (genoType[index]>ind.getGfactor()?(genoType[index]%ind.getGfactor())+ind.getLowGfactor():genoType[index]);
 			}

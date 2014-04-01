@@ -13,7 +13,8 @@ public abstract class ParentSelection <T>{
 		case 1:
 			return (Individual<T>) new BinaryIndividual((Boolean[]) ind.getGenoType());
 		case 2:
-			return (Individual<T>) new DoubleIndividual((Integer[]) ind.getGenoType());
+			DoubleIndividual ind2 = (DoubleIndividual) ind;
+			return (Individual<T>) new DoubleIndividual((Integer[]) ind.getGenoType(),ind2.getNumW(),ind2.getNumN());
 		default:
 			return null;
 		}
