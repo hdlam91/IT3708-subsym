@@ -14,7 +14,7 @@ public class EAConnection {
 		an.test();
 		board = new Board(30, 15, 0, 5, 0);
 		ba = new BeerAgent(an,board);
-		test();
+		run(null);
 	}
 	
 	/**
@@ -22,18 +22,24 @@ public class EAConnection {
 	 * 
 	 */
 	
+	public void run(double[] weights){
+		int iter = 0;
+		int numObjects = 0;
+//		an.setWeight(weights);
+		while(numObjects<40){
+			if(iter%5==0 && Math.random()>0.5){
+				board.addNewObject();
+				numObjects++;
+			}
+			iter();
+			iter++;
+		}
+	}
+	
 	public void iter(){
 		board.iter();
 		ba.update();
 	}
-	
-	public void test(){
-		board.addNewObject();
-		board.addNewObject();
-		board.iter();
-	}
-	
-	public void run(double[] weights){}
 	
 	public List<int[]> getResults(){
 		return null;
