@@ -143,7 +143,7 @@ public class SimpleSlickGame extends BasicGame
 			sleepTimer = 1000;
 		
 		if(key == Input.KEY_R){
-//			ea.restart();
+			ea.restart();
 		}
 		if(key == Input.KEY_G)
 			graph();

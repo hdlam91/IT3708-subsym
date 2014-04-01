@@ -37,7 +37,7 @@ public class FallingObject {
 		return false;
 	}
 	
-	public boolean caught(int[] agentPosisions, int threshold){
+	public boolean caught(int[] agentPosisions, double threshold){
 		int[] objectPos = renderPosition();
 		int count = 0;
 		for (int i = 0; i < objectPos.length; i++) {
@@ -46,7 +46,7 @@ public class FallingObject {
 					count++;
 			}
 		}
-		if(count>=threshold)
+		if(count/(width*1.0)>=threshold)
 			return true;
 		return false;
 	}

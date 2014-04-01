@@ -8,37 +8,58 @@ public class EAConnection {
 	private ANN an;
 	private Board board;
 	
+	private int numObjects = 0;
+	private int iter = 0;
+	
+	private int contacts = 0;
+	private int captures = 0;
+	private int bigCaptures = 0;
+	
 	public EAConnection(){
 		int[] hid = {2};
 		an = new ANN(hid,0.5,5);
 		an.test();
 		board = new Board(30, 15, 0, 5, 0);
 		ba = new BeerAgent(an,board);
-		run(null);
 	}
 	
-	/**
-	 * TODO
-	 * 
-	 */
 	
 	public void run(double[] weights){
-		int iter = 0;
-		int numObjects = 0;
-//		an.setWeight(weights);
-		while(numObjects<40){
-			if(iter%5==0 && Math.random()>0.5){
-				board.addNewObject();
-				numObjects++;
-			}
+		an.setWeight(weights);
+		restart();
+		while(numObjects<40)
 			iter();
-			iter++;
-		}
 	}
 	
 	public void iter(){
+		iter++;
 		board.iter();
+		if(numObjects<40 && (iter>=7 && iter<=14 && Math.random()>0.5)){
+			board.addNewObject();
+			numObjects++;
+			board.updateBoard();
+			iter = 0;
+		}
 		ba.update();
+		
+		for (FallingObject f : board.getFallingObjects()) {
+			if(f.contact(ba.getRenderPosition())){
+				contacts++;
+			}
+			if(f.caught(ba.getRenderPosition(), 0.8)){
+				captures++;
+				if(f.getWidth()>5)
+					bigCaptures++;
+			}
+		}
+	}
+	
+	public void restart(){
+		iter = 0;
+		numObjects = 0;
+		contacts = 0;
+		captures = 0;
+		board.clearAll();
 	}
 	
 	public List<int[]> getResults(){
@@ -59,5 +80,13 @@ public class EAConnection {
 	
 	public int getNumberOfNodesNeeded(){
 		return an.getNumberOfNodes();
+	}
+	
+	public int getCaptures(){
+		return captures;
+	}
+	
+	public int getContacts(){
+		return contacts;
 	}
 }

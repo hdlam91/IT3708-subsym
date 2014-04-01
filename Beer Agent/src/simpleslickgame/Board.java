@@ -80,6 +80,11 @@ public class Board {
 		updateBoard();
 	}
 	
+	public void clearAll(){
+		clearBoard();
+		objectList.clear();
+	}
+	
 	public void clearBoard(){
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
