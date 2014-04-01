@@ -190,22 +190,21 @@ public class SimpleSlickGame extends BasicGame
 	
 	
 	public void graph(){
-	
-	Plot2DPanel plot = new Plot2DPanel();
-	
-	// add a line plot to the PlotPanel
-	plot.addLinePlot("Best fitness",Color.GREEN, ea.getBestFitness());
-	plot.addLinePlot("Avg fitness",Color.BLUE, ea.getAvgFitness());
-	plot.addLinePlot("SD fitness",Color.MAGENTA, ea.getSDFitness());
-	plot.addLegend("EAST"); //wow such legendary
-	// put the PlotPanel in a JFrame, as a JPanel
-	JFrame frame = new JFrame("Fitness plot");
-	frame.setContentPane(plot);
-	frame.setVisible(true);
-	
-	frame.setLocation(100,100);
-	Dimension minSize = new Dimension(1200,800);
-	frame.setMinimumSize(minSize);
+		Plot2DPanel plot = new Plot2DPanel();
+		
+		// add a line plot to the PlotPanel
+		plot.addLinePlot("Best fitness",Color.GREEN, ea.getBestFitness());
+		plot.addLinePlot("Avg fitness",Color.BLUE, ea.getAvgFitness());
+		plot.addLinePlot("SD fitness",Color.MAGENTA, ea.getSDFitness());
+		plot.addLegend("EAST"); //wow such legendary
+		// put the PlotPanel in a JFrame, as a JPanel
+		JFrame frame = new JFrame("Fitness plot");
+		frame.setContentPane(plot);
+		frame.setVisible(true);
+		
+		frame.setLocation(100,100);
+		Dimension minSize = new Dimension(1200,800);
+		frame.setMinimumSize(minSize);
 	}
 	
 	public static void main(String[] args)
@@ -223,11 +222,6 @@ public class SimpleSlickGame extends BasicGame
 		{
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
 
-		
-		
-		
-		
 	}
 }

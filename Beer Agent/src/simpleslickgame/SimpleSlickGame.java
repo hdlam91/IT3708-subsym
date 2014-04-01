@@ -16,8 +16,9 @@ import org.newdawn.slick.SlickException;
 
 public class SimpleSlickGame extends BasicGame
 {
-	BeerAgent ba;
-	ANN network;
+	private EAConnection ea;
+//	BeerAgent ba;
+//	ANN network;
 	Image left, mid, right;
 	Image leftS, midS, rightS;
 	Image block;
@@ -34,8 +35,11 @@ public class SimpleSlickGame extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		network = new ANN(0.5,5);
-		ba = new  BeerAgent(network);
+		
+		ea = new EAConnection();
+		
+//		network = new ANN(0.5,5);
+//		ba = new  BeerAgent(network);
 		left = new Image("res/left.png");
 		mid = new Image("res/mid.png");
 		right = new Image("res/right.png");
@@ -62,14 +66,15 @@ public class SimpleSlickGame extends BasicGame
 		gc.sleep(sleepTimer);
 		temp[0] = (int) (Math.random()*30);
 		temp[1] = (int) (Math.random()*15);
-		if(!pause)
-			ba.test();
+		ea.iter();
+//		if(!pause)
+//			ba.test();
 	}
 	
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-		int [][] board = ba.getBoard().getBoard();
+		int [][] board = ea.getBoard().getBoard();
 		
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
@@ -79,23 +84,29 @@ public class SimpleSlickGame extends BasicGame
 			}
 		}
 		
-		int[] renderPos = ba.getRenderPosition();
-		if(ba.getSensors()[0])
+		int[] renderPos = ea.getAgent().getRenderPosition();
+		if(ea.getAgent().getSensors()[0])
 			leftS.draw(boardPosX(renderPos[0]),yPosition,squareSize,squareSize);
 		else
 			left.draw(boardPosX(renderPos[0]),yPosition,squareSize,squareSize);
 		for (int i = 1; i < renderPos.length-1; i++) {
-			if(ba.getSensors()[i])
+			if(ea.getAgent().getSensors()[i])
 				midS.draw(boardPosX(renderPos[i]),yPosition,squareSize,squareSize);
 			else
 				mid.draw(boardPosX(renderPos[i]),yPosition,squareSize,squareSize);
 			
 		}
-		if(ba.getSensors()[4])
+		if(ea.getAgent().getSensors()[4])
 			rightS.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
 		else
 			right.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
-//		block.draw(boardPosX(temp[0]),boardPosY(temp[1]),squareSize,squareSize);
+		
+//		g.drawString("Number of steps:" + ea.getAgent().getTimeStep() + "/" + 50, boardPosX(0)-50,boardPosY(0)-50);
+//		
+//		g.drawString("Number of cayke eaten:" + (ea.getScene().getNumberOfFood()-ea.getScene().getRemainingFood()) + "/" + ea.getScene().getNumberOfFood(), boardPosX(7)+squareSize+50,boardPosY(0)-50);
+//		g.drawString("Number of poision eaten:" + (ea.getScene().getNumberOfPoison()-ea.getScene().getRemainingPoison()) + "/" + ea.getScene().getNumberOfPoison(), boardPosX(7)+squareSize+50,boardPosY(0)-38);
+//		g.drawString("press r to reset, space to pause, 123 for speed, g for graph", boardPosX(0),boardPosY(7)+squareSize);
+//		g.drawString("Current scene: "+ ea.getSceneIndex() + " press up/down to change scene, q for quit", boardPosX(0),boardPosY(7)+squareSize+12);
 	}		
 	
 	
@@ -133,15 +144,12 @@ public class SimpleSlickGame extends BasicGame
 		
 		if(key == Input.KEY_R){
 //			ea.restart();
-			restart();
 		}
 		if(key == Input.KEY_G)
 			graph();
 		
 	}
-	void restart(){
-		ba = new BeerAgent(network);
-		}
+	
 	
 	private void graph(){
 		
@@ -162,7 +170,5 @@ public class SimpleSlickGame extends BasicGame
 		{
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
-		
 	}
 }
