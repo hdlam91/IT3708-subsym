@@ -36,7 +36,6 @@ public class BeerAgent {
 	
 	public void test(){
 		
-		board.iter();
 		posX = safeX(posX+1);
 		updateSensor();
 		System.out.println(posX);
@@ -45,8 +44,6 @@ public class BeerAgent {
 	}
 	public void update(){
 		//using ann
-		board.updateBoard();
-		
 		updateSensor();
 		network.input(sensors);
 		double left = network.getLeftMotor();
