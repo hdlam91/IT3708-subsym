@@ -12,7 +12,7 @@ public class EAConnection {
 		int[] hid = {2};
 		an = new ANN(hid,0.5,5);
 		board = new Board(30, 15, 0, 5, 0);
-		ba = new BeerAgent(an);
+		ba = new BeerAgent(an,board);
 		test();
 	}
 	

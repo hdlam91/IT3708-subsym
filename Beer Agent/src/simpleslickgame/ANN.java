@@ -75,6 +75,13 @@ public class ANN {
  		for (int i = 0; i < outputs.size(); i++) {
  			System.out.println(outputs.get(i));
   		}
+ 		int needed = getNumberOfNodes()*3+getNumberOfWeightsNeeded();
+ 		System.out.println(needed);
+ 		double v[] = new double[needed];
+ 		for (int i = 0; i < v.length; i++) {
+ 			v[i] = Math.random()*5;
+ 		}   
+ 		setWeight(v);
  		System.out.println("\n\n\n" + getNumberOfWeightsNeeded());
   	}
 	
@@ -83,13 +90,6 @@ public class ANN {
  public static void main(String[] args) {
         int [] li = {2};
         ANN a = new ANN(li,0.5,5);
-        int needed = a.getNumberOfNodes()*3+a.getNumberOfWeightsNeeded();
-        System.out.println(needed);
-        double v[] = new double[needed];
-        for (int i = 0; i < v.length; i++) {
-            v[i] = Math.random()*5;
-        }   
-        a.setWeight(v);
         a.test();
         
         boolean[] b = {true,true,true,false,false};

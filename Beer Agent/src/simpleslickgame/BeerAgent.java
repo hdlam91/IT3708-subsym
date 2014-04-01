@@ -14,13 +14,6 @@ public class BeerAgent {
 		sensors = new boolean[5];
 		network = ann;
 		sizeX = 30;
-		board = new Board(30, 15, 0, 5, 0);
-		board.addNewObject();
-		board.addNewObject();
-		board.addNewObject();
-		board.addNewObject();
-		board.addNewObject();
-		board.addNewObject();
 		time = 0;
 		this.board = board;
 	}
@@ -36,7 +29,6 @@ public class BeerAgent {
 	
 	public void test(){
 		
-		board.iter();
 		posX = safeX(posX+1);
 		updateSensor();
 		System.out.println(posX);
