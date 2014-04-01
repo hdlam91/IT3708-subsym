@@ -24,7 +24,7 @@ public class EAConnection {
 		}
 		sceneToUse = new Scenario(scenes[sceneIndex]);
 //		int hidden[] = {3};
-		network = new ANN(treshold ,6);
+		network = new ANN(treshold,6,0);
 	}
 	
 	public int getNumberOfWeightsNeeded(){

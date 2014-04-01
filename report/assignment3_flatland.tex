@@ -1,0 +1,96 @@
+\documentclass[12pt, a4paper]{article} 
+ 
+\usepackage[utf8]{inputenc}
+ 
+
+\usepackage[bottom = 8em]{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+ 
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage{grffile}
+ 
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{float}
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+ 
+ 
+ 
+\usepackage{amsmath, amssymb}% for mathematical symbols
+\usepackage[colorlinks=true,linkcolor=black]{hyperref} % for hyperreferences with black color
+%\usepackage[T1]{fontenc} % Uncomment for norwegian document
+%\usepackage[norsk]{babel} %
+ 
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+ 
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+ 
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+ 
+ 
+%%% END Article customizations
+ 
+%%% The "real" document content comes below...
+ 
+\title{Subsymbolic AI assignment 1}
+\author{Eivind Hærum \& \ Hong-Dang Lam}
+\date{\today} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+ 
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+%\begin{abstract}
+% 
+%Abstract
+% 
+%\end{abstract}
+\newpage
+
+\tableofcontents
+\pagenumbering{roman}
+\newpage
+
+\section{EA}
+\pagenumbering{arabic}
+
+\section{Fitness}
+The fitness of calculates how many cakes/food the agent have eaten and how many poisons it have eaten for each scene. The fitness evaluator gives points for each cake eaten, and punishes the "network" for each poison it obtains. This values is given for each scene and then sums up all the values for all of the 5 scenes. Which makes the total score for the individual. The total score is the final one that gets compared with the other individuals.
+A mathematical formula for the fitness is:
+$ \sum_{i=0}^{i =5}({\frac{foodEaten_i}{0.85 * totalFood_i} - \frac{poisonEaten_i}{totalPoison_i}}) $
+
+\section{ANN design}
+We wanted to keep the ANN as simple as possible, that's why we decided to use directmapping, meaning that there's 6 sensor inputs (3 for poison and 3 for food)and 3 output nodes. No hidden layers, although we did try to with a hidden layer of 3 nodes, but the result didn't vary as far as we could tell.
+We decided to use the sigmoid function $ \frac{1.0}
+{(1+e^ {-\sum_{i = 0}^{n}{w_i * x_i}})} $as neuron activation, the step function works as well.  $$
+f(n) =
+\begin{cases}
+1, & \text{if} \sum_{i = 0}^{n}{w_i * x_i}>\text{threshold} \\
+0, & \text{otherwise }
+\end{cases}
+$$
+The result wasn't very different.
+The threshold we decided to use is 0.5, this was the first value we tried and it seems to work pretty good. As for weight range, the EA uses the range from -1 to 1. We tried to set the weight manually in the beginning and found out that we needed negative weights. The range from -1 to 1 seems sufficient. This is also due to the fact that the neurons will fire at a range from 0 to 1, the only way to negate a fired neuron (in the sense of punishing its values, not ignoring it) is to set the connecting weight to -1.
+
+\section{Differences in dynamic vs static}
+%TODO graphs
+
+\section{demo of static and dynamic}
+Refer to the demo for this.
+\end{document}
