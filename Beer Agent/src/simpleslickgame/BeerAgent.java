@@ -14,7 +14,6 @@ public class BeerAgent {
 		sensors = new boolean[5];
 		network = ann;
 		sizeX = 30;
-		
 		time = 0;
 		this.board = board;
 	}
