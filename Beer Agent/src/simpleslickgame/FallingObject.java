@@ -81,5 +81,4 @@ public class FallingObject {
 		buf.append("w:" +width + " x:" + posX + " y:" +posY + " vel:" +velocity + " done:" + finishedOnScreen+"\n");
 		return buf.toString();
 	}
-	
 }
