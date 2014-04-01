@@ -103,4 +103,12 @@ public class EAConnection {
 	public int getContacts(){
 		return contacts;
 	}
+	
+	public int getBigCaptures(){
+		return bigCaptures;
+	}
+	
+	public int numOfObjectCreated(){
+		return numObjects;
+	}
 }
