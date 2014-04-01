@@ -37,8 +37,6 @@ public class BeerAgent {
 	}
 	public void update(){
 		//using ann
-		board.updateBoard();
-		
 		updateSensor();
 		network.input(sensors);
 		double left = network.getLeftMotor();
