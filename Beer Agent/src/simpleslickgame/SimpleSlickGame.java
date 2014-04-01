@@ -1,4 +1,5 @@
 package simpleslickgame;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -6,6 +7,10 @@ import java.util.logging.Logger;
 //graphing
 
 
+
+import javax.swing.JFrame;
+
+import org.math.plot.Plot2DPanel;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -101,11 +106,11 @@ public class SimpleSlickGame extends BasicGame
 		else
 			right.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
 		
-//		g.drawString("Number of steps:" + ea.getAgent().getTimeStep() + "/" + 50, boardPosX(0)-50,boardPosY(0)-50);
+		g.drawString("Number of timesteps:" + ea.getAgent().getTimeStep() + " number of bricks spawned: " + ea.getNumberOfNodesNeeded(), boardPosX(0)-50,boardPosY(0)-50);
 //		
 //		g.drawString("Number of cayke eaten:" + (ea.getScene().getNumberOfFood()-ea.getScene().getRemainingFood()) + "/" + ea.getScene().getNumberOfFood(), boardPosX(7)+squareSize+50,boardPosY(0)-50);
 //		g.drawString("Number of poision eaten:" + (ea.getScene().getNumberOfPoison()-ea.getScene().getRemainingPoison()) + "/" + ea.getScene().getNumberOfPoison(), boardPosX(7)+squareSize+50,boardPosY(0)-38);
-//		g.drawString("press r to reset, space to pause, 123 for speed, g for graph", boardPosX(0),boardPosY(7)+squareSize);
+		g.drawString("press r to reset, space to pause, 123 for speed, g for graph", boardPosX(0),boardPosY(14)+squareSize);
 //		g.drawString("Current scene: "+ ea.getSceneIndex() + " press up/down to change scene, q for quit", boardPosX(0),boardPosY(7)+squareSize+12);
 	}		
 	
@@ -152,7 +157,21 @@ public class SimpleSlickGame extends BasicGame
 	
 	
 	private void graph(){
+		Plot2DPanel plot = new Plot2DPanel();
 		
+		// add a line plot to the PlotPanel
+		plot.addLinePlot("Best fitness",Color.GREEN, ea.getBestFitness());
+		plot.addLinePlot("Avg fitness",Color.BLUE, ea.getAvgFitness());
+		plot.addLinePlot("SD fitness",Color.MAGENTA, ea.getSDFitness());
+		plot.addLegend("EAST"); //wow such legendary
+		// put the PlotPanel in a JFrame, as a JPanel
+		JFrame frame = new JFrame("Fitness plot");
+		frame.setContentPane(plot);
+		frame.setVisible(true);
+		
+		frame.setLocation(100,100);
+		Dimension minSize = new Dimension(1200,800);
+		frame.setMinimumSize(minSize);
 	}
 	
 	
