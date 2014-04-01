@@ -84,12 +84,30 @@ public class ANN {
         int [] li = {2};
         ANN a = new ANN(li,0.5,5);
         int needed = a.getNumberOfNodes()*3+a.getNumberOfWeightsNeeded();
+        System.out.println(needed);
         double v[] = new double[needed];
         for (int i = 0; i < v.length; i++) {
-            v[i] = i;
+            v[i] = Math.random()*5;
         }   
         a.setWeight(v);
         a.test();
+        
+        boolean[] b = {true,true,true,false,false};
+        a.input(b);
+        System.out.println(a.getLeftMotor());
+        System.out.println(a.getRightMotor());
+        a.input(b);
+        System.out.println(a.getLeftMotor());
+        System.out.println(a.getRightMotor());
+        a.input(b);
+        System.out.println(a.getLeftMotor());
+        System.out.println(a.getRightMotor());
+        a.input(b);
+        System.out.println(a.getLeftMotor());
+        System.out.println(a.getRightMotor());
+        a.input(b);
+        System.out.println(a.getLeftMotor());
+        System.out.println(a.getRightMotor());
     }   
  	public int getNumberOfNodes(){
  		int numOfNodes = 0;
@@ -189,10 +207,10 @@ public class ANN {
 			
 		else{
 			for (int i = 0; i < outputs.size(); i++) {
-//				outputs.get(i-hiddenNodes.size()).setWeight(Arrays.copyOfRange(v, end, end+hiddenLayerStructure[hiddenLayerStructure.length-1]+outputs.size()));
-//				end+=hiddenLayerStructure[hiddenLayerStructure.length-1]+outputs.size();
-				outputs.get(i).setWeight(Arrays.copyOfRange(v, end, end+numOfInput));
+				outputs.get(i).setInWeight(Arrays.copyOfRange(v, end, end+numOfInput));
 				end+=numOfInput;
+				outputs.get(i).setWeight(Arrays.copyOfRange(v, end, end+outputs.size()));
+				end+=outputs.size();
 			}
 		}
 		
@@ -212,14 +230,17 @@ public class ANN {
 	public void run(double[] input){
 		if(hiddenLayerUsed){
 			double[] currentOut = input.clone();
+			double[] thisOut = null;
 			int counter = 0;
 			for (int i = 0; i < hiddenLayerStructure.length; i++) {
 				double[] lastOut = new double[hiddenLayerStructure[i]];
-				double[] thisOut = null;
 				if(i > 0)
 					thisOut = new double[hiddenLayerStructure[i-1]];
-				for (int j = 0; j < outputs.size(); j++) {
-					lastOut[j] = outputs.get(j).lastOutput();
+				for (int j = 0; j < hiddenLayerStructure[i]; j++) {
+					if(i > 0)
+						lastOut[j] = hiddenNodes.get(hiddenLayerStructure[i-1]+j).lastOutput();
+					else
+						lastOut[j] = hiddenNodes.get(j).lastOutput();
 				}
 				
 				
@@ -239,13 +260,32 @@ public class ANN {
 					
 //					hiddenNodes.get(counter).input(currentOut);					
 				}
-				currentOut = new double[thisOut.length+lastOut.length];
-				for (int j = 0; j < thisOut.length+lastOut.length; j++) {
-					if(j < thisOut.length)
-						currentOut[j] = thisOut[j];
-					else
-						currentOut[j] = lastOut[j-thisOut.length];
+				if(i > 0)
+				{
+					currentOut = new double[thisOut.length+lastOut.length];
+					for (int j = 0; j < thisOut.length+lastOut.length; j++) {
+						if(j < thisOut.length)
+							currentOut[j] = thisOut[j];
+						else
+							currentOut[j] = lastOut[j-thisOut.length];
+					}
 				}
+			}
+			double[] lastOut = new double[outputs.size()];
+			for (int i = 0; i < outputs.size(); i++) {
+				lastOut[i] = outputs.get(i).lastOutput();
+			}
+			if(thisOut == null)
+				thisOut = new double[hiddenLayerStructure[hiddenLayerStructure.length-1]];
+			currentOut = new double[thisOut.length+lastOut.length];
+			for (int j = 0; j < thisOut.length+lastOut.length; j++) {
+				if(j < thisOut.length)
+					currentOut[j] = thisOut[j];
+				else
+					currentOut[j] = lastOut[j-thisOut.length];
+			}
+			for (int i = 0; i < outputs.size(); i++) {
+				outputs.get(i).input(currentOut);
 			}
 			
 		}
