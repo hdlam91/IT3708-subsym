@@ -41,7 +41,7 @@ public class Node {
 		}
 		
 		if(hasIn){
-			for (int j = 0; j < inWeight[j]; j++) {
+			for (int j = 0; j < xIn.length; j++) {
 				s+= xIn[j]*inWeight[j];
 				
 			}
@@ -60,7 +60,7 @@ public class Node {
 	
 	public void calculateOut(){
 		lastOut = out;
-		out = 1/(Math.exp(-gain*y));
+		out = 1.0/(1+Math.exp(-gain*y));
 	}
 	
 	

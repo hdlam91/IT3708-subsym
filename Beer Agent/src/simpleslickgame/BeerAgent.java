@@ -2,8 +2,6 @@ package simpleslickgame;
 
 import java.util.Arrays;
 
-import org.math.plot.utils.Array;
-
 public class BeerAgent {
 	
 	int posX;
@@ -11,6 +9,7 @@ public class BeerAgent {
 	ANN network;
 	boolean[] sensors;
 	Board board;
+	int time;
 	public BeerAgent(ANN ann) {
 		sensors = new boolean[5];
 		network = ann;
@@ -22,10 +21,16 @@ public class BeerAgent {
 		board.addNewObject();
 		board.addNewObject();
 		board.addNewObject();
+		time = 0;
 	}
 	
 	public Board getBoard(){
 		return board;
+	}
+	
+	
+	public int getTimeStep(){
+		return time;
 	}
 	
 	public void test(){
@@ -40,6 +45,8 @@ public class BeerAgent {
 	public void update(){
 		//using ann
 		board.updateBoard();
+		
+		updateSensor();
 		network.input(sensors);
 		double left = network.getLeftMotor();
 		double right = network.getRightMotor();
@@ -47,12 +54,13 @@ public class BeerAgent {
 		if(left == right){
 		}
 		else if(left>right){
-			posX = safeX(posX-(int)(right-1));
+			posX = safeX(posX-(int)(right*4+1));
 		}
 		else{
 			
-			posX = safeX(posX+(int)(right+1));
+			posX = safeX(posX+(int)(right*4+1));
 		}
+		time++;
 	}
 	
 	private void updateSensor(){
