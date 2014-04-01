@@ -30,7 +30,7 @@ public class FallingObject {
 		int[] objectPos = renderPosition();
 		for (int i = 0; i < objectPos.length; i++) {
 			for (int j = 0; j < agentPosisions.length; j++) {
-				if(objectPos[i]==agentPosisions[j])
+				if(objectPos[i]==agentPosisions[j]&&posY==14)
 					return true;
 			}
 		}
@@ -42,7 +42,7 @@ public class FallingObject {
 		int count = 0;
 		for (int i = 0; i < objectPos.length; i++) {
 			for (int j = 0; j < agentPosisions.length; j++) {
-				if(objectPos[i]==agentPosisions[j])
+				if(objectPos[i]==agentPosisions[j]&&posY==14)
 					count++;
 			}
 		}

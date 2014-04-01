@@ -72,7 +72,7 @@ public class SimpleSlickGame extends BasicGame
 		
 		int typeOfProblem = 2;
 		int adultType = 2;
-		int parentType = 1;
+		int parentType = 2;
 		
 		double crossOverRate = 0.3;
 		double mutationRate = 0.2;
@@ -101,9 +101,9 @@ public class SimpleSlickGame extends BasicGame
 				
 					ea.getRobot().update();
 				}
-			else
-				init = false;
-			robotImage.setRotation(ea.getRobot().getDirection());
+		else
+			init = false;
+		robotImage.setRotation(ea.getRobot().getDirection());
 //		}
 	}
 	
@@ -181,6 +181,7 @@ public class SimpleSlickGame extends BasicGame
 		
 		if(key == Input.KEY_R){
 			ea.restart();
+			init = true;
 		}
 		if(key == Input.KEY_G)
 			graph();
