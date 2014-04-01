@@ -35,6 +35,14 @@ public class BeerAgent {
 		System.out.println(board);
 		System.out.println(Arrays.toString(sensors));
 	}
+	
+	public void run(int n){
+		for (int i = 0; i < n; i++) {
+			update();
+			
+		}
+	}
+	
 	public void update(){
 		//using ann
 		updateSensor();
@@ -43,8 +51,16 @@ public class BeerAgent {
 		double right = network.getRightMotor();
 		
 		int moving = (int)(right*4+1) -(int)(left*4+1); 
-		posX = safeX(posX + moving);
+		if(left == right){
+			
+		}
+		else if(left > right){
+			posX = safeX(posX-(int)(left*4+1));
+		}
+		else
+			posX = safeX(posX-(int)(right*4+1));
 		time++;
+		updateSensor();
 	}
 	
 	private void updateSensor(){
