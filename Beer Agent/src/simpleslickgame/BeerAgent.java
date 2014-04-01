@@ -2,8 +2,6 @@ package simpleslickgame;
 
 import java.util.Arrays;
 
-import org.math.plot.utils.Array;
-
 public class BeerAgent {
 	
 	int posX;
