@@ -6,10 +6,9 @@ public class Node {
 	private double w[], x[];
 	private double biasW, biasIn;
 	private boolean inputNode;
-	public Node(boolean in){
-		this(0.5);
-		inputNode = in;
-	}
+	private double y;
+	
+	private double inWeight[];
 	
 	public Node(double t){
 		biasW = 0;
@@ -58,9 +57,18 @@ public class Node {
 		w = new double[v.length];
 		for (int i = 0; i < v.length; i++) {
 			w[i] = v[i];
+		}
+	}
+	
+	public void setInWeight(double[] inV) {
+		inWeight = new double[inV.length];
+		for (int i = 0; i < inV.length; i++) {
+			w[i] = inV[i];
 			//System.out.println("weight set to be:" + w[i]);
 		}
 	}
+	
+
 	
 	
 	public double output(){
@@ -116,5 +124,5 @@ public class Node {
 		sb.append("\n");
 		return sb.toString();
 	}
-	
+
 }

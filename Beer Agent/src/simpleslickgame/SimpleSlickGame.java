@@ -34,7 +34,7 @@ public class SimpleSlickGame extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		network = new ANN(0.5);
+		network = new ANN(0.5,5);
 		ba = new  BeerAgent(network);
 		left = new Image("res/left.png");
 		mid = new Image("res/mid.png");
