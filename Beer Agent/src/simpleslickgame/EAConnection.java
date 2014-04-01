@@ -26,6 +26,7 @@ public class EAConnection {
 	
 	public void run(double[] weights){
 		an.setWeight(weights);
+		System.out.println(an);
 		restart();
 		while(numObjects<40)
 			iter();
@@ -34,7 +35,7 @@ public class EAConnection {
 	public void iter(){
 		iter++;
 		board.iter();
-		if(numObjects<40 && (iter>=7 && iter<=14 && Math.random()>0.5)){
+		if(numObjects<40 && (iter>=7 && Math.random()>0.5)){
 			board.addNewObject();
 			numObjects++;
 			board.updateBoard();
@@ -59,11 +60,22 @@ public class EAConnection {
 		numObjects = 0;
 		contacts = 0;
 		captures = 0;
+		bigCaptures  =0;
 		board.clearAll();
+		ba.reset();
 	}
 	
 	public List<int[]> getResults(){
-		return null;
+		List<int[]> ret = new ArrayList<int[]>();
+		int[] temp = {
+			contacts,
+			captures,
+			numObjects,
+			bigCaptures,
+			board.getNumberOfLargeObjects()
+		};
+		ret.add(temp);
+		return ret;
 	}
 	
 	public BeerAgent getAgent(){
@@ -75,10 +87,12 @@ public class EAConnection {
 	}
 	
 	public int getNumberOfWeightsNeeded(){
+//		return 3;
 		return an.getNumberOfWeightsNeeded();
 	}
 	
 	public int getNumberOfNodesNeeded(){
+//		return 3;
 		return an.getNumberOfNodes();
 	}
 
@@ -108,7 +122,11 @@ public class EAConnection {
 		return bigCaptures;
 	}
 	
-	public int numOfObjectCreated(){
+	public int getNumOfObjectCreated(){
 		return numObjects;
+	}
+	
+	public int getTotalLargeObjects(){
+		return board.getNumberOfLargeObjects();
 	}
 }

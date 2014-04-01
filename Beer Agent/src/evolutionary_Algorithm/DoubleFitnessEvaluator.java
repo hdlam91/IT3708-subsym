@@ -23,11 +23,16 @@ public class DoubleFitnessEvaluator extends FitnessEvaluator<Integer>{
 		List<Double> sums = new ArrayList<Double>();
 		double sum = 0;
 		for (int[] r : results) {
-			int foodEaten = r[0];
-			int totalFood = r[1];
-			int poisonEaten = r[2];
-			int totalPoison = r[3];
-			sum = foodEaten/(totalFood*0.85) - poisonEaten/(totalPoison*1.0);
+			int contacts = r[0];
+			int captures = r[1];
+			int total = r[2];
+			int bigcaptures = r[3];
+			int bigtotal = r[4];
+			if(captures==0)
+				sum = -1;
+			else if(bigtotal==0)
+				sum = (captures/(total*1.0));
+			else sum = (captures/(total*1.0));
 			sums.add(sum);
 			sum = 0;
 		}

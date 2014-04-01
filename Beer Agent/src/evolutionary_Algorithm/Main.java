@@ -33,7 +33,7 @@ public class Main {
 		int numberOfFields = numberofWeights+numberofNodes;
 		
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberOfFields,requiredNumberOfBitsForGenoType,
-				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,true);
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
 		System.out.println(Arrays.toString(s.getWeightsOfBestIndividual()));
 	}
 }

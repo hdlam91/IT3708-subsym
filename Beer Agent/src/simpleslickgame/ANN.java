@@ -70,10 +70,10 @@ public class ANN {
 	public void test(){
  		int needed = getNumberOfNodes()*3+getNumberOfWeightsNeeded();
  		System.out.println(needed);
- 		double v[] = new double[needed];
- 		for (int i = 0; i < v.length; i++) {
- 			v[i] = Math.random()*5;
- 		}   
+ 		double v[] = {1.448, 1.184, 1.84, 2.079, -3.196, 4.996, -4.103, 0.109, 1.315, 1.03, -3.262, 1.309, -3.973, 0.277, -4.618, 1.594, -3.893, 1.186, 1.604, 2.507, 1.79, 1.828, 1.742, 1.068, -7.747, -9.139, 3.137, 2.406, 2.672, 1.092, 1.465, 1.642, 1.726, 1.052};
+// 		for (int i = 0; i < v.length; i++) {
+// 			v[i] = Math.random()*5;
+// 		}   
  		setWeight(v);
  		if(hiddenLayerUsed)
  			for (int i = 0; i < hiddenNodes.size(); i++) {

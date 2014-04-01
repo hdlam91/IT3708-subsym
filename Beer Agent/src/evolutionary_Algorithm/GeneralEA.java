@@ -47,7 +47,7 @@ public class GeneralEA <T>{
 	private boolean dynamic;
 	
 	public GeneralEA(int sizeOfPopulation, int requiredSizeOfGenotype, int requiredBitsOfGenoType, int typeOfProblem, int typeOfAdultSelection, 
-						int typeOfParentSelection, double crossOverRate, double mutationRate, boolean componentMutation, int K, double P, boolean initializeRandomly, EAConnection connection,boolean dynamic){
+						int typeOfParentSelection, double crossOverRate, double mutationRate, boolean componentMutation, int K, double P, boolean initializeRandomly, EAConnection connection){
 		
 		this.currentPopulation = new Population<T>(sizeOfPopulation, requiredSizeOfGenotype, requiredBitsOfGenoType, initializeRandomly, typeOfProblem,connection);
 		this.currentPhenoTypes = new ArrayList<PhenoType<T>>();
@@ -75,9 +75,9 @@ public class GeneralEA <T>{
 			this.factor = 1;
 		else
 			this.factor = 2;
-		
+		System.out.println("here");
 		updateCurrentPhenoTypeFitnessValues();
-
+		System.out.println("there");
 		
 		this.previousPopulation = currentPopulation;
 		this.previousPhenoTypes = currentPhenoTypes;
@@ -162,6 +162,7 @@ public class GeneralEA <T>{
 			double sumOfFitnessValues = 0;
 			for (int i = 0; i < currentPhenoTypeFitnessValues.size(); i++) {
 				double val = currentPhenoTypeFitnessValues.get(i);
+				System.out.println(val);
 				sumOfFitnessValues+=val;
 				if(val>bestFitnessForThisIter)
 					bestFitnessForThisIter = val;
@@ -178,7 +179,10 @@ public class GeneralEA <T>{
 //					bestFitness = val;
 //				}
 //			}
+			System.out.println(sumOfFitnessValues);
+			System.out.println(bestIndividual);
 			double mean = sumOfFitnessValues/currentPhenoTypeFitnessValues.size();
+			System.out.println(mean);
 			mean = round(mean,5);
 			
 			double sum2 = 0;
@@ -205,8 +209,6 @@ public class GeneralEA <T>{
 			bestL.add(bestFitnessForThisIter);
 			iter++;
 
-//			if(dynamic)
-//				connection.createNewScenes();
 		}
 		System.out.println();
 		System.out.println("Final:");
