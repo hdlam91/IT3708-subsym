@@ -11,6 +11,7 @@ public class EAConnection {
 	public EAConnection(){
 		int[] hid = {2};
 		an = new ANN(hid,0.5,5);
+		an.test();
 		board = new Board(30, 15, 0, 5, 0);
 		ba = new BeerAgent(an,board);
 		test();
@@ -23,7 +24,7 @@ public class EAConnection {
 	
 	public void iter(){
 		board.iter();
-		ba.test();
+		ba.update();
 	}
 	
 	public void test(){
