@@ -81,7 +81,21 @@ public class EAConnection {
 	public int getNumberOfNodesNeeded(){
 		return an.getNumberOfNodes();
 	}
-	
+
+	public double[] getBestFitness() {
+		double temp[] = {1,2,3,4,45,5,6,7,8,1.6,90,9};
+		return temp;
+	}
+
+	public double[] getAvgFitness() {
+		double temp[] = {1,2,3,4,45,5,6,7,8,1.6,90,9};
+		return temp;
+	}
+
+	public double[] getSDFitness() {
+		double temp[] = {1,2,3,4,45,5,6,7,8,1.6,90,9};
+		return temp;
+	}
 	public int getCaptures(){
 		return captures;
 	}
