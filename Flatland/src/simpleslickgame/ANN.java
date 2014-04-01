@@ -186,14 +186,14 @@ public class ANN {
 	
 	int[] hiddenLayerStructure;
 	
-	public ANN(double treshold, int inputs) {//no hidden layers
+	public ANN(double treshold, int inputs, int type) {//no hidden layers
 		numOfInput = inputs;
 		hiddenLayerUsed = false;
 		
 		outputs = new ArrayList<Node>();
 		numOfOutput = 3;
 		for (int i = 0; i < numOfOutput; i++) {
-			outputs.add(new Node(treshold));
+			outputs.add(new Node(treshold,type));
 			
 		}
 		
@@ -205,8 +205,8 @@ public class ANN {
 	....
 	last needs nodeStructure[size-1] w
 	*/
-	public ANN(int[] nodeStructure, double treshold, int inputs) {
-		this(treshold, inputs);
+	public ANN(int[] nodeStructure, double treshold, int inputs, int type) {
+		this(treshold, inputs, type);
 		
 		hiddenNodes = new ArrayList<Node>();
 		for (int i = 0; i < nodeStructure.length; i++) {
@@ -214,7 +214,7 @@ public class ANN {
 				System.out.println("ERROR, 0 nodes for the hidden layer at layer:" + i);
 			}
 			for (int j = 0; j < nodeStructure[i]; j++) {
-				this.hiddenNodes.add(new Node(treshold));
+				this.hiddenNodes.add(new Node(treshold,type));
 			}
 		}
 		hiddenLayerStructure = nodeStructure.clone();

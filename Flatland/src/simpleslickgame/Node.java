@@ -6,15 +6,11 @@ public class Node {
 	private double w[], x[];
 	private double biasW, biasIn;
 	private boolean inputNode;
-	public Node(boolean in){
-		this(0.5);
-		inputNode = in;
-	}
 	
-	public Node(double t){
+	public Node(double t, int type){
 		biasW = 0;
 		biasIn = 0;
-		functionType = 0;
+		functionType = type;
 		inputNode = false;
 		setThreshold(t);
 	}

@@ -85,29 +85,42 @@ public class ANN {
  		System.out.println("\n\n\n" + getNumberOfWeightsNeeded());
   	}
 	
-
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		if(hiddenLayerUsed)
+ 			for (int i = 0; i < hiddenNodes.size(); i++) {
+ 				sb.append(hiddenNodes.get(i)+"\n");
+ 			}
+ 		for (int i = 0; i < outputs.size(); i++) {
+ 			sb.append(outputs.get(i)+"\n");
+ 		}
+ 		return sb.toString();
+	}
 
  public static void main(String[] args) {
         int [] li = {2};
         ANN a = new ANN(li,0.5,5);
         a.test();
         
-        boolean[] b = {true,true,true,false,false};
-        a.input(b);
-        System.out.println(a.getLeftMotor());
-        System.out.println(a.getRightMotor());
-        a.input(b);
-        System.out.println(a.getLeftMotor());
-        System.out.println(a.getRightMotor());
-        a.input(b);
-        System.out.println(a.getLeftMotor());
-        System.out.println(a.getRightMotor());
-        a.input(b);
-        System.out.println(a.getLeftMotor());
-        System.out.println(a.getRightMotor());
-        a.input(b);
-        System.out.println(a.getLeftMotor());
-        System.out.println(a.getRightMotor());
+//        boolean[] b = {false,true,true,false,false};
+//        a.input(b);
+//        double left = a.getLeftMotor();
+//        double right = a.getRightMotor();
+//        for (int i = 0; i < 10; i++) {
+//            a.input(b);
+//
+//        	if(left == right){
+//        		
+//        	}
+//        	else if(left > right){
+//        		System.out.println("left");
+//        	}
+//        	else
+//        		System.out.println("right");
+//        	System.out.println(left);
+//        	System.out.println(right);
+//		}
+        
     }   
  	public int getNumberOfNodes(){
  		int numOfNodes = 0;
@@ -189,10 +202,11 @@ public class ANN {
 						start = end;
 						end = end+hiddenLayerStructure[i]; //self and neighbour weight
 						hiddenNodes.get(counter).setWeight(Arrays.copyOfRange(v, start, end));
-					
+						System.out.println("end:" + end);
 					}
-					else
+					else{
 						hiddenNodes.get(counter).setWeight(Arrays.copyOfRange(v, start, end));
+					}
 					counter++;
 					
 				}
@@ -202,6 +216,7 @@ public class ANN {
 			for (int i = hiddenNodes.size(); i < hiddenNodes.size()+numOfOutput; i++) {
 				outputs.get(i-hiddenNodes.size()).setWeight(Arrays.copyOfRange(v, end, end+hiddenLayerStructure[hiddenLayerStructure.length-1]+outputs.size()));
 				end+=hiddenLayerStructure[hiddenLayerStructure.length-1]+outputs.size();
+				System.out.println("end:" + end);
 			}
 		}
 			
@@ -217,11 +232,14 @@ public class ANN {
 		//setting time gains and bias
 		int numOfNodes = getNumberOfNodes();
 		
-			setBias(Arrays.copyOfRange(v, end, end+numOfNodes));
-			end+= numOfNodes;
-			setGains(Arrays.copyOfRange(v, end, end+numOfNodes));
-			end+= numOfNodes;
-			setTime(Arrays.copyOfRange(v, end, end+numOfNodes));
+		setBias(Arrays.copyOfRange(v, end, end+numOfNodes));
+		end+= numOfNodes;
+		setGains(Arrays.copyOfRange(v, end, end+numOfNodes));
+		end+= numOfNodes;
+		setTime(Arrays.copyOfRange(v, end, end+numOfNodes));
+		end+=numOfNodes;
+		System.out.println(numOfNodes);
+		System.out.println("end:" + end + "/" + v.length);
 		
 		
 		
