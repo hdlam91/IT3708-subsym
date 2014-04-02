@@ -52,7 +52,7 @@ public class SimpleSlickGame extends BasicGame
 		int K = 20;
 		double P = 0.8;
 		
-		int numberOfIndividuals = 200;
+		int numberOfIndividuals = 100;
 //		int numberOfFieldsPerGenoType = 40;
 		int requiredNumberOfBitsForGenoType = 1;
 		
