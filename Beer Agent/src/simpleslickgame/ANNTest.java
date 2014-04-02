@@ -215,8 +215,6 @@ public class ANNTest {
 		end+= numOfNodes;
 		setTime(Arrays.copyOfRange(v, end, end+numOfNodes));
 		end+=numOfNodes;
-//		System.out.println(numOfNodes);
-//		System.out.println("end:" + end + "/" + v.length);
 		
 		
 		
