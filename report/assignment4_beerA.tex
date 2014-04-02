@@ -69,8 +69,11 @@
 
 \section{Overview of system}
 \pagenumbering{arabic}
+The genoType is represented as an array of integers, where there is allotted space for all the weights between the nodes, and then 3x the number of nonInput nodes, for bias, gain and timestep. The ranges of these integers are [-5000, 5000] for the weights, [-10000, 0] for the bias, [1000, 5000] for gain and [1000, 2000] for timestep. What PhenoType then does is divide each value in the genotype by 1000.0 netting a array of doubles with real numbers that can be floating point numbers, i.e. possible to use as weights. To make sure that the values does not get mixed up in crossover or mutation, the code  specifically checks which position of the genotype array we are trying to change and make seperate possible outcomes based upon what is supposed to be at a particullar spot, i.e. the ranges for the specific weight type. 
+
+
 The Beer Agent is an agent with 5 sensors which is able to detect a falling block if and only if part of the block is above one of its 5 sensors. Whenever the sensors detects a block the agent will be lighting up that particular sensor (turning it blue).
-The scenarios is made up by...
+The scenarios are made by randomly spawning a block of width [1, 6] at some random position along the x-axis. The blocks fall with a vertical speed of 1, and a horizontal speed of either -1, 0 or 1. Meaning they can fall straight or sideways.
 
 The CTRNN is made up by 5 inputs, which corresponds to the agent's sensors which will give a 1 or 0 depending on if the sensors can sense a block or not. There's 1 layer of hidden nodes, which is made up of 2 nodes. These 2 nodes takes the input directly from the sensors, calculates everything and fires the output $ O_i $. This output is propagated further "down" to the the next layer which is our outputs. However the values $ O_i $ is stored for the next round, which is used as input to the other nodes in the same layer (including itself). Every node have a bias, a gain and a time constant.
 The output from the left motor and right motor is something between 0 and 1. The agent gets the output from these motors and compares them, if they are similar, the agent will stay put. If left is larger than the right output, it will move left with $ 5*leftMotorOutput() $, this gives us a move from 0 to 4 positions. That means that even if the left motor output is larger than the right one, it can still stand still if the values is small enough. The same applies if the right output is larger than the left one.
@@ -89,6 +92,16 @@ The agent is able to connect with all the falling blocks even when we don't use 
 38 &38\\
 33 &33\\
 40 &38\\
+36 & 33\\
+40 & 36\\
+40 & 35\\
+40 & 35\\
+37 & 36\\
+40 & 37\\
+40 & 34\\
+37 & 34\\
+40 & 39\\
+39 & 38\\
 \end{tabular}\\
 The table shows number of blocks that the agent have been in contact with and how many it have captured (the whole block is being on top of the agent). The maximum number of blocks spawned is 40.
 
