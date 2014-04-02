@@ -52,13 +52,13 @@ public class SimpleSlickGame extends BasicGame
 		int K = 20;
 		double P = 0.8;
 		
-		int numberOfIndividuals = 1000;
+		int numberOfIndividuals = 200;
 //		int numberOfFieldsPerGenoType = 40;
 		int requiredNumberOfBitsForGenoType = 1;
 		
 		int typeOfProblem = 2;
 		int adultType = 2;
-		int parentType = 0;
+		int parentType = 1;
 		
 		double crossOverRate = 0.0;
 		double mutationRate = 0.2;
@@ -80,6 +80,8 @@ public class SimpleSlickGame extends BasicGame
 		System.out.println(Arrays.toString(s.getWeightsOfBestIndividual()));
 		
 		
+		
+		ea.setGraph(s.getBestList(), s.getMeanList(), s.getStdList());
 		ea.setWeight(s.getWeightsOfBestIndividual());
 		
 		

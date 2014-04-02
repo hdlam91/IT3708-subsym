@@ -92,8 +92,8 @@ There are overall very little change in the fitness of the population when choos
 \pagenumbering{arabic}
 
 \section{Fitness}
-The fitness of calculates how many cakes/food the agent have eaten and how many poisons it have eaten for each scene. The fitness evaluator gives points for each cake eaten, and punishes the "network" for each poison it obtains. These values are provided from each scene and is then calculated individually for the 5 scenes, summed up and finally divided by 5. Which makes the total score for the individual. The total score is the final one that gets compared with the other individuals.
-A mathematical formula for the fitness is:
+The fitness function calculates how many cakes/food the agent have eaten and how many poisons it have eaten for each scene. The fitness evaluator gives points for each cake eaten, and punishes the "network" for each poison it obtains. These values are provided from each scene after a run with the proposed weights, and is calculated individually for the 5 scenes, summed up and finally divided by 5. Which makes the total score for the individual. The total score is whats compared to with the other individuals.
+A mathematical formula for the fitness function is:
 $$ \frac{\sum_{i=0}^{i =5}({\frac{foodEaten_i}{0.85 * totalFood_i} - \frac{poisonEaten_i}{totalPoison_i}})}{5} $$
 
 The thought behind this equation is to punish eating poison, but also to give a slightly higher score for eating cake, thus the agent is encouraged to eat as much cake as possible in the allotted time and avoid eating poison. 
@@ -121,7 +121,7 @@ For a dynamic run we got:\\
 	\begin{tabular}{l| c|c|c|c|c}
 	Run number: &  1&2 &3 &4 &5 \\ \hline
 cakes eaten: &$ \frac{26}{32} $ &$ \frac{25}{31} $ &$ \frac{23}{30} $ &$ \frac{22}{30} $ &$ \frac{25}{33} $ \\ \hline
-poison eaten: &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{19} $ \\ \hline
+poison eaten: &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{19} $ \\ 
 	\end{tabular}
 	\end{center}
 \end{figure}
@@ -131,23 +131,25 @@ The total for this becomes: $ \frac{121}{156} $ cakes and $ \frac{0}{75} $ poiso
 \caption{Graph of EA runs on a dynamic set}
 \end{figure}
 
-
+For a static run we got:\\
 \begin{figure}[H]
 	\begin{center}
 	\begin{tabular}{l| c|c|c|c|c}
 	Run number: &  1&2 &3 &4 &5 \\ \hline
 cakes eaten: &$ \frac{20}{29} $ &$ \frac{22}{30} $ &$ \frac{22}{33} $ &$ \frac{22}{30} $ &$ \frac{21}{30} $ \\ \hline
-poison eaten: &$ \frac{0}{15} $ &$ \frac{0}{10} $ &$ \frac{0}{18} $ &$ \frac{0}{17} $ &$ \frac{1}{17} $ \\ \hline
+poison eaten: &$ \frac{0}{15} $ &$ \frac{0}{10} $ &$ \frac{0}{18} $ &$ \frac{0}{17} $ &$ \frac{1}{17} $ \\ 
 	\end{tabular}
 	\end{center}
 \end{figure}
 The total for this becomes: $ \frac{107}{152} $ cakes and $ \frac{1}{77} $ poisons.  
 \begin{figure}[H]
 \includegraphics[width=0.9\linewidth]{flatlandfalse}
-\caption{Graph of EA runs on a dynamic set}
+\caption{Graph of EA runs on a static set}
 \end{figure}
 
-The dynamic run seems to give better results, this is due to the change in scenes for each generation. Which means that the individuals have a larger set of training examples they can explore and learn from.
+The dynamic run seems to give better results, this is likely due to the change in scenes for each generation. Which means that the individuals have a larger set of training examples they can explore and learn from, thus tactics that may yield good short time results are weeded out in the long haul.
+
 \section{demo of static and dynamic}
 Refer to the demo for this.
+
 \end{document}

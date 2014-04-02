@@ -16,9 +16,12 @@ public class EAConnection {
 	private int captures = 0;
 	private int bigCaptures = 0;
 	List<int[]> ret = new ArrayList<int[]>();
+	
+	double [] bestFitnessG, avgFitnessG, sdFitnessG;
+	
 	public EAConnection(){
 		int[] hid = {2};
-		an = new ANN(hid,0.5,5);
+		an = new ANN(0.5,5);
 //		an.test();
 		board = new Board(30, 15, 0, 5, 0);
 		ba = new BeerAgent(an,board);
@@ -104,19 +107,22 @@ public class EAConnection {
 		return an.getNumberOfNodes();
 	}
 
-	public double[] getBestFitness() {
-		double temp[] = {1,2,3,4,45,5,6,7,8,1.6,90,9};
-		return temp;
+	
+	public void setGraph(double[] b,double[] avg,double[] sd){
+		bestFitnessG = b;
+		avgFitnessG = avg;
+		sdFitnessG = sd;
 	}
-
-	public double[] getAvgFitness() {
-		double temp[] = {1,2,3,4,45,5,6,7,8,1.6,90,9};
-		return temp;
+	
+	public double[] getBestFitness(){
+		return bestFitnessG;
 	}
-
-	public double[] getSDFitness() {
-		double temp[] = {1,2,3,4,45,5,6,7,8,1.6,90,9};
-		return temp;
+	public double[] getAvgFitness(){
+		return avgFitnessG;
+	}
+	
+	public double[] getSDFitness(){
+		return sdFitnessG;
 	}
 	public int getCaptures(){
 		return captures;

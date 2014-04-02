@@ -80,11 +80,14 @@ public class SimpleSlickGame extends BasicGame
 		boolean mutationPerComponent = true;
 		boolean initializeRandomly = true;
 		
+		boolean dynamic = true;
+		
+		
 		EAConnection con = new EAConnection();
 		int numberofWeights = con.getNumberOfWeightsNeeded();
 		System.out.println(numberofWeights);
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
-				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,false);
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,dynamic);
 		ea.setANNWeight(s.getWeightsOfBestIndividual());
 		ea.setGraph(s.getBestList(), s.getMeanList(), s.getStdList());
 		ea.restart();
@@ -133,8 +136,8 @@ public class SimpleSlickGame extends BasicGame
 		
 		g.drawString("Number of steps:" + ea.getRobot().getTimeStep() + "/" + 50, boardPosX(0)-50,boardPosY(0)-50);
 		
-		g.drawString("Number of cayke eaten:" + (ea.getScene().getNumberOfFood()-ea.getScene().getRemainingFood()) + "/" + ea.getScene().getNumberOfFood(), boardPosX(7)+squareSize+50,boardPosY(0)-50);
-		g.drawString("Number of poision eaten:" + (ea.getScene().getNumberOfPoison()-ea.getScene().getRemainingPoison()) + "/" + ea.getScene().getNumberOfPoison(), boardPosX(7)+squareSize+50,boardPosY(0)-38);
+		g.drawString("Number of cake eaten:" + (ea.getScene().getNumberOfFood()-ea.getScene().getRemainingFood()) + "/" + ea.getScene().getNumberOfFood(), boardPosX(7)+squareSize+50,boardPosY(0)-50);
+		g.drawString("Number of poison eaten:" + (ea.getScene().getNumberOfPoison()-ea.getScene().getRemainingPoison()) + "/" + ea.getScene().getNumberOfPoison(), boardPosX(7)+squareSize+50,boardPosY(0)-38);
 		g.drawString("press r to reset, space to pause, 123 for speed, g for graph", boardPosX(0),boardPosY(7)+squareSize);
 		g.drawString("Current scene: "+ ea.getSceneIndex() + " press up/down to change scene, q for quit", boardPosX(0),boardPosY(7)+squareSize+12);
 	}

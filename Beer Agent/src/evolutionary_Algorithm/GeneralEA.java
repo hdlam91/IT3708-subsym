@@ -102,7 +102,7 @@ public class GeneralEA <T>{
 		bestIndividual = null;
 		System.out.println("Init:");
 		System.out.println(currentPhenoTypeFitnessValues);
-		while(!goalReached && iter<10){
+		while(!goalReached && iter<100){
 			double bestFitnessForThisIter = 0;
 //			System.out.println("Iteration: " + iter);
 //			System.out.println(currentPopulation==previousPopulation);
