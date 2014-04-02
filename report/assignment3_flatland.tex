@@ -48,7 +48,7 @@
  
 %%% The "real" document content comes below...
  
-\title{Subsymbolic AI assignment 1}
+\title{Subsymbolic AI assignment 3}
 \author{Eivind Hærum \& \ Hong-Dang Lam}
 \date{\today} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
@@ -76,17 +76,18 @@ A mathematical formula for the fitness is:
 $ \sum_{i=0}^{i =5}({\frac{foodEaten_i}{0.85 * totalFood_i} - \frac{poisonEaten_i}{totalPoison_i}}) $
 
 \section{ANN design}
-We wanted to keep the ANN as simple as possible, that's why we decided to use directmapping, meaning that there's 6 sensor inputs (3 for poison and 3 for food)and 3 output nodes. No hidden layers, although we did try to with a hidden layer of 3 nodes, but the result didn't vary as far as we could tell.
-We decided to use the sigmoid function $ \frac{1.0}
-{(1+e^ {-\sum_{i = 0}^{n}{w_i * x_i}})} $as neuron activation, the step function works as well.  $$
+We wanted to keep the ANN as simple as possible, that's why we decided to use direct mapping, meaning that there's 6 sensor inputs (3 for poison and 3 for food) and 3 output nodes. No hidden layers, although we did try to with a hidden layer of 3 nodes, but the result didn't vary as far as we could tell.
+We decided to use the sigmoid function $$ \frac{1.0}
+{(1+e^ {-\sum_{i = 0}^{n}{w_i * x_i}})} $$as neuron activation, the step function works as well.  $$
 f(n) =
 \begin{cases}
 1, & \text{if} \sum_{i = 0}^{n}{w_i * x_i}>\text{threshold} \\
 0, & \text{otherwise }
 \end{cases}
 $$
+
 The result wasn't very different.
-The threshold we decided to use is 0.5, this was the first value we tried and it seems to work pretty good. As for weight range, the EA uses the range from -1 to 1. We tried to set the weight manually in the beginning and found out that we needed negative weights. The range from -1 to 1 seems sufficient. This is also due to the fact that the neurons will fire at a range from 0 to 1, the only way to negate a fired neuron (in the sense of punishing its values, not ignoring it) is to set the connecting weight to -1.
+The threshold we decided to use is 0.5, this was the first value we tried and it seems to work pretty good. As for weight range, the EA uses $[-1.0, 1.0]$. We tried to set the weight manually in the beginning and found out that we needed negative weights. The range from -1 to 1 seems sufficient. This is also due to the fact that the neurons will fire at the range $[0,1.0]$, and the only way to negate a fired neuron (in the sense of punishing its values, not ignoring it) is to set the connecting weight to a negative value.
 
 \section{Differences in dynamic vs static}
 %TODO graphs

@@ -1,10 +1,12 @@
 package simpleslickgame;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //graphing
+
 
 
 
@@ -18,6 +20,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import evolutionary_Algorithm.GeneralEA;
 
 public class SimpleSlickGame extends BasicGame
 {
@@ -44,6 +48,39 @@ public class SimpleSlickGame extends BasicGame
 		
 		ea = new EAConnection();
 		
+		
+		int K = 20;
+		double P = 0.8;
+		
+		int numberOfIndividuals = 200;
+//		int numberOfFieldsPerGenoType = 40;
+		int requiredNumberOfBitsForGenoType = 1;
+		
+		int typeOfProblem = 2;
+		int adultType = 2;
+		int parentType = 1;
+		
+		double crossOverRate = 0.0;
+		double mutationRate = 0.2;
+		
+		boolean mutationPerComponent = true;
+		boolean initializeRandomly = true;
+		
+//		GeneralEA s = new GeneralEA(numberOfIndividuals, numberOfFieldsPerGenoType, requiredNumberOfBitsForGenoType, 
+//									typeOfProblem, adultType, parentType, crossOverRate, mutationRate, mutationPerComponent, K, P, initializeRandomly,null);
+		
+		EAConnection con = new EAConnection();
+		int numberofWeights = con.getNumberOfWeightsNeeded();
+		int numberofNodes = con.getNumberOfNodesNeeded()*3;
+		
+		int numberOfFields = numberofWeights+numberofNodes;
+		
+		GeneralEA s = new GeneralEA(numberOfIndividuals,numberOfFields,requiredNumberOfBitsForGenoType,
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
+		System.out.println(Arrays.toString(s.getWeightsOfBestIndividual()));
+		
+		
+		ea.setWeight(s.getWeightsOfBestIndividual());
 		
 		
 		
