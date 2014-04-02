@@ -80,7 +80,7 @@ The output from the left motor and right motor is something between 0 and 1. The
 
 \section{verifying catching}
 
-The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to have only the two or three right/left-most sensors are the only one that needs to sense the falling block, so it will try to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.
+The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. The agent believes that the block it's currently sensing is a small one because only 3 of its sensors are detecting the block, but the the truth is that the rest of the block is outside of its range. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.
 
 \begin{figure}[H]
 	\begin{center}
