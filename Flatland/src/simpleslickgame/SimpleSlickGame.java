@@ -72,7 +72,7 @@ public class SimpleSlickGame extends BasicGame
 		
 		int typeOfProblem = 2;
 		int adultType = 2;
-		int parentType = 2;
+		int parentType = 1;
 		
 		double crossOverRate = 0.3;
 		double mutationRate = 0.2;
@@ -84,7 +84,7 @@ public class SimpleSlickGame extends BasicGame
 		int numberofWeights = con.getNumberOfWeightsNeeded();
 		System.out.println(numberofWeights);
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberofWeights,requiredNumberOfBitsForGenoType,
-				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,false);
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con,true);
 		ea.setANNWeight(s.getWeightsOfBestIndividual());
 		ea.setGraph(s.getBestList(), s.getMeanList(), s.getStdList());
 		ea.restart();
