@@ -52,7 +52,7 @@ public class SimpleSlickGame extends BasicGame
 		int K = 20;
 		double P = 0.8;
 		
-		int numberOfIndividuals = 200;
+		int numberOfIndividuals = 100;
 //		int numberOfFieldsPerGenoType = 40;
 		int requiredNumberOfBitsForGenoType = 1;
 		
@@ -109,7 +109,7 @@ public class SimpleSlickGame extends BasicGame
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		gc.sleep(sleepTimer);
+//		gc.sleep(sleepTimer);
 		temp[0] = (int) (Math.random()*30);
 		temp[1] = (int) (Math.random()*15);
 		if(!pause&&!init){
