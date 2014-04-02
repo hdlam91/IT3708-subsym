@@ -111,8 +111,24 @@ The result wasn't very different.
 The threshold we decided to use is 0.5, this was the first value we tried and it seems to work pretty good. As for weight range, the EA uses $[-1.0, 1.0]$. We tried to set the weight manually in the beginning and found out that we needed negative weights. The range from -1 to 1 seems sufficient. This is also due to the fact that the neurons will fire at the range $[0,1.0]$, and the only way to negate a fired neuron (in the sense of punishing its values, not ignoring it) is to set the connecting weight to a negative value.
 
 \section{Differences in dynamic vs static}
-%TODO graphs
+For a dynamic run we got:\\
+\begin{figure}[H]
+	\begin{center}
+	\begin{tabular}{l| c|c|c|c|c}
+	Run number: &  1&2 &3 &4 &5 \\ \hline
+cakes eaten: &$ \frac{26}{32} $ &$ \frac{25}{31} $ &$ \frac{23}{30} $ &$ \frac{22}{30} $ &$ \frac{25}{33} $ \\ \hline
+poison eaten: &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{14} $ &$ \frac{0}{19} $ \\ \hline
+	\end{tabular}
+	\end{center}
+\end{figure}
+The total for this becomes: $ \frac{121}{156} $ cakes and $ \frac{0}{75} $ poisons.  
+\begin{figure}[H]
+\includegraphics[width=0.8\linewidth]{flatlandtrue}
+\caption{Graph of EA runs on a dynamic set}
+\end{figure}
 
+
+The dynamic run seems to give better results, this is due to the change in scenes for each generation. Which means that the individuals have a larger set of training examples they can explore and learn from.
 \section{demo of static and dynamic}
 Refer to the demo for this.
 \end{document}

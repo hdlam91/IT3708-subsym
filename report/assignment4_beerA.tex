@@ -74,6 +74,7 @@ The scenarios is made up by...
 The CTRNN is made up by 5 inputs, which corresponds to the agent's sensors which will give a 1 or 0 depending on if the sensors can sense a block or not. There's 1 layer of hidden nodes, which is made up of 2 nodes. These 2 nodes takes the input directly from the sensors, calculates everything and fires the output $ O_i $. This output is propagated further "down" to the the next layer which is our outputs. However the values $ O_i $ is stored for the next round, which is used as input to the other nodes in the same layer (including itself). Every node have a bias, a gain and a time constant.
 
 \section{verifying catching}
+The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds sense a block, it will then try to align itself with that block to catch it.
 
 \section{catching and avoiding}
 %TODO graphs

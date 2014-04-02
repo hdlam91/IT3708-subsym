@@ -16,7 +16,7 @@ public class BeerAgent {
 		network = ann;
 		sizeX = 30;
 		time = 0;
-		posX= 0;
+		posX = 0;
 		this.board = board;
 		running= false;
 	}
