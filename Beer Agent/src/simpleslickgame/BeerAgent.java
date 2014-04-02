@@ -64,14 +64,17 @@ public class BeerAgent {
 		if(running) System.out.println("l:" + left + " r:" + right);
 		
 		int moving = (int)(right*4+1) -(int)(left*4+1); 
+		
+		
 		if(left == right){
 			
 		}
 		else if(left > right){
 			posX = safeX(posX-(int)(left*5));
 		}
-		else
+		else{
 			posX = safeX(posX+(int)(right*5));
+		}
 		time++;
 		updateSensor();
 	}

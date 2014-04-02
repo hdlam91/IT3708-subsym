@@ -69,17 +69,21 @@
 
 \section{Overview of system}
 \pagenumbering{arabic}
-The Beer Agent is an agent with 5 sensors which is able to detect a falling block if and only if part of the block is above one of its 5 sensors. Whenever the sensors detects a block the agent will be lighting up that particular sensor.
+The Beer Agent is an agent with 5 sensors which is able to detect a falling block if and only if part of the block is above one of its 5 sensors. Whenever the sensors detects a block the agent will be lighting up that particular sensor (turning it blue).
 The scenarios is made up by...
+
 The CTRNN is made up by 5 inputs, which corresponds to the agent's sensors which will give a 1 or 0 depending on if the sensors can sense a block or not. There's 1 layer of hidden nodes, which is made up of 2 nodes. These 2 nodes takes the input directly from the sensors, calculates everything and fires the output $ O_i $. This output is propagated further "down" to the the next layer which is our outputs. However the values $ O_i $ is stored for the next round, which is used as input to the other nodes in the same layer (including itself). Every node have a bias, a gain and a time constant.
+The output from the left motor and right motor is something between 0 and 1. The agent gets the output from these motors and compares them, if they are similar, the agent will stay put. If left is larger than the right output, it will move left with $ 5*leftMotorOutput() $, this gives us a move from 0 to 4 positions. That means that even if the left motor output is larger than the right one, it can still stand still if the values is small enough. The same applies if the right output is larger than the left one.
 
 \section{verifying catching}
-The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds sense a block, it will then try to align itself with that block to catch it.
+The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds sense a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to have only the two or three right/left-most sensors are the only one that needs to sense the falling block, so it will try to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.
 
 \section{catching and avoiding}
 %TODO graphs
 
 \section{one significant modification of tracker}
+We tried to interpret the motor output in a different way, instead of checking the left and the right motor output against each other. Instead of comparing the left and right output, we simply use the formula:\\ $numberOfMoves = \lfloor 4*rightOutput()+1 \rfloor - \lfloor 4*leftOutput()+1 \rfloor$
+and then set the position of as: $ poisiton + numberOfMoves $.
 
 \section{one significant modification of ANN topology}
 
