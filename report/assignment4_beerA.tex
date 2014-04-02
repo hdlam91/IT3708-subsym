@@ -99,14 +99,14 @@ The table shows number of blocks that the agent have been in contact with and ho
 
 
 \section{catching and avoiding}
-%TODO graphs
+The agent's strategy in this case is to stand still until it senses a block falling. If the block is considered a small block, it will try to go after it and catch it. If it's a big block on the other hand, it will avoid it. The agent doesn't search for new blocks though, this is because the agent is staying put whenever there's no sensor values.
 
 \section{one significant modification of tracker}
 We tried to interpret the motor output in a different way, instead of checking the left and the right motor output against each other. Instead of comparing the left and right output, we simply use the formula:\\ $numberOfMoves = \lfloor 4*rightOutput()+1 \rfloor - \lfloor 4*leftOutput()+1 \rfloor$
 and then set the position of as: $ poisiton + numberOfMoves $.
 
 \section{one significant modification of ANN topology}
-Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is 0.25. The output gives very small numbers. The fitness without the hidden layer is 0.975. 
+Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is 0.25. The output gives very small numbers. The best overall fitness without the hidden layer is 0.975. 
 \section{one significant modification of EA variable}
 
 
