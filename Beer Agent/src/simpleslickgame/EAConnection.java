@@ -18,8 +18,8 @@ public class EAConnection {
 	
 	public EAConnection(){
 		int[] hid = {2};
-		an = new ANN(hid,0.5,5);
-		an.test();
+		an = new ANN(0.5,5);
+//		an.test();
 		board = new Board(30, 15, 0, 5, 0);
 		ba = new BeerAgent(an,board);
 	}
@@ -33,6 +33,11 @@ public class EAConnection {
 		while(numObjects<40)
 			iter();
 	}
+	
+	public void setWeight(double[] weight){
+		an.setWeight(weight);
+	}
+	
 	
 	public void iter(){
 		iter++;

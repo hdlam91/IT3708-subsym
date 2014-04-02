@@ -61,7 +61,7 @@ public class Board {
 	}
 	
 	public void addNewObject(){
-		FallingObject f =new FallingObject(width, startHeight, height, objectVelocity); 
+		FallingObject f = new FallingObject(width, startHeight, height, objectVelocity);
 		objectList.add(f);
 		if(f.getWidth()>5)
 			largeObjects++;
