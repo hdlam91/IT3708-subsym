@@ -87,19 +87,23 @@ The parameters used for finding good solutions are as follows:
 	\end{center}
 \end{figure}
 
-
+There are overall very little change in the fitness of the population when choosing other kinds of parent selection, or when altering the values of mutation rate and crossover rate. Thus we ended up with something that seems to work just as fine as many other combinations, but ultimately we chose this as it made a lot of sense.
 
 \pagenumbering{arabic}
 
 \section{Fitness}
-The fitness of calculates how many cakes/food the agent have eaten and how many poisons it have eaten for each scene. The fitness evaluator gives points for each cake eaten, and punishes the "network" for each poison it obtains. This values is given for each scene and then sums up all the values for all of the 5 scenes. Which makes the total score for the individual. The total score is the final one that gets compared with the other individuals.
+The fitness of calculates how many cakes/food the agent have eaten and how many poisons it have eaten for each scene. The fitness evaluator gives points for each cake eaten, and punishes the "network" for each poison it obtains. These values are provided from each scene and is then calculated individually for the 5 scenes, summed up and finally divided by 5. Which makes the total score for the individual. The total score is the final one that gets compared with the other individuals.
 A mathematical formula for the fitness is:
-$ \sum_{i=0}^{i =5}({\frac{foodEaten_i}{0.85 * totalFood_i} - \frac{poisonEaten_i}{totalPoison_i}}) $
+$$ \frac{\sum_{i=0}^{i =5}({\frac{foodEaten_i}{0.85 * totalFood_i} - \frac{poisonEaten_i}{totalPoison_i}})}{5} $$
+
+The thought behind this equation is to punish eating poison, but also to give a slightly higher score for eating cake, thus the agent is encouraged to eat as much cake as possible in the allotted time and avoid eating poison. 
 
 \section{ANN design}
-We wanted to keep the ANN as simple as possible, that's why we decided to use direct mapping, meaning that there's 6 sensor inputs (3 for poison and 3 for food) and 3 output nodes. No hidden layers, although we did try to with a hidden layer of 3 nodes, but the result didn't vary as far as we could tell.
+We wanted to keep the ANN as simple as possible, that's why we decided to use direct mapping, meaning that there are 6 sensor inputs (3 for poison and 3 for food) and 3 output nodes. No hidden layers, although we did try to with a hidden layer of 3 nodes, but the result didn't vary as far as we could tell.
 We decided to use the sigmoid function $$ \frac{1.0}
-{(1+e^ {-\sum_{i = 0}^{n}{w_i * x_i}})} $$as neuron activation, the step function works as well.  $$
+{(1+e^ {-\sum_{i = 0}^{n}{w_i * x_i}})} $$
+as neuron activation, the step function works as well.  
+$$
 f(n) =
 \begin{cases}
 1, & \text{if} \sum_{i = 0}^{n}{w_i * x_i}>\text{threshold} \\
@@ -107,7 +111,7 @@ f(n) =
 \end{cases}
 $$
 
-The result wasn't very different.
+The outcoming of choosing this instead is very similar, but slightly worse.
 The threshold we decided to use is 0.5, this was the first value we tried and it seems to work pretty good. As for weight range, the EA uses $[-1.0, 1.0]$. We tried to set the weight manually in the beginning and found out that we needed negative weights. The range from -1 to 1 seems sufficient. This is also due to the fact that the neurons will fire at the range $[0,1.0]$, and the only way to negate a fired neuron (in the sense of punishing its values, not ignoring it) is to set the connecting weight to a negative value.
 
 \section{Differences in dynamic vs static}
