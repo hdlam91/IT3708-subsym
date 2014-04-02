@@ -61,10 +61,10 @@ public class BeerAgent {
 			
 		}
 		else if(left > right){
-			posX = safeX(posX-(int)(left*4+1));
+			posX = safeX(posX-(int)(left*5));
 		}
 		else
-			posX = safeX(posX-(int)(right*4+1));
+			posX = safeX(posX-(int)(right*5));
 		time++;
 		updateSensor();
 	}
