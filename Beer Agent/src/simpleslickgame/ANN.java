@@ -97,10 +97,10 @@ public class ANN {
  		return sb.toString();
 	}
 
- public static void main(String[] args) {
-        int [] li = {2};
-        ANN a = new ANN(li,0.5,5);
-        a.test();
+// public static void main(String[] args) {
+//        int [] li = {2};
+//        ANN a = new ANN(li,0.5,5);
+//        a.test();
         
 //        boolean[] b = {false,true,true,false,false};
 //        a.input(b);
@@ -121,7 +121,7 @@ public class ANN {
 //        	System.out.println(right);
 //		}
         
-    }   
+//    }   
  	public int getNumberOfNodes(){
  		int numOfNodes = 0;
  		if(hiddenLayerUsed){
@@ -253,19 +253,19 @@ public class ANN {
 			for (int i = 0; i < hiddenLayerStructure.length; i++) {
 				double[] lastOut = new double[hiddenLayerStructure[i]];
 				if(i > 0)
-					thisOut = new double[hiddenLayerStructure[i-1]];
+					thisOut = new double[hiddenLayerStructure[i-1]]; //gets the output from the above layers
 				for (int j = 0; j < hiddenLayerStructure[i]; j++) {
 					if(i > 0)
-						lastOut[j] = hiddenNodes.get(hiddenLayerStructure[i-1]+j).lastOutput();
+						lastOut[j] = hiddenNodes.get(hiddenLayerStructure[i-1]+j).lastOutput(); //gets the output from last above layer
 					else
-						lastOut[j] = hiddenNodes.get(j).lastOutput();
+						lastOut[j] = hiddenNodes.get(j).lastOutput(); //gets the last output from this layer
 				}
 				
 				
 				for (int j = 0; j < hiddenLayerStructure[i]; j++) {
 					if(i == 0){
 						hiddenNodes.get(counter).directIn(input.clone()); // direct input
-						hiddenNodes.get(counter).input(lastOut);
+						hiddenNodes.get(counter).input(lastOut); //inputs from neighbours and self from last round
 					}
 					else{
 						hiddenNodes.get(counter).input(currentOut);
@@ -276,7 +276,6 @@ public class ANN {
 					
 					counter++;
 					
-//					hiddenNodes.get(counter).input(currentOut);					
 				}
 				if(i > 0)
 				{
@@ -289,6 +288,7 @@ public class ANN {
 					}
 				}
 			}
+			//last hidden and output node
 			double[] lastOut = new double[outputs.size()];
 			for (int i = 0; i < outputs.size(); i++) {
 				lastOut[i] = outputs.get(i).lastOutput();
@@ -308,6 +308,7 @@ public class ANN {
 			
 		}
 		else{
+			//no hidden layers.
 			double[] newLayer = new double[outputs.size()];
 			for (int i = 0; i < outputs.size(); i++) {
 				newLayer[i] = outputs.get(i).lastOutput();

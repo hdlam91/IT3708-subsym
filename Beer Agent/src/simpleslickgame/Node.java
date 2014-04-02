@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Node {
 	private int functionType;
 	private double threshold;
-	private double x[], xIn[];
-	private ArrayList<Double> w;
+	private double xIn[];
+	private ArrayList<Double> w,x;
 	private double biasW;
 	private boolean inputNode;
 	private double y, DY, s;
@@ -25,6 +25,8 @@ public class Node {
 		hasIn = false;
 		out = 0;
 		lastOut = 0;
+		w = new ArrayList<Double>();
+		x = new ArrayList<Double>();
 	}
 	
 	public void setThreshold(double t){
@@ -36,8 +38,8 @@ public class Node {
 	
 	public void calculateS(){
 		s = 0;
-		for (int i = 0; i < x.length; i++) {
-			s+= x[i]*w.get(i);
+		for (int i = 0; i < x.size(); i++) {
+			s+= x.get(i)*w.get(i);
 		}
 		
 		if(hasIn){
@@ -65,15 +67,15 @@ public class Node {
 	
 	
 	public void input(double in[]){
-		x = new double[in.length];
+		x.clear();;
 		for (int i = 0; i < in.length; i++) {
-			x[i]= in[i];
+			x.add(in[i]);
 		}
 	}
 	
 	public void input(double in){
-		x = new double[1];
-		x[0] = in;
+		x.clear();
+		x.add(in);
 	}
 	
 	public void directIn(double in[]){
@@ -92,7 +94,7 @@ public class Node {
 	}
 	
 	public void setWeight(double v[]){
-		w = new ArrayList<>();
+		w.clear();
 		for (int i = 0; i < v.length; i++) {
 			w.add(v[i]);
 		}
@@ -184,6 +186,13 @@ public class Node {
 	
 	public void setTime(double t){
 		time = t;
+	}
+
+	public void addinput(double[] last) {
+		for (int i = 0; i < last.length; i++) {
+			x.add(last[i]);
+		}
+		
 	}
 
 }
