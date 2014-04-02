@@ -69,14 +69,14 @@ public class SimpleSlickGame extends BasicGame
 //		GeneralEA s = new GeneralEA(numberOfIndividuals, numberOfFieldsPerGenoType, requiredNumberOfBitsForGenoType, 
 //									typeOfProblem, adultType, parentType, crossOverRate, mutationRate, mutationPerComponent, K, P, initializeRandomly,null);
 		
-		EAConnection con = new EAConnection();
-		int numberofWeights = con.getNumberOfWeightsNeeded();
-		int numberofNodes = con.getNumberOfNodesNeeded()*3;
+		
+		int numberofWeights = ea.getNumberOfWeightsNeeded();
+		int numberofNodes = ea.getNumberOfNodesNeeded()*3;
 		
 		int numberOfFields = numberofWeights+numberofNodes;
 		
 		GeneralEA s = new GeneralEA(numberOfIndividuals,numberOfFields,requiredNumberOfBitsForGenoType,
-				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,con);
+				typeOfProblem,adultType,parentType,crossOverRate,mutationRate,mutationPerComponent,K,P,initializeRandomly,ea);
 		System.out.println(Arrays.toString(s.getWeightsOfBestIndividual()));
 		
 		
