@@ -15,13 +15,14 @@ public class EAConnection {
 	private int contacts = 0;
 	private int captures = 0;
 	private int bigCaptures = 0;
-	
+	List<int[]> ret = new ArrayList<int[]>();
 	public EAConnection(){
 		int[] hid = {2};
 		an = new ANN(0.5,5);
 //		an.test();
 		board = new Board(30, 15, 0, 5, 0);
 		ba = new BeerAgent(an,board);
+		ret = new ArrayList<int[]>();
 	}
 	
 	
@@ -35,6 +36,8 @@ public class EAConnection {
 	}
 	
 	public void setWeight(double[] weight){
+		restart();
+		ba.setRUnninng();
 		an.setWeight(weight);
 	}
 	
@@ -42,7 +45,7 @@ public class EAConnection {
 	public void iter(){
 		iter++;
 		board.iter();
-		if(numObjects<40 && (iter>=7 && Math.random()>0.5)){
+		if(numObjects<40 && (iter>=15 && Math.random()>0.5)){
 			board.addNewObject();
 			numObjects++;
 			board.updateBoard();
@@ -54,7 +57,7 @@ public class EAConnection {
 			if(f.contact(ba.getRenderPosition())){
 				contacts++;
 			}
-			if(f.caught(ba.getRenderPosition(), 0.8)){
+			if(f.caught(ba.getRenderPosition(), 0.83)){
 				captures++;
 				if(f.getWidth()>5)
 					bigCaptures++;
@@ -73,7 +76,7 @@ public class EAConnection {
 	}
 	
 	public List<int[]> getResults(){
-		List<int[]> ret = new ArrayList<int[]>();
+		ret.clear();
 		int[] temp = {
 			contacts,
 			captures,

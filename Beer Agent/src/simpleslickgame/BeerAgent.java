@@ -10,6 +10,7 @@ public class BeerAgent {
 	boolean[] sensors;
 	Board board;
 	int time;
+	boolean running;
 	public BeerAgent(ANN ann, Board board) {
 		sensors = new boolean[5];
 		network = ann;
@@ -17,6 +18,7 @@ public class BeerAgent {
 		time = 0;
 		posX= 0;
 		this.board = board;
+		running= false;
 	}
 	
 	public Board getBoard(){
@@ -49,12 +51,17 @@ public class BeerAgent {
 //		}
 //	}
 	
+	public void setRUnninng(){
+		running = true;
+	}
+	
 	public void update(){
 		//using ann
 		updateSensor();
 		network.input(sensors);
 		double left = network.getLeftMotor();
 		double right = network.getRightMotor();
+		if(running) System.out.println("l:" + left + " r:" + right);
 		
 		int moving = (int)(right*4+1) -(int)(left*4+1); 
 		if(left == right){
@@ -64,7 +71,7 @@ public class BeerAgent {
 			posX = safeX(posX-(int)(left*5));
 		}
 		else
-			posX = safeX(posX-(int)(right*5));
+			posX = safeX(posX+(int)(right*5));
 		time++;
 		updateSensor();
 	}
