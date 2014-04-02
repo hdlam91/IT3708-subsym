@@ -76,7 +76,21 @@ The CTRNN is made up by 5 inputs, which corresponds to the agent's sensors which
 The output from the left motor and right motor is something between 0 and 1. The agent gets the output from these motors and compares them, if they are similar, the agent will stay put. If left is larger than the right output, it will move left with $ 5*leftMotorOutput() $, this gives us a move from 0 to 4 positions. That means that even if the left motor output is larger than the right one, it can still stand still if the values is small enough. The same applies if the right output is larger than the left one.
 
 \section{verifying catching}
-The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds sense a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to have only the two or three right/left-most sensors are the only one that needs to sense the falling block, so it will try to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.
+The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds sense a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to have only the two or three right/left-most sensors are the only one that needs to sense the falling block, so it will try to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.\\
+\begin{tabular}{c | c}
+ Contacted& captured\\
+40 &40 \\
+39 &38\\
+39 &36\\
+40 &36\\
+40 &33\\
+40 &40\\
+37 &35\\
+38 &38\\
+33 &33\\
+40 &38\\
+\end{tabular}\\
+The table shows number of blocks that the agent have been in contact with and how many it have captured (the whole block is being on top of the agent). The maximum number of blocks spawned is 40.
 
 \section{catching and avoiding}
 %TODO graphs
@@ -86,7 +100,7 @@ We tried to interpret the motor output in a different way, instead of checking t
 and then set the position of as: $ poisiton + numberOfMoves $.
 
 \section{one significant modification of ANN topology}
-
+Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is 0.25. The output gives very small numbers. The fitness without the hidden layer is 0.975. 
 \section{one significant modification of EA variable}
 
 
