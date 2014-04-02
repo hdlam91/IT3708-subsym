@@ -79,31 +79,24 @@ The CTRNN is made up by 5 inputs, which corresponds to the agent's sensors which
 The output from the left motor and right motor is something between 0 and 1. The agent gets the output from these motors and compares them, if they are similar, the agent will stay put. If left is larger than the right output, it will move left with $ 5*leftMotorOutput() $, this gives us a move from 0 to 4 positions. That means that even if the left motor output is larger than the right one, it can still stand still if the values is small enough. The same applies if the right output is larger than the left one.
 
 \section{verifying catching}
-The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to have only the two or three right/left-most sensors are the only one that needs to sense the falling block, so it will try to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.\\
-\begin{tabular}{c | c}
- Contacted& captured\\
-40 &40 \\
-39 &38\\
-39 &36\\
-40 &36\\
-40 &33\\
-40 &40\\
-37 &35\\
-38 &38\\
-33 &33\\
-40 &38\\
-36 & 33\\
-40 & 36\\
-40 & 35\\
-40 & 35\\
-37 & 36\\
-40 & 37\\
-40 & 34\\
-37 & 34\\
-40 & 39\\
-39 & 38\\
-\end{tabular}\\
+
+The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds sense a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to have only the two or three right/left-most sensors are the only one that needs to sense the falling block, so it will try to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.
+
+\begin{figure}[H]
+	\begin{center}
+		\begin{tabular}{l | c | c |c |c |c |c |c |c|c|c}
+		 Contacted& 40&39&39&40&40&40&37&38&33&40\\ \hline
+		 Captured & 40&38&36&36&33&40&35&38&33&38\\
+		 \\
+		 Contacted &36&40&40&40&37&40&40&37&40&39\\ \hline
+		 Captured &33&36&35&35&36&37&34&34&39&38\\
+
+		\end{tabular}
+	\end{center}
+\end{figure}
 The table shows number of blocks that the agent have been in contact with and how many it have captured (the whole block is being on top of the agent). The maximum number of blocks spawned is 40.
+
+
 
 \section{catching and avoiding}
 %TODO graphs
