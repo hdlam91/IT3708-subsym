@@ -18,7 +18,7 @@ public class EAConnection {
 	List<int[]> ret = new ArrayList<int[]>();
 	public EAConnection(){
 		int[] hid = {2};
-		an = new ANN(0.5,5);
+		an = new ANN(hid,0.5,5);
 //		an.test();
 		board = new Board(30, 15, 0, 5, 0);
 		ba = new BeerAgent(an,board);
