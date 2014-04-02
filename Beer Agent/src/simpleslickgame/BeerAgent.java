@@ -15,6 +15,7 @@ public class BeerAgent {
 		network = ann;
 		sizeX = 30;
 		time = 0;
+		posX= 0;
 		this.board = board;
 	}
 	
@@ -27,6 +28,11 @@ public class BeerAgent {
 		return time;
 	}
 	
+	public void reset(){
+		time = 0;
+		posX = 0;
+	}
+	
 	public void test(){
 		
 		posX = safeX(posX+1);
@@ -36,12 +42,12 @@ public class BeerAgent {
 		System.out.println(Arrays.toString(sensors));
 	}
 	
-	public void run(int n){
-		for (int i = 0; i < n; i++) {
-			update();
-			
-		}
-	}
+//	public void run(int n){
+//		for (int i = 0; i < n; i++) {
+//			update();
+//			
+//		}
+//	}
 	
 	public void update(){
 		//using ann

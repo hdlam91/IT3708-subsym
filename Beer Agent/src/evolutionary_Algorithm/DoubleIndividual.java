@@ -23,7 +23,7 @@ public class DoubleIndividual extends Individual<Integer>{
 
 		this.numW = con.getNumberOfWeightsNeeded();
 		this.numN = con.getNumberOfNodesNeeded();
-
+		
 		if(initializeRandomly){
 			for (int i = 0; i < numW; i++) {
 				this.genotype[i] = (int)(Math.random()*wfactor)*(Math.random()>0.5?1:-1);
@@ -40,8 +40,10 @@ public class DoubleIndividual extends Individual<Integer>{
 		}
 	}
 	
-	public DoubleIndividual(Integer[] genotype){
+	public DoubleIndividual(Integer[] genotype, int numW, int numN){
 		this.genotype = genotype.clone();
+		this.numW = numW;
+		this.numN = numN;
 	}
 	
 	@Override
@@ -99,31 +101,31 @@ public class DoubleIndividual extends Individual<Integer>{
 		return buf.toString();
 	}
 	
-//	public static void main(String[] args) {
-//		EAConnection ea = new EAConnection();
-//		List<Individual> r = new ArrayList<Individual>();
-//		
-//		int num = ea.getNumberOfNodesNeeded()*3+ ea.getNumberOfWeightsNeeded();
-//		
-//		while(r.size()<num){
-//			r.add(new DoubleIndividual(num, 1, true, ea));
-//		}
-//		System.out.println(r);
-//		List<PhenoType> q = new ArrayList<PhenoType>();
-//		for (int i = 0; i < r.size(); i++) {
-//			q.add(new DoublePhenoType(num));
-//			q.get(i).convertFromGenoTypeToPhenoType(r.get(i).getGenoType(), num);
-//		}
-//		System.out.println(q);
-//		DoubleMutation m = new DoubleMutation();
-//		for (Individual ind : r) {
-//			m.getMutatedIndividual(ind, 0.5, true);
-//		}
-//		q = new ArrayList<PhenoType>();
-//		for (int i = 0; i < r.size(); i++) {
-//			q.add(new DoublePhenoType(num));
-//			q.get(i).convertFromGenoTypeToPhenoType(r.get(i).getGenoType(), num);
-//		}
-//		System.out.println(q);
-//	}
+	public static void main(String[] args) {
+		EAConnection ea = new EAConnection();
+		List<Individual> r = new ArrayList<Individual>();
+		
+		int num = ea.getNumberOfNodesNeeded()*3+ ea.getNumberOfWeightsNeeded();
+		
+		while(r.size()<20){
+			r.add(new DoubleIndividual(num, 1, true, ea));
+		}
+		System.out.println(r);
+		List<PhenoType> q = new ArrayList<PhenoType>();
+		for (int i = 0; i < r.size(); i++) {
+			q.add(new DoublePhenoType(num));
+			q.get(i).convertFromGenoTypeToPhenoType(r.get(i).getGenoType(), num);
+		}
+		System.out.println(q);
+		DoubleMutation m = new DoubleMutation();
+		for (Individual ind : r) {
+			m.getMutatedIndividual(ind, 1.0, true);
+		}
+		q = new ArrayList<PhenoType>();
+		for (int i = 0; i < r.size(); i++) {
+			q.add(new DoublePhenoType(num));
+			q.get(i).convertFromGenoTypeToPhenoType(r.get(i).getGenoType(), num);
+		}
+		System.out.println(q);
+	}
 }

@@ -70,10 +70,10 @@ public class ANN {
 	public void test(){
  		int needed = getNumberOfNodes()*3+getNumberOfWeightsNeeded();
  		System.out.println(needed);
- 		double v[] = new double[needed];
- 		for (int i = 0; i < v.length; i++) {
- 			v[i] = Math.random()*5;
- 		}   
+ 		double v[] = {-4.703, -2.752, -2.22, 1.419, -4.645, -2.254, -2.189, -0.011, -4.129, 1.308, -2.519, 4.61, 0.546, 1.423, 0.076, -3.912, 0.962, 2.793, 3.128, 2.61, -3.285, 0.139, -7.799, -6.092, -2.942, -5.16, 3.572, 4.536, 4.052, 2.648, 1.272, 1.434, 1.626, 1.422};
+// 		for (int i = 0; i < v.length; i++) {
+// 			v[i] = Math.random()*5;
+// 		}   
  		setWeight(v);
  		if(hiddenLayerUsed)
  			for (int i = 0; i < hiddenNodes.size(); i++) {
@@ -202,7 +202,7 @@ public class ANN {
 						start = end;
 						end = end+hiddenLayerStructure[i]; //self and neighbour weight
 						hiddenNodes.get(counter).setWeight(Arrays.copyOfRange(v, start, end));
-						System.out.println("end:" + end);
+//						System.out.println("end:" + end);
 					}
 					else{
 						hiddenNodes.get(counter).setWeight(Arrays.copyOfRange(v, start, end));
@@ -216,7 +216,7 @@ public class ANN {
 			for (int i = hiddenNodes.size(); i < hiddenNodes.size()+numOfOutput; i++) {
 				outputs.get(i-hiddenNodes.size()).setWeight(Arrays.copyOfRange(v, end, end+hiddenLayerStructure[hiddenLayerStructure.length-1]+outputs.size()));
 				end+=hiddenLayerStructure[hiddenLayerStructure.length-1]+outputs.size();
-				System.out.println("end:" + end);
+//				System.out.println("end:" + end);
 			}
 		}
 			
@@ -238,8 +238,8 @@ public class ANN {
 		end+= numOfNodes;
 		setTime(Arrays.copyOfRange(v, end, end+numOfNodes));
 		end+=numOfNodes;
-		System.out.println(numOfNodes);
-		System.out.println("end:" + end + "/" + v.length);
+//		System.out.println(numOfNodes);
+//		System.out.println("end:" + end + "/" + v.length);
 		
 		
 		

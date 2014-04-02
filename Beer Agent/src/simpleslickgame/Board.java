@@ -12,6 +12,8 @@ public class Board {
 	private int board[][];
 	private boolean objectInCol[];
 	
+	private int largeObjects = 0;
+	
 	public Board(int width, int height, int startX, int agentLength, int startHeightFallingObjects){
 		this.width = width;
 		this.height = height;
@@ -59,7 +61,10 @@ public class Board {
 	}
 	
 	public void addNewObject(){
-		objectList.add(new FallingObject(width, startHeight, height, objectVelocity));
+		FallingObject f =new FallingObject(width, startHeight, height, objectVelocity); 
+		objectList.add(f);
+		if(f.getWidth()>5)
+			largeObjects++;
 	}
 	
 	public List<FallingObject> getFallingObjects(){
@@ -83,6 +88,7 @@ public class Board {
 	public void clearAll(){
 		clearBoard();
 		objectList.clear();
+		largeObjects = 0;
 	}
 	
 	public void clearBoard(){
@@ -112,6 +118,10 @@ public class Board {
 	
 	public int[][] getBoard(){
 		return board;
+	}
+	
+	public int getNumberOfLargeObjects(){
+		return largeObjects;
 	}
 	
 	public String toString(){

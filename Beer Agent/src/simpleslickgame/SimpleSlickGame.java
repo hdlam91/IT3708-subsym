@@ -24,15 +24,16 @@ public class SimpleSlickGame extends BasicGame
 	private EAConnection ea;
 //	BeerAgent ba;
 //	ANN network;
-	Image left, mid, right;
-	Image leftS, midS, rightS;
-	Image block;
-	int squareSize;
-	int width, height;
-	int yPosition;
-	int[] temp;
-	boolean pause;
-	int sleepTimer;
+	private Image left, mid, right;
+	private Image leftS, midS, rightS;
+	private Image block;
+	private int squareSize;
+	private int width, height;
+	private int yPosition;
+	private int[] temp;
+	private boolean pause, init;
+	private int sleepTimer;
+	
 	public SimpleSlickGame(String gamename)
 	{
 		super(gamename);
@@ -43,8 +44,9 @@ public class SimpleSlickGame extends BasicGame
 		
 		ea = new EAConnection();
 		
-//		network = new ANN(0.5,5);
-//		ba = new  BeerAgent(network);
+		
+		
+		
 		left = new Image("res/left.png");
 		mid = new Image("res/mid.png");
 		right = new Image("res/right.png");
@@ -54,7 +56,7 @@ public class SimpleSlickGame extends BasicGame
 		block = new Image("res/block.png");
 		
 		pause = false;
-		
+		init = true;
 		
 		squareSize = 32;
 		width = gc.getWidth();
@@ -71,9 +73,11 @@ public class SimpleSlickGame extends BasicGame
 		gc.sleep(sleepTimer);
 		temp[0] = (int) (Math.random()*30);
 		temp[1] = (int) (Math.random()*15);
-		ea.iter();
-//		if(!pause)
-//			ba.test();
+		if(!pause&&!init){
+			ea.iter();
+		}
+		else 
+			init = false;
 	}
 	
 	@Override
@@ -106,12 +110,11 @@ public class SimpleSlickGame extends BasicGame
 		else
 			right.draw(boardPosX(renderPos[4]),yPosition,squareSize,squareSize);
 		
-		g.drawString("Number of timesteps:" + ea.getAgent().getTimeStep() + " number of bricks spawned: " + ea.getNumberOfNodesNeeded(), boardPosX(0)-50,boardPosY(0)-50);
-//		
-//		g.drawString("Number of cayke eaten:" + (ea.getScene().getNumberOfFood()-ea.getScene().getRemainingFood()) + "/" + ea.getScene().getNumberOfFood(), boardPosX(7)+squareSize+50,boardPosY(0)-50);
-//		g.drawString("Number of poision eaten:" + (ea.getScene().getNumberOfPoison()-ea.getScene().getRemainingPoison()) + "/" + ea.getScene().getNumberOfPoison(), boardPosX(7)+squareSize+50,boardPosY(0)-38);
-		g.drawString("press r to reset, space to pause, 123 for speed, g for graph", boardPosX(0),boardPosY(14)+squareSize);
-//		g.drawString("Current scene: "+ ea.getSceneIndex() + " press up/down to change scene, q for quit", boardPosX(0),boardPosY(7)+squareSize+12);
+		g.drawString("Number of timesteps:" + ea.getAgent().getTimeStep() + " number of bricks spawned: " + ea.getNumOfObjectCreated(), boardPosX(0),boardPosY(0)-50);
+		g.drawString("Number of contacts:" + (ea.getContacts()) + "/" + ea.getNumOfObjectCreated(), boardPosX(20)+squareSize+50,boardPosY(0)-50);
+		g.drawString("Number of captures:" + (ea.getCaptures()) + "/" + ea.getNumOfObjectCreated(), boardPosX(20)+squareSize+50,boardPosY(0)-38);
+		g.drawString("Number of big captures:" + (ea.getBigCaptures()) + "/" + ea.getTotalLargeObjects(), boardPosX(20)+squareSize+50,boardPosY(0)-26);
+		g.drawString("press r to reset, space to pause, 123 for speed, g for graph, q to quit", boardPosX(0),boardPosY(14)+squareSize);
 	}		
 	
 	
@@ -149,6 +152,7 @@ public class SimpleSlickGame extends BasicGame
 		
 		if(key == Input.KEY_R){
 			ea.restart();
+			init = true;
 		}
 		if(key == Input.KEY_G)
 			graph();

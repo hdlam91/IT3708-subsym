@@ -24,9 +24,14 @@ public class DoubleCrossOver extends CrossOver<Integer>{
 			genoTypeChild2[i] = genoTypeFromParent1[i];
 		}
 		
+		DoubleIndividual ind = (DoubleIndividual) parent1;
+		
+		int NumW = ind.getNumW();
+		int NumN = ind.getNumN();
+		
 		List<Individual<Integer>> ret = new ArrayList<Individual<Integer>>();
-		ret.add(new DoubleIndividual(genoTypeChild1));
-		ret.add(new DoubleIndividual(genoTypeChild2));
+		ret.add(new DoubleIndividual(genoTypeChild1,NumW,NumN));
+		ret.add(new DoubleIndividual(genoTypeChild2,NumW,NumN));
 		return ret;
 	}
 }
