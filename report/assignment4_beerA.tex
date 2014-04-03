@@ -117,7 +117,7 @@ The agent's strategy in this case is to stand still until it senses a block fall
 		 Contacted& 29 & 34 & 36 & 23 & 40\\ \hline
 		 Captured & 25 & 19 & 25 & 19 & 24\\ \hline
 		Big blocks contact &0 & 0& 1 & 2 &0 \\ \hline
-		Total of blig blocks  &5 & 6 & 8 & 6 & 8\\ 
+		Total of big blocks  &5 & 6 & 8 & 6 & 8\\ 
 		\end{tabular}
 	\end{center}
 	\caption{Results of avoid and capture with weight range[-5,5]}
@@ -133,7 +133,7 @@ else:
 	\end{verbatim}
     $$\frac{captures}{total}-\frac{contacts-captures}{total}-\frac{bigCapture}{bigTotal}$$
 
-
+The idea behind this is to severly punish the agent whenever it captures a big block, but one flaw in this design is that we may not be punishing enough for contact without capture of all kinds of blocks. It does however seem to produce some good results, with the agent on occation avoiding big blocks. 
 
 A fitness run of a decent run looks like this:
 \begin{figure}[H]
@@ -182,7 +182,7 @@ Attempting to change for example the weight range from [-5,5] to [-7,7] seem to 
 Here we see that it is still possible to be very unlucky and very lucky as we have as few as 6 blocks captured and as many as 31, the bevhaiour still isnt flawless, it somewhat regurarly still attempts to capture the big blocks. 
 
 \section{detailed analysis}
-Insufficent 
+Insufficent time to complete this task as we tried to the last possible time to get the agent to work as it should with hidden layers and proper behaviour.
 
 
 \end{document}
