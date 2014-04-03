@@ -111,6 +111,18 @@ The original function intended for both capture and avoidance makes a bigger emp
 
 \section{catching and avoiding}
 The agent's strategy in this case is to stand still until it senses a block falling. If the block is considered a small block, it will try to go after it and catch it. If it's a big block on the other hand, it will avoid it. The agent doesn't search for new blocks though, this is because the agent is staying put whenever there's no sensor values. It seems very much so that the agent is hindered by the lack of a hidden layer which could make sense of the more complex scenarios, too bad the implementation with hidden layers seem to struck out. 
+\begin{figure}[H]
+	\begin{center}
+		\begin{tabular}{l | c | c |c |c |c }
+		 Contacted& 29 & 34 & 36 & 23 & 40\\ \hline
+		 Captured & 25 & 19 & 25 & 19 & 24\\ \hline
+		Big blocks contact &0 & 0& 1 & 2 &0 \\ \hline
+		Total of blig blocks  &5 & 6 & 8 & 6 & 8\\ 
+		\end{tabular}
+	\end{center}
+	\caption{Results of avoid and capture with weight range[-5,5]}
+\end{figure}
+Maximum number of blocks is 40.
 
 The Fitness function used is: 
 \begin{verbatim}
