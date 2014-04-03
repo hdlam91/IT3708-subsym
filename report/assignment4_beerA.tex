@@ -96,6 +96,17 @@ The agent is able to connect with all the falling blocks even when we don't use 
 \end{figure}
 The table shows number of blocks that the agent have been in contact with and how many it have captured (the whole block is being on top of the agent). The maximum number of blocks spawned is 40.
 
+The Fitness function used is: 
+\begin{verbatim}
+if captures==0:
+    return -1
+else:
+    return
+	\end{verbatim}
+    $$\frac{captures}{total}-\frac{contacts-captures}{total}$$
+
+The original function intended for both capture and avoidance makes a bigger emphasis on avoiding big blocks and promptly punishes quite hard for those events, but as all we care about here is capturing all the blocks this is sufficient. The idea about this current function is that we reward the agent whenever it properly catches a block, and subtract any instances where the agent is in contact with a block but is unable to catch it. 
+
 
 
 \section{catching and avoiding}
@@ -107,7 +118,10 @@ and then set the position of as: $ poisiton + numberOfMoves $.
 
 \section{one significant modification of ANN topology}
 Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is 0.25. The output gives very small numbers. The fitness without the hidden layer is 0.975. 
+
+
 \section{one significant modification of EA variable}
+
 
 
 \section{detailed analysis}

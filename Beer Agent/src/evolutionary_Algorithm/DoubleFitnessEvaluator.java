@@ -32,7 +32,8 @@ public class DoubleFitnessEvaluator extends FitnessEvaluator<Integer>{
 				sum = -1;
 			else if(bigtotal==0)
 				sum = (captures/(total*1.0))-((contacts-captures)/(total*1.0));
-			else sum = ((captures)/(total*1.0))-((contacts-captures)/(total*1.0)); //-bigcaptures
+			else sum = ((captures)/(total*1.0))-((contacts-captures)/(total*1.0))-(bigcaptures/(bigtotal*1.0)); //-bigcaptures
+																				  //avoidance 	
 			sums.add(sum);
 			sum = 0;
 		}
