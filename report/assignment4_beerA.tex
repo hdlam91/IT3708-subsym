@@ -69,18 +69,18 @@
 
 \section{Overview of system}
 \pagenumbering{arabic}
-The genoType is represented as an array of integers, where there is allotted space for all the weights between the nodes, and then 3x the number of nonInput nodes, for bias, gain and timestep. The ranges of these integers are [-5000, 5000] for the weights, [-10000, 0] for the bias, [1000, 5000] for gain and [1000, 2000] for timestep. What PhenoType then does is divide each value in the genotype by 1000.0 netting a array of doubles with real numbers that can be floating point numbers, i.e. possible to use as weights. To make sure that the values does not get mixed up in crossover or mutation, the code  specifically checks which position of the genotype array we are trying to change and make seperate possible outcomes based upon what is supposed to be at a particullar spot, i.e. the ranges for the specific weight type. 
+The genoType is represented as an array of integers, where there is allotted space for all the weights between the nodes, and then 3x the number of nonInput nodes, for bias, gain and timestep. The ranges of these integers are [-5000, 5000] for the weights, [-10000, 0] for the bias, [1000, 5000] for gain and [1000, 2000] for timestep. What PhenoType then does is divide each value in the genotype by 1000.0 netting a array of doubles with real numbers that can be floating point numbers, i.e. possible to use as weights. To make sure that the values does not get mixed up in crossover or mutation, the code  specifically checks which position of the genotype array we are trying to change and make separate possible outcomes based upon what is supposed to be at a particullar spot, i.e. the ranges for the specific weight type. 
 
 
 The Beer Agent is an agent with 5 sensors which is able to detect a falling block if and only if part of the block is above one of its 5 sensors. Whenever the sensors detects a block the agent will be lighting up that particular sensor (turning it blue).
 The scenarios are made by randomly spawning a block of width [1, 6] at some random position along the x-axis. The blocks fall with a vertical speed of 1, and a horizontal speed of either -1, 0 or 1. Meaning they can fall straight or sideways.
 
 The CTRNN is made up by 5 inputs, which corresponds to the agent's sensors which will give a 1 or 0 depending on if the sensors can sense a block or not. There's currently no layers of hidden nodes, as we cannot get the agent to act in any intelligent manner when these are enabled, thus we have direct mapping, but with the use of bias, gain and timestep for the output nodes (in essence for all nodes that are not input nodes, so with a hidden layer each node has its own values). The values emitted all beyond the input nodes are denoted $ O_i $. The values $ O_i $ are stored for the next round, which is used as input to the other nodes in the same layer (including itself).
-The output from the left motor and right motor is something between 0 and 1. The agent gets the output from these motors and compares them, if they are similar, the agent will stay put. If left is larger than the right output, it will move left with $ 5*leftMotorOutput() $, this gives us a move from 0 to 4 positions. That means that even if the left motor output is larger than the right one, it can still stand still if the values is small enough. The same applies if the right output is larger than the left one.
+The output from the left motor and right motor is something between 0 and 1. The agent gets the output from these motors and compares them, if they are similar, the agent will stay put. If left is larger than the right output, it will move left with $ 5*leftMotorOutput() $, this gives us a move from 0 to 4 positions. That means that even if the left motor output is larger than the right one, it can still stand still if the value is small enough. The same applies if the right output is larger than the left one.
 
 \section{verifying catching}
 
-The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. The agent believes that the block it's currently sensing is a small one because only 3 of its sensors are detecting the block, but the the truth is that the rest of the block is outside of its range. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.
+The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. The agent believes that the block it's currently sensing is a small one because only 3 of its sensors are detecting the block, but the the truth is that the rest of the block is outside of its range. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the whole block is in fact what the agent believes it it.
 
 \begin{figure}[H]
 	\begin{center}
@@ -117,7 +117,7 @@ The agent's strategy in this case is to stand still until it senses a block fall
 		 Contacted& 29 & 34 & 36 & 23 & 40\\ \hline
 		 Captured & 25 & 19 & 25 & 19 & 24\\ \hline
 		Big blocks contact &0 & 0& 1 & 2 &0 \\ \hline
-		Total of blig blocks  &5 & 6 & 8 & 6 & 8\\ 
+		Total of big blocks  &5 & 6 & 8 & 6 & 8\\ 
 		\end{tabular}
 	\end{center}
 	\caption{Results of avoid and capture with weight range[-5,5]}
@@ -163,7 +163,7 @@ and then set the position of as: $ poisiton + numberOfMoves $.
 This change does not seem to affect the behaviour of the agent much.
 
 \section{one significant modification of ANN topology}
-Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is around 0.25. The output nodes give very small numbers, so the agent ends up standing still most of the time. The best overall fitness without the hidden layer is 0.975. Thus any changes in regard to the number of hidden nodes, i.e. adding such, do not end up providing better results.
+Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer that consist of 2 nodes) then the best overall fitness is around 0.25. The output nodes give very small numbers, so the agent ends up standing still most of the time. The best overall fitness without the hidden layer is 0.975. Thus any changes in regard to the number of hidden nodes, i.e. adding such, do not end up providing better results.
 
 \section{one significant modification of EA variable}
 Attempting to change for example the weight range from [-5,5] to [-7,7] seem to have some impact on the avoid \& catch scenario, but this is again without the use of hidden layers. The results for avoid and capture ends up like this:
