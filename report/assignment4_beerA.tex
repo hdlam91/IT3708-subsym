@@ -124,28 +124,50 @@ The agent's strategy in this case is to stand still until it senses a block fall
 \end{figure}
 Maximum number of blocks is 40.
 
+A fitness run of a decent run looks like this:
+\begin{figure}
+\includegraphics{catch_avoid_dump}
+\end{figure}
+
+The results table looks like this:
+
+%%insert shit her:
+\begin{figure}[H]
+	\begin{center}
+		\begin{tabular}{l | c | c |c |c |c }
+		 Contacted& 9 & 36 & 27 & 36 & 25\\ \hline
+		 Captured & 6 & 21 & 21 & 31 & 23\\
+		 
+		\end{tabular}
+	\end{center}
+	\caption{Results of avoid and capture}
+\end{figure}
+
+
+
+
 \section{one significant modification of tracker}
 We tried to interpret the motor output in a different way, instead of checking the left and the right motor output against each other. Instead of comparing the left and right output, we simply use the formula:\\ $numberOfMoves = \lfloor 4*rightOutput()+1 \rfloor - \lfloor 4*leftOutput()+1 \rfloor$
 and then set the position of as: $ poisiton + numberOfMoves $.
 
 \section{one significant modification of ANN topology}
-Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is around 0.25. The output nodes give very small numbers, so the agent ends up standing still most of the time. The best overall fitness without the hidden layer is 0.975. 
+Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is around 0.25. The output nodes give very small numbers, so the agent ends up standing still most of the time. The best overall fitness without the hidden layer is 0.975. Thus any changes in regard to the number of hidden nodes, i.e. adding such, do not end up providing better results.
 
 \section{one significant modification of EA variable}
-Attempting to change for example the weight range from [-5,5] to [-7,7] seem to have little impact on the avoid & catch scenario, but this is again without the use of hidden layers. The results for avoid and capture ends up like this:
+Attempting to change for example the weight range from [-5,5] to [-7,7] seem to have some impact on the avoid \& catch scenario, but this is again without the use of hidden layers. The results for avoid and capture ends up like this:
 
 \begin{figure}[H]
 	\begin{center}
 		\begin{tabular}{l | c | c |c |c |c }
-		 Contacted& 9 & 36 & 27 & 40 & 40\\ \hline
-		 Captured & 6 & 21 & 21 & 36 & 33\\
+		 Contacted& 9 & 36 & 27 & 36 & 25\\ \hline
+		 Captured & 6 & 21 & 21 & 31 & 23\\
 		 
 		\end{tabular}
 	\end{center}
-	\captation{Results of avoid and capture with weight range[-7,7]}
+	\caption{Results of avoid and capture with weight range[-7,7]}
 \end{figure}
 
-
+Here we see that it is still possible to be very unlucky and very lucky as we have as few as 6 blocks captured and as many as 31, the bevhaiour still isnt flawless, it somewhat regurarly still attempts to capture the big blocks. 
 
 \section{detailed analysis}
 
