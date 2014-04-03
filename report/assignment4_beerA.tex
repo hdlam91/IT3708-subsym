@@ -112,9 +112,21 @@ The original function intended for both capture and avoidance makes a bigger emp
 \section{catching and avoiding}
 The agent's strategy in this case is to stand still until it senses a block falling. If the block is considered a small block, it will try to go after it and catch it. If it's a big block on the other hand, it will avoid it. The agent doesn't search for new blocks though, this is because the agent is staying put whenever there's no sensor values. It seems very much so that the agent is hindered by the lack of a hidden layer which could make sense of the more complex scenarios, too bad the implementation with hidden layers seem to struck out. 
 
+The Fitness function used is: 
+\begin{verbatim}
+if captures==0:
+    return -1
+else:
+    return
+	\end{verbatim}
+    $$\frac{captures}{total}-\frac{contacts-captures}{total}-\frac{bigCapture}{bigTotal}$$
+
+
+
 A fitness run of a decent run looks like this:
-\begin{figure}
-\includegraphics{catch_avoid_dump}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{catch_avoid_dump}
+\caption{Fitness plot of avoid/capture}
 \end{figure}
 
 The results table looks like this:
@@ -132,11 +144,11 @@ The results table looks like this:
 \end{figure}
 
 
-
-
 \section{one significant modification of tracker}
 We tried to interpret the motor output in a different way, instead of checking the left and the right motor output against each other. Instead of comparing the left and right output, we simply use the formula:\\ $numberOfMoves = \lfloor 4*rightOutput()+1 \rfloor - \lfloor 4*leftOutput()+1 \rfloor$
 and then set the position of as: $ poisiton + numberOfMoves $.
+
+This change does not seem to affect the behaviour of the agent much.
 
 \section{one significant modification of ANN topology}
 Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is around 0.25. The output nodes give very small numbers, so the agent ends up standing still most of the time. The best overall fitness without the hidden layer is 0.975. Thus any changes in regard to the number of hidden nodes, i.e. adding such, do not end up providing better results.
@@ -158,5 +170,7 @@ Attempting to change for example the weight range from [-5,5] to [-7,7] seem to 
 Here we see that it is still possible to be very unlucky and very lucky as we have as few as 6 blocks captured and as many as 31, the bevhaiour still isnt flawless, it somewhat regurarly still attempts to capture the big blocks. 
 
 \section{detailed analysis}
+Insufficent 
+
 
 \end{document}
