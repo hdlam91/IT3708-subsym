@@ -8,7 +8,7 @@ import simpleslickgame.EAConnection;
 
 public class DoubleIndividual extends Individual<Integer>{
 
-	private final int wfactor = 5001;
+	private final int wfactor = 7001;
 	private final int bfactor = 10001;
 	private final int gfactor = 5001;
 	private final int lowGfactor = 1000;

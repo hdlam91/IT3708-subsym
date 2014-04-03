@@ -80,7 +80,7 @@ The output from the left motor and right motor is something between 0 and 1. The
 
 \section{verifying catching}
 
-The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to have only the two or three right/left-most sensors are the only one that needs to sense the falling block, so it will try to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.
+The agent is able to connect with all the falling blocks even when we don't use any hidden layers. The agent will always move in one direction until it finds a block, it will then try to align itself with that block to catch it. Sometimes it finds out that the best thing to do is to align the block to the side of itself - this happens mostly when the blocks are of a bigger size. The agent believes that the block it's currently sensing is a small one because only 3 of its sensors are detecting the block, but the the truth is that the rest of the block is outside of its range. This behaviour doesn't affect smaller blocks (3 or less in size) that much, because the block is still inside the agent when it reached the bottom.
 
 \begin{figure}[H]
 	\begin{center}
@@ -110,17 +110,28 @@ The original function intended for both capture and avoidance makes a bigger emp
 
 
 \section{catching and avoiding}
-%TODO graphs
+The agent's strategy in this case is to stand still until it senses a block falling. If the block is considered a small block, it will try to go after it and catch it. If it's a big block on the other hand, it will avoid it. The agent doesn't search for new blocks though, this is because the agent is staying put whenever there's no sensor values. It seems very much so that the agent is hindered by the lack of a hidden layer which could make sense of the more complex scenarios, too bad the implementation with hidden layers seem to struck out. 
 
 \section{one significant modification of tracker}
 We tried to interpret the motor output in a different way, instead of checking the left and the right motor output against each other. Instead of comparing the left and right output, we simply use the formula:\\ $numberOfMoves = \lfloor 4*rightOutput()+1 \rfloor - \lfloor 4*leftOutput()+1 \rfloor$
 and then set the position of as: $ poisiton + numberOfMoves $.
 
 \section{one significant modification of ANN topology}
-Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is 0.25. The output gives very small numbers. The fitness without the hidden layer is 0.975. 
-
+Currently we don't use a hidden layer at all, that's what seems to work the best. If we try to add the hidden layers (1 layer and 2 nodes) then the best overall fitness is around 0.25. The output nodes give very small numbers, so the agent ends up standing still most of the time. The best overall fitness without the hidden layer is 0.975. 
 
 \section{one significant modification of EA variable}
+Attempting to change for example the weight range from [-5,5] to [-7,7] seem to have little impact on the avoid & catch scenario, but this is again without the use of hidden layers. The results for avoid and capture ends up like this:
+
+\begin{figure}[H]
+	\begin{center}
+		\begin{tabular}{l | c | c |c |c |c }
+		 Contacted& 9 & 36 & 27 & 40 & 40\\ \hline
+		 Captured & 6 & 21 & 21 & 36 & 33\\
+		 
+		\end{tabular}
+	\end{center}
+	\captation{Results of avoid and capture with weight range[-7,7]}
+\end{figure}
 
 
 
